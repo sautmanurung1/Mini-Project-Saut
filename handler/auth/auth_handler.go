@@ -36,14 +36,21 @@ func (h *handler) LoginHandler(c echo.Context) error {
 func (h *handler) RegisterHandler(c echo.Context) error {
 	user := model.User{}
 	err := c.Bind(&user)
+
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"status":  "error",
+			"message": err.Error(),
+		})
 	}
 
 	e := h.repository.Register(user)
 
 	if e != nil {
-		return c.JSON(http.StatusInternalServerError, e.Error())
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"status":  "failed",
+			"message": e.Error(),
+		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{

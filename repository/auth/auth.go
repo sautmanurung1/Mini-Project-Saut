@@ -19,15 +19,30 @@ func NewAuthRepository(db *gorm.DB) auth.AuthRepository {
 
 func (r *repository) Register(user model.User) error {
 	response := r.DB.Create(&user)
+	if response.Error != nil {
+		return response.Error
+	}
 
-	if response.RowsAffected < 1 {
-		return fmt.Errorf("Error To Register")
+	if user.RoleId == 1 {
+		role := model.Role{
+			Name: "teacher",
+		}
+		r.DB.Create(&role)
+	} else if user.RoleId == 2 {
+		role := model.Role{
+			Name: "student",
+		}
+		r.DB.Create(&role)
 	}
 	return nil
 }
 
-func (r *repository) Login(credential model.User) (model.User, error) {
-	user := model.User{}
-	err := r.DB.Where("username = ?, password = ? AND role_id = ?", credential.Username, credential.RoleId).First(&user).Error
-	return user, err
+func (r *repository) Login(credential model.User) error {
+	response := r.DB.Where("username = ? AND password = ?", credential.Username, credential.Password).Find(&credential)
+
+	if response.RowsAffected < 1 {
+		return fmt.Errorf("Error To Login")
+	}
+
+	return nil
 }

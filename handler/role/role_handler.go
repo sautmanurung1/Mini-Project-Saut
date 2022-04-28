@@ -19,7 +19,7 @@ func NewRoleHandler(repository role.RoleRepository) role.RoleHandler {
 }
 
 func (h *handler) GetRole(c echo.Context) error {
-	id, err := strconv.Atoi(c.Param("ID"))
+	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{

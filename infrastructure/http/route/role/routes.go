@@ -13,6 +13,6 @@ func Routes(echo *echo.Echo) {
 	reporsitory := role.NewRoleRepository(db)
 	handler := ur.NewRoleHandler(reporsitory)
 
-	echo.GET("/role", handler.GetRole)
+	echo.GET("/role/:id", handler.GetRole)
 	echo.POST("/role", handler.CreateRole)
 }
