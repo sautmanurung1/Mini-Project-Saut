@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 type AssignmentPoint struct {
 	gorm.Model
-	Id           int        `json:"id" gorm:"primary_key"`
-	AssignmentId int        `json:"assignment_id"`
-	Assignment   Assignment `gorm:"foreignkey:AssignmentId"`
-	UserId       int        `json:"user_id"`
-	User         User       `gorm:"foreignkey:UserId"`
+	AssignmentID int        `gorm:"not null"`
+	Assignment   Assignment `gorm:"ForeignKey:AssignmentID;References:ID"`
+	Point        int        `json:"point"`
+	UserId       int        `gorm:"not null"`
+	User         User       `gorm:"ForeignKey:UserId;References:ID"`
 }

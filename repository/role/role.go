@@ -25,21 +25,12 @@ func (r *repository) CreateRole(role model.Role) error {
 	return nil
 }
 
-func (r *repository) GetRole(credential model.Role) (model.Role, error) {
+func (r *repository) GetRole(id int) (model.Role, error) {
 	roles := model.Role{}
-	response := r.DB.Where("name = ?", credential).Find(&roles)
+	response := r.DB.Where("ID = ?", id).Find(&roles)
 
-	// make if role teacher
-	if credential.Name == "teacher" {
-		roles.Id = 1
-		roles.Name = "teacher"
+	if response.RowsAffected < 1 {
+		return roles, response.Error
 	}
-
-	// make if role student
-	if credential.Name == "student" {
-		roles.Id = 2
-		roles.Name = "student"
-	}
-
-	return roles, response.Error
+	return roles, nil
 }

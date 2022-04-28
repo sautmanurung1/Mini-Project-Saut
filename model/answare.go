@@ -4,11 +4,10 @@ import "gorm.io/gorm"
 
 type Answare struct {
 	gorm.Model
-	Id          int      `json:"id" gorm:"primary_key"`
-	QuestionId  int      `json:"question_id"`
-	Question    Question `gorm:"foreignkey:QuestionId"`
-	UserId      int      `json:"user_id"`
-	User        User     `gorm:"foreignkey:UserId"`
-	Name        string   `json:"name" validate:"required"`
-	AnswareUser string   `json:"answare_user" validate:"required"`
+	AssignmentId int        `gorm:"not null"`
+	Assignment   Assignment `gorm:"ForeignKey:AssignmentId;References:ID"`
+	UserId       int        `gorm:"not null"`
+	User         User       `gorm:"ForeignKey:UserId;References:ID"`
+	Questions    string     `json:"questions"`
+	Name         string     `json:"name"`
 }
