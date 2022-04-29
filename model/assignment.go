@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type Assignment struct {
 	gorm.Model
-	UserId      int    `gorm:"not null"`
+	UserId      int    `gorm:"not null" json:"userId"`
 	User        User   `gorm:"ForeignKey:UserId;References:ID"`
 	Description string `json:"description" validate:"required"`
 	Questions   string `json:"questions" validate:"required"`

@@ -18,7 +18,10 @@ func NewAuthRepository(db *gorm.DB) auth.AuthRepository {
 }
 
 func (r *repository) Register(user model.User) error {
+	role := model.Role{}
 	response := r.DB.Create(&user)
+	user.RoleId = role.ID
+	user.Role = role
 
 	if user.RoleId == 1 {
 		role := model.Role{

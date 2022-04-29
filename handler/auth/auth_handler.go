@@ -21,7 +21,10 @@ func (h *handler) LoginHandler(c echo.Context) error {
 	user := model.User{}
 	err := c.Bind(&user)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"status":  "error",
+			"message": err.Error(),
+		})
 	}
 
 	users := h.repository.Login(user)
