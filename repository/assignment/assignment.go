@@ -42,10 +42,10 @@ func (r *repository) GetAllAssignment() ([]model.Assignment, error) {
 	return assignments, nil
 }
 
-func (r *repository) UpdateAssignment(assignment model.Assignment) error {
+func (r *repository) UpdateAssignment(id int, assignment model.Assignment) error {
 	var assign model.Assignment
 	var user model.User
-	r.DB.Joins("JOIN users ON users.id = assignments.user_id").Where("assignments.id = ?", assignment.ID).First(&assign)
+	r.DB.Joins("JOIN users ON users.id = assignments.user_id").Where("assignments.id = ?", id).First(&assign)
 	r.DB.Where("id = ?", assign.UserId).First(&user)
 	if assign.UserId == 1 {
 		r.DB.Model(&assign).Updates(assignment)
