@@ -1,8 +1,6 @@
 package model
 
-import "gorm.io/gorm"
-
 type Role struct {
-	gorm.Model
+	ID   int    `json:"id" gorm:"PrimaryKey;AUTO_INCREMENT;column:id"`
 	Name string `json:"name"`
 }
