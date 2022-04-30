@@ -37,8 +37,8 @@ func (r *repository) GetAssignmentById(id int) (model.Assignment, error) {
 }
 
 func (r *repository) GetAllAssignment() ([]model.Assignment, error) {
-	var assignments []model.Assignment
-	r.DB.Joins("JOIN users ON users.id = assignments.user_id").Find(&assignments)
+	assignments := []model.Assignment{}
+	r.DB.Table("user").Select("user.id, user.name").Joins("JOIN user ON user.id = user.id AND assignment.user_id = ? ", "1").Where("assignment.user_id = ?", "1").Find(&assignments)
 	return assignments, nil
 }
 

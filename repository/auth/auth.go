@@ -44,7 +44,7 @@ func (r *repository) Register(user model.User) error {
 }
 
 func (r *repository) Login(credential model.User) error {
-	response := r.DB.Where("username = ? AND password = ?", credential.Username, credential.Password).Find(&credential)
+	response := r.DB.Raw("SELECT * FROM users WHERE username = ? AND password = ? AND role_id = ?", credential.Username, credential.Password, credential.RoleId).Scan(&credential)
 
 	if response.RowsAffected < 1 {
 		return fmt.Errorf("error to login")

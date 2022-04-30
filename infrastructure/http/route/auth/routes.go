@@ -13,11 +13,6 @@ func Routes(echo *echo.Echo) {
 	repo := auth.NewAuthRepository(db)
 	handler := ur.NewAuthHandler(repo)
 
-	teacher := echo.Group("/teacher")
-	student := echo.Group("/student")
-
-	student.POST("/register", handler.RegisterHandler)
-	teacher.POST("/register", handler.RegisterHandler)
-	student.GET("/login", handler.LoginHandler)
-	teacher.GET("/login", handler.LoginHandler)
+	echo.POST("/register", handler.RegisterHandler)
+	echo.POST("/login", handler.LoginHandler)
 }

@@ -108,5 +108,22 @@ func (h *handler) UpdateAssignmentHandler(c echo.Context) error {
 }
 
 func (h *handler) DeleteAssignmentHandler(c echo.Context) error {
-	return nil
+	var assign model.Assignment
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	if err := c.Bind(&assign); err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"Status": http.StatusInternalServerError,
+			"Error":  "Error To Delete the Assignment",
+			"Data":   err.Error(),
+		})
+	}
+
+	assignments := h.repository.DeleteAssignment(id)
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"Status":  http.StatusOK,
+		"Message": "Success To Delete The Assignment",
+		"Data":    assignments,
+	})
 }
