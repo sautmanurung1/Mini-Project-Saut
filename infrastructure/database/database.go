@@ -31,7 +31,9 @@ func InitDB() *gorm.DB {
 		conf.DB_NAME,
 	)
 
-	DB, err := gorm.Open(mysql.Open(connectionString), &gorm.Config{})
+	DB, err := gorm.Open(mysql.Open(connectionString), &gorm.Config{
+		DisableForeignKeyConstraintWhenMigrating: true,
+	})
 	if err != nil {
 		panic(err)
 	}

@@ -98,12 +98,18 @@ func (h *handler) UpdateAssignmentHandler(c echo.Context) error {
 		})
 	}
 
-	assign := h.repository.UpdateAssignment(id, assignments)
+	result, e := h.repository.UpdateAssignment(id, assignments)
 
+	if e != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"Message": "Error to Update the Assignment",
+			"Error":   e.Error(),
+		})
+	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
 		"Message": "Success Update Assignment",
-		"Data":    assign,
+		"Data":    result,
 	})
 }
 
@@ -119,7 +125,15 @@ func (h *handler) DeleteAssignmentHandler(c echo.Context) error {
 		})
 	}
 
-	assignments := h.repository.DeleteAssignment(id)
+	assignments, er := h.repository.DeleteAssignment(id)
+
+	if er != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"Status": http.StatusInternalServerError,
+			"Error":  "Error To Delete the Assignment",
+			"Data":   er.Error(),
+		})
+	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,

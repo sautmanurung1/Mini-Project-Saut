@@ -17,13 +17,14 @@ func NewAssignmentRepository(db *gorm.DB) assignment.AssignmentRepository {
 }
 
 func (r *repository) CreateAssignment(assignment model.Assignment) error {
-	user := model.User{}
-	if assignment.UserId == 1 {
-		r.DB.Create(&assignment)
-		assignment.User = user
-	} else {
-		return nil
-	}
+	// query to get the name from table user to insert name to table assignment
+	var user model.User
+	r.DB.Where("id = ?", assignment.UserId).First(&user)
+	assignment.Name = user.Name
+	r.DB.Create(&assignment)
+	// make query to get user name from user id in assignment
+	// r.DB.Where("id = ?", assignment.UserId).First(&user)
+	// assignment.User = user
 	return nil
 }
 
@@ -32,38 +33,29 @@ func (r *repository) GetAssignmentById(id int) (model.Assignment, error) {
 	var user model.User
 	r.DB.Joins("JOIN users ON users.id = assignments.user_id").Where("assignments.id = ?", id).First(&assign)
 	r.DB.Where("id = ?", assign.UserId).First(&user)
-	assign.User = user
+	assign.Name = user.Name
 	return assign, nil
 }
 
 func (r *repository) GetAllAssignment() ([]model.Assignment, error) {
 	assignments := []model.Assignment{}
-	r.DB.Table("user").Select("user.id, user.name").Joins("JOIN user ON user.id = user.id AND assignment.user_id = ? ", "1").Where("assignment.user_id = ?", "1").Find(&assignments)
+	r.DB.Find(&assignments)
 	return assignments, nil
 }
 
-func (r *repository) UpdateAssignment(id int, assignment model.Assignment) error {
-	var assign model.Assignment
+func (r *repository) UpdateAssignment(id int, assignment model.Assignment) (model.Assignment, error) {
 	var user model.User
-	r.DB.Joins("JOIN users ON users.id = assignments.user_id").Where("assignments.id = ?", id).First(&assign)
-	r.DB.Where("id = ?", assign.UserId).First(&user)
-	if assign.UserId == 1 {
-		r.DB.Model(&assign).Updates(assignment)
-		r.DB.Where("id = ?", assign.UserId).First(&user)
-		assign.User = user
-	} else {
-		return nil
-	}
-	return nil
+	r.DB.Model(&assignment).Updates(assignment)
+	r.DB.Joins("JOIN users ON users.id = assignments.user_id").Where("assignments.id = ?", id).First(&assignment)
+	r.DB.Where("id = ?", assignment.UserId).First(&user)
+	assignment.Name = user.Name
+	return assignment, nil
 }
 
-func (r *repository) DeleteAssignment(id int) error {
+func (r *repository) DeleteAssignment(id int) (model.Assignment, error) {
+	// r.DB.Joins("JOIN users ON users.id = assignments.user_id").Where("assignments.id = ?", id).First(&assign)
+	// delete assignment from table assignment where id = id parameter
 	var assign model.Assignment
-	r.DB.Joins("JOIN users ON users.id = assignments.user_id").Where("assignments.id = ?", id).First(&assign)
-	if assign.UserId == 1 {
-		r.DB.Where("id = ?", id).Delete(&assign)
-	} else {
-		return nil
-	}
-	return nil
+	r.DB.Where("id = ?", id).Delete(&assign)
+	return assign, nil
 }
