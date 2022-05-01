@@ -1,9 +1,9 @@
 package role
 
 import (
-	ur "Tugas-Mini-Project/handler/role"
 	"Tugas-Mini-Project/infrastructure/database"
-	"Tugas-Mini-Project/repository/role"
+	ur "Tugas-Mini-Project/internal/handler/role"
+	"Tugas-Mini-Project/internal/repository/role"
 	"github.com/labstack/echo/v4"
 )
 

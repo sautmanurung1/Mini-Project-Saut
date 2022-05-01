@@ -1,10 +1,10 @@
 package assignment
 
 import (
-	ur "Tugas-Mini-Project/handler/assignment"
 	"Tugas-Mini-Project/infrastructure/database"
 	m "Tugas-Mini-Project/infrastructure/http/middleware"
-	"Tugas-Mini-Project/repository/assignment"
+	ur "Tugas-Mini-Project/internal/handler/assignment"
+	"Tugas-Mini-Project/internal/repository/assignment"
 	"github.com/labstack/echo/v4"
 )
 
