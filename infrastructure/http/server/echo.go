@@ -3,6 +3,7 @@ package server
 import (
 	"Tugas-Mini-Project/infrastructure/http/route/assignment"
 	"Tugas-Mini-Project/infrastructure/http/route/auth"
+	"Tugas-Mini-Project/infrastructure/http/route/question"
 	"Tugas-Mini-Project/infrastructure/http/route/role"
 	"github.com/labstack/echo/v4"
 )
@@ -12,5 +13,6 @@ func Server() *echo.Echo {
 	auth.Routes(app)
 	role.Routes(app)
 	assignment.Routes(app)
+	question.Routes(app)
 	return app
 }

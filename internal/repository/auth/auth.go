@@ -21,20 +21,19 @@ func (r *repository) Register(user entities.User) error {
 	role := entities.Role{}
 	response := r.DB.Create(&user)
 	user.RoleId = role.ID
-	user.Role = role
 
 	if user.RoleId == 1 {
 		role := entities.Role{
 			ID:   1,
 			Name: "teacher",
 		}
-		r.DB.Create(&role)
-	} else if user.RoleId == 2 {
+		user.Role = role
+	} else {
 		role := entities.Role{
 			ID:   2,
 			Name: "student",
 		}
-		r.DB.Create(&role)
+		user.Role = role
 	}
 
 	if response.Error != nil {

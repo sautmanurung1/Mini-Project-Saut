@@ -8,5 +8,5 @@ type User struct {
 	Username string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required"`
 	RoleId   int    `gorm:"not null" json:"role_id"`
-	Role     Role   `gorm:"ForeignKey:RoleId;references:ID"`
+	Role     Role   `gorm:"ForeignKey:RoleId;references:ID;null"`
 }
