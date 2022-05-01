@@ -1,8 +1,8 @@
 package assignment
 
 import (
+	"Tugas-Mini-Project/domains/assignment"
 	"Tugas-Mini-Project/internal/entities"
-	"Tugas-Mini-Project/service/assignment"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"

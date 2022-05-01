@@ -1,8 +1,8 @@
 package auth
 
 import (
+	"Tugas-Mini-Project/domains/auth"
 	"Tugas-Mini-Project/internal/entities"
-	"Tugas-Mini-Project/service/auth"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"net/http"

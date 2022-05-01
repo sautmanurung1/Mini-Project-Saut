@@ -1,8 +1,8 @@
 package role
 
 import (
+	"Tugas-Mini-Project/domains/role"
 	"Tugas-Mini-Project/internal/entities"
-	"Tugas-Mini-Project/service/role"
 	"fmt"
 	"gorm.io/gorm"
 )

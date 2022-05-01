@@ -1,8 +1,8 @@
 package auth
 
 import (
+	"Tugas-Mini-Project/domains/auth"
 	"Tugas-Mini-Project/internal/entities"
-	"Tugas-Mini-Project/service/auth"
 	"fmt"
 	"gorm.io/gorm"
 )

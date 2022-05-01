@@ -1,8 +1,8 @@
 package role
 
 import (
+	"Tugas-Mini-Project/domains/role"
 	"Tugas-Mini-Project/internal/entities"
-	"Tugas-Mini-Project/service/role"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
