@@ -45,7 +45,7 @@ Structure Project
 │      └── teacher_jwt.go
 │   ── Server
 │      └── echo.go
-├── infrastructure
+├── interface
 │   ── Answare
 │      ├── handler.go
 │      └── routes.go
