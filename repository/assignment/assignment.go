@@ -22,9 +22,6 @@ func (r *repository) CreateAssignment(assignment assignment.Assignment) error {
 	r.DB.Where("id = ?", assignment.UserId).First(&user)
 	assignment.Name = user.Name
 	r.DB.Create(&assignment)
-	// make query to get user name from user id in assignment
-	// r.DB.Where("id = ?", assignment.UserId).First(&user)
-	// assignment.User = user
 	return nil
 }
 
@@ -53,8 +50,6 @@ func (r *repository) UpdateAssignment(id int, assignment assignment.Assignment) 
 }
 
 func (r *repository) DeleteAssignment(id int) (assignment.Assignment, error) {
-	// r.DB.Joins("JOIN users ON users.id = assignments.user_id").Where("assignments.id = ?", id).First(&assign)
-	// delete assignment from table assignment where id = id parameter
 	var assign assignment.Assignment
 	r.DB.Where("id = ?", id).Delete(&assign)
 	return assign, nil
