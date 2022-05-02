@@ -2,7 +2,6 @@ package role
 
 import (
 	"Tugas-Mini-Project/domains/role"
-	"Tugas-Mini-Project/internal/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
@@ -45,7 +44,7 @@ func (h *handler) GetRole(c echo.Context) error {
 }
 
 func (h *handler) CreateRole(c echo.Context) error {
-	roles := entities.Role{}
+	roles := role.Role{}
 	err := c.Bind(&roles)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{

@@ -1,7 +1,14 @@
 package database
 
 import (
-	entities2 "Tugas-Mini-Project/internal/entities"
+	"Tugas-Mini-Project/domains/answare"
+	"Tugas-Mini-Project/domains/assignment"
+	"Tugas-Mini-Project/domains/assignment_point"
+	"Tugas-Mini-Project/domains/auth"
+	"Tugas-Mini-Project/domains/discussions"
+	"Tugas-Mini-Project/domains/question"
+	"Tugas-Mini-Project/domains/role"
+	entities2 "Tugas-Mini-Project/domains/total_student"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -38,7 +45,7 @@ func InitDB() *gorm.DB {
 		panic(err)
 	}
 
-	e := DB.AutoMigrate(&entities2.User{}, &entities2.Role{}, &entities2.TotalStudent{}, &entities2.Assignment{}, &entities2.AssignmentPoint{}, &entities2.Answare{}, entities2.Discussions{}, &entities2.Question{})
+	e := DB.AutoMigrate(&auth.User{}, &role.Role{}, &entities2.TotalStudent{}, &assignment.Assignment{}, &assignment_point.AssignmentPoint{}, &answare.Answare{}, discussions.Discussions{}, &question.Question{})
 	if e != nil {
 		panic(e)
 	}

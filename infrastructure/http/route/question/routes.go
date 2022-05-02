@@ -3,8 +3,8 @@ package question
 import (
 	"Tugas-Mini-Project/infrastructure/database"
 	m "Tugas-Mini-Project/infrastructure/http/middleware"
-	ur "Tugas-Mini-Project/internal/handler/question"
-	"Tugas-Mini-Project/internal/repository/question"
+	ur "Tugas-Mini-Project/interface/question"
+	"Tugas-Mini-Project/repository/question"
 	"github.com/labstack/echo/v4"
 )
 

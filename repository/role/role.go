@@ -2,7 +2,6 @@ package role
 
 import (
 	"Tugas-Mini-Project/domains/role"
-	"Tugas-Mini-Project/internal/entities"
 	"fmt"
 	"gorm.io/gorm"
 )
@@ -17,7 +16,7 @@ func NewRoleRepository(db *gorm.DB) role.RoleRepository {
 	}
 }
 
-func (r *repository) CreateRole(role entities.Role) error {
+func (r *repository) CreateRole(role role.Role) error {
 	response := r.DB.Create(&role)
 	if response.RowsAffected < 1 {
 		return fmt.Errorf("failed to create role")
@@ -25,8 +24,8 @@ func (r *repository) CreateRole(role entities.Role) error {
 	return nil
 }
 
-func (r *repository) GetRole(id int) (entities.Role, error) {
-	roles := entities.Role{}
+func (r *repository) GetRole(id int) (role.Role, error) {
+	roles := role.Role{}
 	response := r.DB.Where("ID = ?", id).Find(&roles)
 
 	if response.RowsAffected < 1 {

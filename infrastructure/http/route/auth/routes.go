@@ -2,8 +2,8 @@ package auth
 
 import (
 	"Tugas-Mini-Project/infrastructure/database"
-	ur "Tugas-Mini-Project/internal/handler/auth"
-	"Tugas-Mini-Project/internal/repository/auth"
+	ur "Tugas-Mini-Project/interface/auth"
+	"Tugas-Mini-Project/repository/auth"
 	"github.com/labstack/echo/v4"
 )
 
