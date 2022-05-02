@@ -17,7 +17,6 @@ func NewAssignmentRepository(db *gorm.DB) assignment.AssignmentRepository {
 }
 
 func (r *repository) CreateAssignment(assignment assignment.Assignment) error {
-	// query to get the name from table user to insert name to table assignment
 	var user auth.User
 	r.DB.Where("id = ?", assignment.UserId).First(&user)
 	assignment.Name = user.Name
