@@ -3,7 +3,6 @@ package assignment
 import (
 	"Tugas-Mini-Project/infrastructure/database"
 	m "Tugas-Mini-Project/infrastructure/http/middleware"
-	ur "Tugas-Mini-Project/interface/assignment"
 	"Tugas-Mini-Project/repository/assignment"
 	"github.com/labstack/echo/v4"
 )
@@ -12,7 +11,7 @@ func Routes(echo *echo.Echo) {
 	db := database.InitDB()
 
 	repo := assignment.NewAssignmentRepository(db)
-	handler := ur.NewAssignmentHandler(repo)
+	handler := NewAssignmentHandler(repo)
 
 	teacher := echo.Group("/teacher")
 

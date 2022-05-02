@@ -2,7 +2,6 @@ package role
 
 import (
 	"Tugas-Mini-Project/infrastructure/database"
-	ur "Tugas-Mini-Project/interface/role"
 	"Tugas-Mini-Project/repository/role"
 	"github.com/labstack/echo/v4"
 )
@@ -11,7 +10,7 @@ func Routes(echo *echo.Echo) {
 	db := database.InitDB()
 
 	reporsitory := role.NewRoleRepository(db)
-	handler := ur.NewRoleHandler(reporsitory)
+	handler := NewRoleHandler(reporsitory)
 
 	echo.GET("/role/:id", handler.GetRole)
 	echo.POST("/role", handler.CreateRole)

@@ -1,10 +1,10 @@
 package server
 
 import (
-	"Tugas-Mini-Project/infrastructure/http/route/assignment"
-	"Tugas-Mini-Project/infrastructure/http/route/auth"
-	"Tugas-Mini-Project/infrastructure/http/route/question"
-	"Tugas-Mini-Project/infrastructure/http/route/role"
+	"Tugas-Mini-Project/interface/assignment"
+	"Tugas-Mini-Project/interface/auth"
+	"Tugas-Mini-Project/interface/question"
+	"Tugas-Mini-Project/interface/role"
 	"github.com/labstack/echo/v4"
 )
 
