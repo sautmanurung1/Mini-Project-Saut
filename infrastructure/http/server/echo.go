@@ -1,6 +1,7 @@
 package server
 
 import (
+	"Tugas-Mini-Project/interface/answare"
 	"Tugas-Mini-Project/interface/assignment"
 	"Tugas-Mini-Project/interface/auth"
 	"Tugas-Mini-Project/interface/question"
@@ -14,5 +15,6 @@ func Server() *echo.Echo {
 	role.Routes(app)
 	assignment.Routes(app)
 	question.Routes(app)
+	answare.Routes(app)
 	return app
 }
