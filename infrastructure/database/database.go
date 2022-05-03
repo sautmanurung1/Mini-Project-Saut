@@ -21,13 +21,7 @@ type Config struct {
 }
 
 func InitDB() *gorm.DB {
-	conf := Config{
-		DB_USERNAME: "root",
-		DB_PASSWORD: "Sautmanurung234",
-		DB_NAME:     "go_rest_api",
-		DB_PORT:     "3306",
-		DB_HOST:     "localhost",
-	}
+	conf := ENVDatabase()
 	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		conf.DB_USERNAME,
 		conf.DB_PASSWORD,
@@ -35,7 +29,6 @@ func InitDB() *gorm.DB {
 		conf.DB_PORT,
 		conf.DB_NAME,
 	)
-
 	DB, err := gorm.Open(mysql.Open(connectionString), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
 	})
