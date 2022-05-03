@@ -13,11 +13,13 @@ import (
 )
 
 type Config struct {
-	DB_USERNAME string
-	DB_PASSWORD string
-	DB_NAME     string
-	DB_PORT     string
-	DB_HOST     string
+	DB_USERNAME   string
+	DB_PASSWORD   string
+	DB_NAME       string
+	DB_PORT       string
+	DB_HOST       string
+	Login_Teacher string
+	Login_Student string
 }
 
 func InitDB() *gorm.DB {
