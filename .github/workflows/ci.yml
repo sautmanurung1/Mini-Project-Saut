@@ -8,3 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hello World"
+      - run: echo "Semua Berjalan dengan Sempurna"
+      - run: echo "Selamat Mengerjakan tugas teman - teman Semua"
