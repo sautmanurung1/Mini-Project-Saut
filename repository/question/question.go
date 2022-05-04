@@ -1,9 +1,8 @@
 package question
 
 import (
-	"Tugas-Mini-Project/domains/assignment"
-	"Tugas-Mini-Project/domains/auth"
 	"Tugas-Mini-Project/domains/question"
+	"Tugas-Mini-Project/entities"
 	"database/sql"
 	"gorm.io/gorm"
 )
@@ -18,9 +17,9 @@ func NewQuestionRepository(db *gorm.DB) question.QuestionRepository {
 	}
 }
 
-func (r *repository) CreateQuestion(question question.Question) error {
-	var assignments assignment.Assignment
-	var users auth.User
+func (r *repository) CreateQuestion(question entities.Question) error {
+	var assignments entities.Assignment
+	var users entities.User
 	r.DB.Where("id = ?", question.AssignmentId).First(&assignments)
 	r.DB.Where("id = ?", question.UserId).First(&users)
 	r.DB.Raw("SELECT title FROM assignments WHERE title = @title",
@@ -31,23 +30,23 @@ func (r *repository) CreateQuestion(question question.Question) error {
 	return nil
 }
 
-func (r *repository) GetQuestionByID(id int) (question.Question, error) {
-	var assign assignment.Assignment
-	var questions question.Question
+func (r *repository) GetQuestionByID(id int) (entities.Question, error) {
+	var assign entities.Assignment
+	var questions entities.Question
 	r.DB.Joins("JOIN assignments ON assignments.id = questions.assignment_id").Where("questions.id = ?", id).First(&questions)
 	r.DB.Where("id = ?", questions.AssignmentId).First(&assign)
 	questions.Name = assign.Name
 	return questions, nil
 }
 
-func (r *repository) GetAllQuestion() ([]question.Question, error) {
-	questions := []question.Question{}
+func (r *repository) GetAllQuestion() ([]entities.Question, error) {
+	questions := []entities.Question{}
 	r.DB.Find(&questions)
 	return questions, nil
 }
 
-func (r *repository) UpdateQuestion(id int, question question.Question) (question.Question, error) {
-	var assignments assignment.Assignment
+func (r *repository) UpdateQuestion(id int, question entities.Question) (entities.Question, error) {
+	var assignments entities.Assignment
 	r.DB.Model(&question).Where("id = ?", id).Updates(&question)
 	r.DB.Joins("JOIN assignments ON assignments.id = questions.assignment_id").Where("questions.id = ?", id).First(&question)
 	r.DB.Where("id = ?", question.AssignmentId).First(&assignments)
@@ -55,8 +54,8 @@ func (r *repository) UpdateQuestion(id int, question question.Question) (questio
 	return question, nil
 }
 
-func (r *repository) DeleteQuestion(id int) (question.Question, error) {
-	var questions question.Question
+func (r *repository) DeleteQuestion(id int) (entities.Question, error) {
+	var questions entities.Question
 	r.DB.Where("id = ?", id).Delete(&questions)
 	return questions, nil
 }

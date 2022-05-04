@@ -2,7 +2,7 @@ package answare
 
 import (
 	"Tugas-Mini-Project/domains/answare"
-	"Tugas-Mini-Project/domains/question"
+	"Tugas-Mini-Project/entities"
 	"gorm.io/gorm"
 )
 
@@ -16,8 +16,8 @@ func NewAnswareRepository(db *gorm.DB) answare.AnswareRepository {
 	}
 }
 
-func (r *repository) CreateAnsware(answare answare.Answare) error {
-	var questions question.Question
+func (r *repository) CreateAnsware(answare entities.Answare) error {
+	var questions entities.Question
 	r.DB.Where("id = ?", answare.QuestionId).First(&questions)
 	answare.Questions = questions.QuestionUser
 	answare.Name = questions.Name
@@ -25,9 +25,9 @@ func (r *repository) CreateAnsware(answare answare.Answare) error {
 	return nil
 }
 
-func (r *repository) GetAnswareById(id int) (answare.Answare, error) {
-	var questions question.Question
-	var ans answare.Answare
+func (r *repository) GetAnswareById(id int) (entities.Answare, error) {
+	var questions entities.Question
+	var ans entities.Answare
 	r.DB.Joins("JOIN questions ON questions.id = answares.question_id").Where("answares.id = ?", id).First(&ans)
 	r.DB.Where("id = ?", ans.QuestionId).First(&questions)
 	ans.Name = questions.Name
@@ -35,14 +35,14 @@ func (r *repository) GetAnswareById(id int) (answare.Answare, error) {
 	return ans, nil
 }
 
-func (r *repository) GetAllAnsware() ([]answare.Answare, error) {
-	ans := []answare.Answare{}
+func (r *repository) GetAllAnsware() ([]entities.Answare, error) {
+	ans := []entities.Answare{}
 	r.DB.Find(&ans)
 	return ans, nil
 }
 
-func (r *repository) UpdateAnsware(id int, answare answare.Answare) (answare.Answare, error) {
-	var questions question.Question
+func (r *repository) UpdateAnsware(id int, answare entities.Answare) (entities.Answare, error) {
+	var questions entities.Question
 	r.DB.Model(&answare).Where("id = ?", id).Updates(&answare)
 	r.DB.Joins("JOIN questions ON questions.id = answares.question_id").Where("answares.id = ?", id).First(&answare)
 	r.DB.Where("id = ?", answare.QuestionId).First(&questions)
@@ -51,8 +51,8 @@ func (r *repository) UpdateAnsware(id int, answare answare.Answare) (answare.Ans
 	return answare, nil
 }
 
-func (r *repository) DeleteAnsware(id int) (answare.Answare, error) {
-	var ans answare.Answare
+func (r *repository) DeleteAnsware(id int) (entities.Answare, error) {
+	var ans entities.Answare
 	r.DB.Where("id = ?", id).Delete(&ans)
 	return ans, nil
 }

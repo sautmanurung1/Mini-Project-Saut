@@ -2,7 +2,7 @@ package auth
 
 import (
 	"Tugas-Mini-Project/domains/auth"
-	"Tugas-Mini-Project/domains/role"
+	"Tugas-Mini-Project/entities"
 	"fmt"
 	"gorm.io/gorm"
 )
@@ -17,20 +17,20 @@ func NewAuthRepository(db *gorm.DB) auth.AuthRepository {
 	}
 }
 
-func (r *repository) Register(user auth.User) error {
-	roles := role.Role{}
+func (r *repository) Register(user entities.User) error {
+	roles := entities.Role{}
 	response := r.DB.Create(&user)
 	user.RoleId = roles.ID
 	user.Role = roles
 
 	if user.RoleId == 1 {
-		roles := role.Role{
+		roles := entities.Role{
 			ID:   1,
 			Name: "teacher",
 		}
 		r.DB.Create(&roles)
 	} else if user.RoleId == 2 {
-		roles := role.Role{
+		roles := entities.Role{
 			ID:   2,
 			Name: "student",
 		}
@@ -43,7 +43,7 @@ func (r *repository) Register(user auth.User) error {
 	return nil
 }
 
-func (r *repository) Login(credential auth.User) error {
+func (r *repository) Login(credential entities.User) error {
 	response := r.DB.Raw("SELECT * FROM users WHERE username = ? AND password = ? AND role_id = ?", credential.Username, credential.Password, credential.RoleId).Scan(&credential)
 
 	if response.RowsAffected < 1 {

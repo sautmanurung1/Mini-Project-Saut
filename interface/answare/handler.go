@@ -2,6 +2,7 @@ package answare
 
 import (
 	"Tugas-Mini-Project/domains/answare"
+	"Tugas-Mini-Project/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
@@ -18,7 +19,7 @@ func NewAnswareHandler(repository answare.AnswareRepository) answare.AnswareHand
 }
 
 func (h handler) CreateAnswareHandler(c echo.Context) error {
-	ans := answare.Answare{}
+	ans := entities.Answare{}
 
 	e := c.Bind(&ans)
 
@@ -87,7 +88,7 @@ func (h handler) GetAllAnswareHandler(c echo.Context) error {
 }
 
 func (h handler) UpdateAnswareHandler(c echo.Context) error {
-	var ans answare.Answare
+	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&ans); err != nil {
@@ -113,7 +114,7 @@ func (h handler) UpdateAnswareHandler(c echo.Context) error {
 }
 
 func (h handler) DeleteAnswareHandler(c echo.Context) error {
-	var ans answare.Answare
+	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&ans); err != nil {

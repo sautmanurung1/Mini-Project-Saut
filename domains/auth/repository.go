@@ -1,6 +1,8 @@
 package auth
 
+import "Tugas-Mini-Project/entities"
+
 type AuthRepository interface {
-	Login(credential User) error
-	Register(user User) error
+	Login(credential entities.User) error
+	Register(user entities.User) error
 }

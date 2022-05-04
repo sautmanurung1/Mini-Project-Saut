@@ -1,9 +1,11 @@
 package assignment
 
+import "Tugas-Mini-Project/entities"
+
 type AssignmentRepository interface {
-	CreateAssignment(assignment Assignment) error
-	GetAssignmentById(id int) (Assignment, error)
-	GetAllAssignment() ([]Assignment, error)
-	UpdateAssignment(id int, assignment Assignment) (Assignment, error)
-	DeleteAssignment(id int) (Assignment, error)
+	CreateAssignment(assignment entities.Assignment) error
+	GetAssignmentById(id int) (entities.Assignment, error)
+	GetAllAssignment() ([]entities.Assignment, error)
+	UpdateAssignment(id int, assignment entities.Assignment) (entities.Assignment, error)
+	DeleteAssignment(id int) (entities.Assignment, error)
 }

@@ -2,6 +2,7 @@ package assignment
 
 import (
 	"Tugas-Mini-Project/domains/assignment"
+	"Tugas-Mini-Project/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
@@ -18,7 +19,7 @@ func NewAssignmentHandler(repository assignment.AssignmentRepository) assignment
 }
 
 func (h *handler) CreateAssignmentHandler(c echo.Context) error {
-	assign := assignment.Assignment{}
+	assign := entities.Assignment{}
 
 	e := c.Bind(&assign)
 
@@ -87,7 +88,7 @@ func (h *handler) GetAssignmentByIdHandler(c echo.Context) error {
 }
 
 func (h *handler) UpdateAssignmentHandler(c echo.Context) error {
-	var assignments assignment.Assignment
+	var assignments entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&assignments); err != nil {
@@ -113,7 +114,7 @@ func (h *handler) UpdateAssignmentHandler(c echo.Context) error {
 }
 
 func (h *handler) DeleteAssignmentHandler(c echo.Context) error {
-	var assign assignment.Assignment
+	var assign entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&assign); err != nil {

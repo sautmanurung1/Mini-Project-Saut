@@ -2,6 +2,7 @@ package question
 
 import (
 	"Tugas-Mini-Project/domains/question"
+	"Tugas-Mini-Project/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
@@ -18,7 +19,7 @@ func NewQuestionHandler(repository question.QuestionRepository) question.Questio
 }
 
 func (h *handler) CreateQuestionHandler(c echo.Context) error {
-	questions := question.Question{}
+	questions := entities.Question{}
 
 	e := c.Bind(&questions)
 
@@ -92,7 +93,7 @@ func (h *handler) GetAllQuestionsHandler(c echo.Context) error {
 }
 
 func (h *handler) UpdateQuestionHandler(c echo.Context) error {
-	var questions question.Question
+	var questions entities.Question
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&questions); err != nil {

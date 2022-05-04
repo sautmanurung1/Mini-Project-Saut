@@ -2,6 +2,7 @@ package auth
 
 import (
 	"Tugas-Mini-Project/domains/auth"
+	"Tugas-Mini-Project/entities"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -19,7 +20,7 @@ func NewAuthHandler(repository auth.AuthRepository) auth.AuthHandler {
 }
 
 func (h *handler) LoginHandler(c echo.Context) error {
-	user := auth.User{}
+	user := entities.User{}
 
 	err := c.Bind(&user)
 	if err != nil {
@@ -78,7 +79,7 @@ func (h *handler) LoginHandler(c echo.Context) error {
 }
 
 func (h *handler) RegisterHandler(c echo.Context) error {
-	user := auth.User{}
+	user := entities.User{}
 	err := c.Bind(&user)
 
 	if err != nil {
