@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"Tugas-Mini-Project/domains/auth"
+	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/entities"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
@@ -10,10 +10,10 @@ import (
 )
 
 type handler struct {
-	repository auth.AuthRepository
+	repository domains.AuthRepository
 }
 
-func NewAuthHandler(repository auth.AuthRepository) auth.AuthHandler {
+func NewAuthHandler(repository domains.AuthRepository) domains.AuthHandler {
 	return &handler{
 		repository: repository,
 	}
@@ -89,10 +89,18 @@ func (h *handler) RegisterHandler(c echo.Context) error {
 		})
 	}
 
-	users := h.repository.Register(user)
+	er := h.repository.Register(user)
+
+	if er != nil {
+		return c.JSON(http.StatusNotFound, map[string]interface{}{
+			"Status":  http.StatusNotFound,
+			"Message": "User UnRegistered",
+			"Data":    er.Error(),
+		})
+	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Message": "Success Register",
-		"Data":    users,
+		"Data":    user,
 	})
 }
