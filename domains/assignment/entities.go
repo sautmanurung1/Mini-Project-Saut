@@ -14,3 +14,7 @@ type Assignment struct {
 	Name        string    `json:"name" validate:"required" gorm:"column:name"`
 	Title       string    `json:"title" validate:"required" gorm:"column:title"`
 }
+
+func (*Assignment) TableName() string {
+	return "Assignment"
+}

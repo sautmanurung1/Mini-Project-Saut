@@ -13,3 +13,7 @@ type User struct {
 	RoleId   int       `gorm:"not null" json:"role_id"`
 	Role     role.Role `gorm:"ForeignKey:RoleId;references:ID;null" json:"-"`
 }
+
+func (*User) TableName() string {
+	return "User"
+}

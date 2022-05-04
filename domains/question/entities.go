@@ -17,3 +17,7 @@ type Question struct {
 	QuestionUser     string                `json:"question_user" validate:"required"`
 	Name             string                `json:"name" validate:"required" gorm:"column:name"`
 }
+
+func (*Question) TableName() string {
+	return "Question"
+}

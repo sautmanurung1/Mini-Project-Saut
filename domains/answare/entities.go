@@ -16,3 +16,7 @@ type Answare struct {
 	AnswareUser string            `json:"answare_user" validate:"required"`
 	Name        string            `json:"name" validate:"required"`
 }
+
+func (*Answare) TableName() string {
+	return "Answare"
+}

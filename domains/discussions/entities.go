@@ -19,3 +19,7 @@ type Discussions struct {
 	Answare      answare.Answare   `gorm:"ForeignKey:AnswareId;References:ID;null" json:"-"`
 	AnswereUser  string            `json:"answare_user" validate:"required"`
 }
+
+func (*Discussions) TableName() string {
+	return "Discussion"
+}
