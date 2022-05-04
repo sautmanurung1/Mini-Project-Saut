@@ -7,7 +7,7 @@ import (
 type Answare struct {
 	gorm.Model
 	QuestionId  int      `gorm:"not null" json:"question_id"`
-	Question    Question `gorm:"ForeignKey:QuestionId;References:ID;null" json:"-"`
+	Question    Question `gorm:"ForeignKey:QuestionId;References:ID;null"`
 	UserId      int      `gorm:"not null" json:"user_id"`
 	User        User     `gorm:"ForeignKey:UserId;References:ID" json:"-"`
 	Questions   string   `gorm:"not null"`
@@ -16,5 +16,5 @@ type Answare struct {
 }
 
 func (*Answare) TableName() string {
-	return "Answare"
+	return "answares"
 }

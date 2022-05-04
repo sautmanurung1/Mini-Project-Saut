@@ -15,5 +15,5 @@ type Assignment struct {
 }
 
 func (*Assignment) TableName() string {
-	return "Assignment"
+	return "assignments"
 }

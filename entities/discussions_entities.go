@@ -18,5 +18,5 @@ type Discussions struct {
 }
 
 func (*Discussions) TableName() string {
-	return "Discussion"
+	return "discussions"
 }

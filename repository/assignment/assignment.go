@@ -1,7 +1,7 @@
 package assignment
 
 import (
-	"Tugas-Mini-Project/domains/assignment"
+	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/entities"
 	"gorm.io/gorm"
 )
@@ -10,7 +10,7 @@ type repository struct {
 	DB *gorm.DB
 }
 
-func NewAssignmentRepository(db *gorm.DB) assignment.AssignmentRepository {
+func NewAssignmentRepository(db *gorm.DB) domains.AssignmentRepository {
 	return &repository{
 		DB: db,
 	}
