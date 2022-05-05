@@ -30,7 +30,7 @@ func (r *repository) Login(username, password string, roleId int) (credential en
 	response := r.DB.Raw("SELECT * FROM users WHERE username = ? AND password = ? AND role_id = ?", username, password, roleId).Scan(&credential)
 
 	if response.RowsAffected < 1 {
-		return credential, fmt.Errorf("Username or password is incorrect")
+		return credential, fmt.Errorf("username or password is incorrect")
 	}
 
 	return credential, nil

@@ -1,6 +1,7 @@
 package server
 
 import (
+	"Tugas-Mini-Project/infrastructure/database"
 	"Tugas-Mini-Project/interface/answare"
 	"Tugas-Mini-Project/interface/assignment"
 	"Tugas-Mini-Project/interface/auth"
@@ -11,10 +12,12 @@ import (
 
 func Server() *echo.Echo {
 	app := echo.New()
-	auth.Routes(app)
+	conf := database.Config{}
+
+	auth.Routes(app, conf)
 	role.Routes(app)
-	assignment.Routes(app)
-	question.Routes(app)
-	answare.Routes(app)
+	assignment.Routes(app, conf)
+	question.Routes(app, conf)
+	answare.Routes(app, conf)
 	return app
 }
