@@ -14,3 +14,8 @@ type AuthRepository interface {
 	Login(credential entities.User) error
 	Register(user entities.User) error
 }
+
+type AuthService interface {
+	LoginService(credential entities.User) (string, int)
+	RegisterService(credential entities.User) error
+}

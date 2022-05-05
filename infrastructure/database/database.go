@@ -15,10 +15,10 @@ type Config struct {
 	DB_HOST       string
 	Login_Teacher string
 	Login_Student string
+	Token         string
 }
 
-func InitDB() *gorm.DB {
-	conf := ENVDatabase()
+func InitDB(conf Config) *gorm.DB {
 	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		conf.DB_USERNAME,
 		conf.DB_PASSWORD,

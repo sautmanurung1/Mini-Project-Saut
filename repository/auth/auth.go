@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"Tugas-Mini-Project/domains/auth"
+	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/entities"
 	"fmt"
 	"gorm.io/gorm"
@@ -11,32 +11,32 @@ type repository struct {
 	DB *gorm.DB
 }
 
-func NewAuthRepository(db *gorm.DB) auth.AuthRepository {
+func NewAuthRepository(db *gorm.DB) domains.AuthRepository {
 	return &repository{
 		DB: db,
 	}
 }
 
 func (r *repository) Register(user entities.User) error {
-	roles := entities.Role{}
+	// roles := entities.Role{}
 	response := r.DB.Create(&user)
-	user.RoleId = roles.ID
-	user.Role = roles
-
-	if user.RoleId == 1 {
-		roles := entities.Role{
-			ID:   1,
-			Name: "teacher",
+	// user.RoleId = roles.ID
+	// user.Role = roles
+	/*
+		if user.RoleId == 1 {
+			roles := entities.Role{
+				ID:   1,
+				Name: "teacher",
+			}
+			r.DB.Create(&roles)
+		} else if user.RoleId == 2 {
+			roles := entities.Role{
+				ID:   2,
+				Name: "student",
+			}
+			r.DB.Create(&roles)
 		}
-		r.DB.Create(&roles)
-	} else if user.RoleId == 2 {
-		roles := entities.Role{
-			ID:   2,
-			Name: "student",
-		}
-		r.DB.Create(&roles)
-	}
-
+	*/
 	if response.Error != nil {
 		return response.Error
 	}
