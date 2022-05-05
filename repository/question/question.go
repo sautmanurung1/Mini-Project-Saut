@@ -1,7 +1,7 @@
 package question
 
 import (
-	"Tugas-Mini-Project/domains/question"
+	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/entities"
 	"database/sql"
 	"gorm.io/gorm"
@@ -11,7 +11,7 @@ type repository struct {
 	DB *gorm.DB
 }
 
-func NewQuestionRepository(db *gorm.DB) question.QuestionRepository {
+func NewQuestionRepository(db *gorm.DB) domains.QuestionRepository {
 	return &repository{
 		DB: db,
 	}

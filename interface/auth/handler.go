@@ -49,7 +49,7 @@ func (h *Handler) LoginHandler(c echo.Context) error {
 		})
 	}
 
-	token, statusCode := h.svc.LoginService(userLogin["email"].(string), userLogin["password"].(string))
+	token, statusCode := h.svc.LoginService(userLogin["username"].(string), userLogin["password"].(string), userLogin["role_id"].(int))
 
 	if statusCode == http.StatusUnauthorized {
 		return c.JSON(http.StatusUnauthorized, map[string]interface{}{

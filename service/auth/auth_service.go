@@ -20,19 +20,20 @@ func NewAuthService(repo domains.AuthRepository, c database.Config) domains.Auth
 	}
 }
 
-func (s *svcAuth) LoginService(username, password string) (string, int) {
-	user, _ := s.repo.Login(username, password)
+func (s *svcAuth) LoginService(username, password string, roleId int) (string, int) {
+	user, _ := s.repo.Login(username, password, roleId)
 
 	if (user.Password != password) || (user == entities.User{}) {
-		return "", http.StatusUnauthorized
+		return "Your Password Error", http.StatusUnauthorized
 	}
 
-	token, err := middleware.CreateToken(int(user.ID), user.Password, s.c.Token)
-
-	if err != nil {
-		return "", http.StatusInternalServerError
+	if user.RoleId == 1 {
+		token, _ := middleware.CreateToken(int(user.ID), user.Username, s.c.Login_Teacher)
+		return token, http.StatusOK
+	} else {
+		token, _ := middleware.CreateToken(int(user.ID), user.Username, s.c.Login_Student)
+		return token, http.StatusOK
 	}
-	return token, http.StatusOK
 }
 
 func (s *svcAuth) RegisterService(credential entities.User) error {
