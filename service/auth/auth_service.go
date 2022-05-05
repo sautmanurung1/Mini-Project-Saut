@@ -36,12 +36,8 @@ func (s *svcAuth) LoginService(username, password string) (string, int) {
 }
 
 func (s *svcAuth) RegisterService(credential entities.User) error {
-	/*
-		data := entities.User{}
-		user := s.repo.Register(data)
-		return user
-	*/
 	var role entities.Role
+
 	if credential.RoleId == 1 {
 		e := entities.User{
 			Username: credential.Username,
