@@ -1,7 +1,7 @@
 package assignment
 
 import (
-	"Tugas-Mini-Project/domains/assignment"
+	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -9,10 +9,10 @@ import (
 )
 
 type handler struct {
-	repository assignment.AssignmentRepository
+	repository domains.AssignmentRepository
 }
 
-func NewAssignmentHandler(repository assignment.AssignmentRepository) assignment.AssignmentHandler {
+func NewAssignmentHandler(repository domains.AssignmentRepository) domains.AssignmentHandler {
 	return &handler{
 		repository: repository,
 	}

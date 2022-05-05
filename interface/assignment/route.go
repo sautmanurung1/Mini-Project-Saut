@@ -7,8 +7,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Routes(echo *echo.Echo) {
-	db := database.InitDB()
+func Routes(echo *echo.Echo, conf database.Config) {
+	db := database.InitDB(conf)
 
 	repo := assignment.NewAssignmentRepository(db)
 	handler := NewAssignmentHandler(repo)

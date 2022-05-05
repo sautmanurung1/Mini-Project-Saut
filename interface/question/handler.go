@@ -1,7 +1,7 @@
 package question
 
 import (
-	"Tugas-Mini-Project/domains/question"
+	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -9,10 +9,10 @@ import (
 )
 
 type handler struct {
-	repository question.QuestionRepository
+	repository domains.QuestionRepository
 }
 
-func NewQuestionHandler(repository question.QuestionRepository) question.QuestionHandler {
+func NewQuestionHandler(repository domains.QuestionRepository) domains.QuestionHandler {
 	return &handler{
 		repository: repository,
 	}

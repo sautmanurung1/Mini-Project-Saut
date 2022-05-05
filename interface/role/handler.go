@@ -1,7 +1,7 @@
 package role
 
 import (
-	"Tugas-Mini-Project/domains/role"
+	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -9,10 +9,10 @@ import (
 )
 
 type handler struct {
-	repository role.RoleRepository
+	repository domains.RoleRepository
 }
 
-func NewRoleHandler(repository role.RoleRepository) role.RoleHandler {
+func NewRoleHandler(repository domains.RoleRepository) domains.RoleHandler {
 	return &handler{
 		repository: repository,
 	}

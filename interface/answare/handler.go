@@ -1,7 +1,7 @@
 package answare
 
 import (
-	"Tugas-Mini-Project/domains/answare"
+	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -9,10 +9,10 @@ import (
 )
 
 type handler struct {
-	repository answare.AnswareRepository
+	repository domains.AnswareRepository
 }
 
-func NewAnswareHandler(repository answare.AnswareRepository) answare.AnswareHandler {
+func NewAnswareHandler(repository domains.AnswareRepository) domains.AnswareHandler {
 	return &handler{
 		repository: repository,
 	}
