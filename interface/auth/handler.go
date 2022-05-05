@@ -3,82 +3,15 @@ package auth
 import (
 	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/entities"
-	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"time"
 )
 
-type handler struct {
-	repository domains.AuthRepository
+type Handler struct {
+	svc domains.AuthService
 }
 
-func NewAuthHandler(repository domains.AuthRepository) domains.AuthHandler {
-	return &handler{
-		repository: repository,
-	}
-}
-
-func (h *handler) LoginHandler(c echo.Context) error {
-	user := entities.User{}
-
-	err := c.Bind(&user)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Status":  http.StatusBadRequest,
-			"Message": err.Error(),
-		})
-	}
-
-	er := h.repository.Login(user)
-
-	if er != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status":  http.StatusInternalServerError,
-			"Message": er.Error(),
-		})
-	}
-	if user.RoleId == 1 {
-		claims := jwt.MapClaims{}
-		claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
-
-		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-		jwtToken, e := token.SignedString([]byte("loginTeacher"))
-
-		if e != nil {
-			return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-				"Status":  http.StatusInternalServerError,
-				"Message": e.Error(),
-			})
-		}
-		return c.JSON(http.StatusOK, map[string]interface{}{
-			"Message": "Success Create JWT in Teacher Login",
-			"Token":   jwtToken,
-		})
-	} else {
-		claims := jwt.MapClaims{}
-		claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
-
-		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-		jwtToken, e := token.SignedString([]byte("loginStudent"))
-
-		if e != nil {
-			return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-				"Status":  http.StatusInternalServerError,
-				"Message": e.Error(),
-			})
-		}
-
-		return c.JSON(http.StatusOK, map[string]interface{}{
-			"Message": "Success Create JWT in Student Login",
-			"Token":   jwtToken,
-		})
-	}
-}
-
-func (h *handler) RegisterHandler(c echo.Context) error {
+func (h *Handler) RegisterHandler(c echo.Context) error {
 	user := entities.User{}
 	err := c.Bind(&user)
 
@@ -89,7 +22,7 @@ func (h *handler) RegisterHandler(c echo.Context) error {
 		})
 	}
 
-	er := h.repository.Register(user)
+	er := h.svc.RegisterService(user)
 
 	if er != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
@@ -102,5 +35,34 @@ func (h *handler) RegisterHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Message": "Success Register",
 		"Data":    user,
+	})
+}
+
+func (h *Handler) LoginHandler(c echo.Context) error {
+	userLogin := make(map[string]interface{})
+
+	err := c.Bind(&userLogin)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "Bad Request",
+			"error":   err.Error(),
+		})
+	}
+
+	token, statusCode := h.svc.LoginService(userLogin["email"].(string), userLogin["password"].(string))
+
+	if statusCode == http.StatusUnauthorized {
+		return c.JSON(http.StatusUnauthorized, map[string]interface{}{
+			"message": "Unauthorized",
+		})
+	} else if statusCode == http.StatusInternalServerError {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": "Internal Server Error",
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Success Login",
+		"data":    token,
 	})
 }

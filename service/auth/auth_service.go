@@ -20,18 +20,18 @@ func NewAuthService(repo domains.AuthRepository, c database.Config) domains.Auth
 	}
 }
 
-func (s *svcAuth) LoginService(credential entities.User) (string, int) {
-	_ = s.repo.Login(credential)
+func (s *svcAuth) LoginService(username, password string) (string, int) {
+	user, _ := s.repo.Login(username, password)
 
-	if credential.Username != credential.Password {
-		return "Username atau Password salah", http.StatusUnauthorized
+	if (user.Password != password) || (user == entities.User{}) {
+		return "", http.StatusUnauthorized
 	}
 
-	token, err := middleware.CreateToken(int(credential.ID), credential.Username, s.c.Token)
+	token, err := middleware.CreateToken(int(user.ID), user.Password, s.c.Token)
+
 	if err != nil {
-		return "Token tidak dapat dibuat", http.StatusInternalServerError
+		return "", http.StatusInternalServerError
 	}
-
 	return token, http.StatusOK
 }
 
