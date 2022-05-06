@@ -19,6 +19,7 @@ type Config struct {
 }
 
 func InitDB(conf Config) *gorm.DB {
+	conf = ENVDatabase()
 	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		conf.DB_USERNAME,
 		conf.DB_PASSWORD,

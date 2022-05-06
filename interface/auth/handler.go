@@ -39,7 +39,7 @@ func (h *AuthHandler) RegisterHandler(c echo.Context) error {
 }
 
 func (h *AuthHandler) LoginHandler(c echo.Context) error {
-	userLogin := make(map[string]interface{})
+	userLogin := entities.User{}
 
 	err := c.Bind(&userLogin)
 	if err != nil {
@@ -49,7 +49,7 @@ func (h *AuthHandler) LoginHandler(c echo.Context) error {
 		})
 	}
 
-	token, statusCode := h.svc.LoginService(userLogin["username"].(string), userLogin["password"].(string), userLogin["role_id"].(int))
+	token, statusCode := h.svc.LoginService(userLogin.Username, userLogin.Password, userLogin.RoleId)
 
 	if statusCode == http.StatusUnauthorized {
 		return c.JSON(http.StatusUnauthorized, map[string]interface{}{

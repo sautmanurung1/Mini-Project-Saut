@@ -37,30 +37,5 @@ func (s *svcAuth) LoginService(username, password string, roleId int) (string, i
 }
 
 func (s *svcAuth) RegisterService(credential entities.User) error {
-	var role entities.Role
-
-	if credential.RoleId == 1 {
-		e := entities.User{
-			Username: credential.Username,
-			Password: credential.Password,
-			RoleId:   role.ID,
-			Role:     role,
-		}
-		err := s.repo.Register(e)
-		if err != nil {
-			return err
-		}
-	} else if credential.RoleId == 2 {
-		e := entities.User{
-			Username: credential.Username,
-			Password: credential.Password,
-			RoleId:   role.ID,
-			Role:     role,
-		}
-		err := s.repo.Register(e)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
+	return s.repo.Register(credential)
 }
