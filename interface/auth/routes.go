@@ -13,7 +13,7 @@ func Routes(echo *echo.Echo, conf database.Config) {
 	repo := auth.NewAuthRepository(db)
 	svc := service.NewAuthService(repo, conf)
 
-	controller := Handler{
+	controller := AuthHandler{
 		svc: svc,
 	}
 

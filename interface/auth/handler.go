@@ -7,11 +7,11 @@ import (
 	"net/http"
 )
 
-type Handler struct {
+type AuthHandler struct {
 	svc domains.AuthService
 }
 
-func (h *Handler) RegisterHandler(c echo.Context) error {
+func (h *AuthHandler) RegisterHandler(c echo.Context) error {
 	user := entities.User{}
 	err := c.Bind(&user)
 
@@ -38,7 +38,7 @@ func (h *Handler) RegisterHandler(c echo.Context) error {
 	})
 }
 
-func (h *Handler) LoginHandler(c echo.Context) error {
+func (h *AuthHandler) LoginHandler(c echo.Context) error {
 	userLogin := make(map[string]interface{})
 
 	err := c.Bind(&userLogin)

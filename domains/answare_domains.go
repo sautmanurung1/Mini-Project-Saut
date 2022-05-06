@@ -2,24 +2,20 @@ package domains
 
 import (
 	"Tugas-Mini-Project/entities"
-	"github.com/labstack/echo/v4"
 )
 
 type AnswareRepository interface {
 	CreateAnsware(answare entities.Answare) error
-	GetAnswareById(id int) (entities.Answare, error)
-	GetAllAnsware() ([]entities.Answare, error)
-	UpdateAnsware(id int, answare entities.Answare) (entities.Answare, error)
-	DeleteAnsware(id int) (entities.Answare, error)
-}
-
-type AnswareHandler interface {
-	CreateAnswareHandler(c echo.Context) error
-	GetAnswareByIdHandler(c echo.Context) error
-	GetAllAnswareHandler(c echo.Context) error
-	UpdateAnswareHandler(c echo.Context) error
-	DeleteAnswareHandler(c echo.Context) error
+	GetAnswareById(id int, ans entities.Answare) error
+	GetAllAnsware() (ans []entities.Answare, err error)
+	UpdateAnsware(id int, answare entities.Answare) error
+	DeleteAnsware(id int, ans entities.Answare) error
 }
 
 type AnswareService interface {
+	CreateAnswareService(answare entities.Answare) (string, error)
+	GetAnswareByIdService(id int, answare entities.Answare) (string, error)
+	GetAllAnswareService() (ans []entities.Answare, err error)
+	UpdateAnswareService(id int, answare entities.Answare) (string, error)
+	DeleteAnswareService(id int, ans entities.Answare) (string, error)
 }

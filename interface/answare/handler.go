@@ -8,17 +8,11 @@ import (
 	"strconv"
 )
 
-type handler struct {
-	repository domains.AnswareRepository
+type AnswareHandler struct {
+	svc domains.AnswareService
 }
 
-func NewAnswareHandler(repository domains.AnswareRepository) domains.AnswareHandler {
-	return &handler{
-		repository: repository,
-	}
-}
-
-func (h handler) CreateAnswareHandler(c echo.Context) error {
+func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
 	ans := entities.Answare{}
 
 	e := c.Bind(&ans)
@@ -30,7 +24,7 @@ func (h handler) CreateAnswareHandler(c echo.Context) error {
 		})
 	}
 
-	err := h.repository.CreateAnsware(ans)
+	answered, err := h.svc.CreateAnswareService(ans)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -42,12 +36,13 @@ func (h handler) CreateAnswareHandler(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
-		"Message": "Success Create Assignment",
-		"Data":    ans,
+		"Message": "Success Create Answare",
+		"Data":    answered,
 	})
 }
 
-func (h handler) GetAnswareByIdHandler(c echo.Context) error {
+func (h *AnswareHandler) GetAnswareByIdHandler(c echo.Context) error {
+	answerers := entities.Answare{}
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
@@ -57,7 +52,7 @@ func (h handler) GetAnswareByIdHandler(c echo.Context) error {
 		})
 	}
 
-	ans, e := h.repository.GetAnswareById(id)
+	ans, e := h.svc.GetAnswareByIdService(id, answerers)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -72,8 +67,8 @@ func (h handler) GetAnswareByIdHandler(c echo.Context) error {
 	})
 }
 
-func (h handler) GetAllAnswareHandler(c echo.Context) error {
-	ans, err := h.repository.GetAllAnsware()
+func (h *AnswareHandler) GetAllAnswareHandler(c echo.Context) error {
+	ans, err := h.svc.GetAllAnswareService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"Status":  "error",
@@ -87,7 +82,7 @@ func (h handler) GetAllAnswareHandler(c echo.Context) error {
 	})
 }
 
-func (h handler) UpdateAnswareHandler(c echo.Context) error {
+func (h *AnswareHandler) UpdateAnswareHandler(c echo.Context) error {
 	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -98,7 +93,7 @@ func (h handler) UpdateAnswareHandler(c echo.Context) error {
 		})
 	}
 
-	result, e := h.repository.UpdateAnsware(id, ans)
+	result, e := h.svc.UpdateAnswareService(id, ans)
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -113,7 +108,7 @@ func (h handler) UpdateAnswareHandler(c echo.Context) error {
 	})
 }
 
-func (h handler) DeleteAnswareHandler(c echo.Context) error {
+func (h *AnswareHandler) DeleteAnswareHandler(c echo.Context) error {
 	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -125,7 +120,7 @@ func (h handler) DeleteAnswareHandler(c echo.Context) error {
 		})
 	}
 
-	result, er := h.repository.DeleteAnsware(id)
+	result, er := h.svc.DeleteAnswareService(id, ans)
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
