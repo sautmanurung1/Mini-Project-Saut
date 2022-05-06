@@ -8,17 +8,11 @@ import (
 	"strconv"
 )
 
-type handler struct {
-	repository domains.QuestionRepository
+type QuestionHandler struct {
+	svc domains.QuestionService
 }
 
-func NewQuestionHandler(repository domains.QuestionRepository) domains.QuestionHandler {
-	return &handler{
-		repository: repository,
-	}
-}
-
-func (h *handler) CreateQuestionHandler(c echo.Context) error {
+func (h *QuestionHandler) CreateQuestionHandler(c echo.Context) error {
 	questions := entities.Question{}
 
 	e := c.Bind(&questions)
@@ -30,7 +24,7 @@ func (h *handler) CreateQuestionHandler(c echo.Context) error {
 		})
 	}
 
-	err := h.repository.CreateQuestion(questions)
+	question, err := h.svc.CreateQuestionService(questions)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -43,11 +37,12 @@ func (h *handler) CreateQuestionHandler(c echo.Context) error {
 	return c.JSON(http.StatusCreated, map[string]interface{}{
 		"status":  http.StatusCreated,
 		"message": "Success Create Question",
-		"Data":    questions,
+		"Data":    question,
 	})
 }
 
-func (h *handler) GetQuestionByIdHandler(c echo.Context) error {
+func (h *QuestionHandler) GetQuestionByIdHandler(c echo.Context) error {
+	question := entities.Question{}
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
@@ -58,7 +53,7 @@ func (h *handler) GetQuestionByIdHandler(c echo.Context) error {
 		})
 	}
 
-	questions, er := h.repository.GetQuestionByID(id)
+	questions, er := h.svc.GetQuestionByIDService(id, question)
 
 	if er != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -75,8 +70,8 @@ func (h *handler) GetQuestionByIdHandler(c echo.Context) error {
 	})
 }
 
-func (h *handler) GetAllQuestionsHandler(c echo.Context) error {
-	questions, err := h.repository.GetAllQuestion()
+func (h *QuestionHandler) GetAllQuestionsHandler(c echo.Context) error {
+	questions, err := h.svc.GetAllQuestionService()
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Status":  http.StatusBadRequest,
@@ -92,7 +87,7 @@ func (h *handler) GetAllQuestionsHandler(c echo.Context) error {
 	})
 }
 
-func (h *handler) UpdateQuestionHandler(c echo.Context) error {
+func (h *QuestionHandler) UpdateQuestionHandler(c echo.Context) error {
 	var questions entities.Question
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -104,7 +99,7 @@ func (h *handler) UpdateQuestionHandler(c echo.Context) error {
 		})
 	}
 
-	result, er := h.repository.UpdateQuestion(id, questions)
+	result, er := h.svc.UpdateQuestionService(id, questions)
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -121,7 +116,8 @@ func (h *handler) UpdateQuestionHandler(c echo.Context) error {
 	})
 }
 
-func (h *handler) DeleteQuestionHandler(c echo.Context) error {
+func (h *QuestionHandler) DeleteQuestionHandler(c echo.Context) error {
+	var questions entities.Question
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
@@ -132,7 +128,7 @@ func (h *handler) DeleteQuestionHandler(c echo.Context) error {
 		})
 	}
 
-	questions, er := h.repository.DeleteQuestion(id)
+	result, er := h.svc.DeleteQuestionService(id, questions)
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -145,6 +141,6 @@ func (h *handler) DeleteQuestionHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
 		"Message": "Success To Delete The Assignment",
-		"Data":    questions,
+		"Data":    result,
 	})
 }
