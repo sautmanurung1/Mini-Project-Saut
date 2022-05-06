@@ -53,7 +53,8 @@ func (h *AuthHandler) LoginHandler(c echo.Context) error {
 
 	if statusCode == http.StatusUnauthorized {
 		return c.JSON(http.StatusUnauthorized, map[string]interface{}{
-			"message": "Unauthorized",
+			"message": "Your Username and Password Wrong",
+			"status":  "Unauthorized",
 		})
 	} else if statusCode == http.StatusInternalServerError {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
