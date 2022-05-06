@@ -15,7 +15,7 @@ func Server() *echo.Echo {
 	conf := database.Config{}
 
 	auth.Routes(app, conf)
-	role.Routes(app)
+	role.Routes(app, conf)
 	assignment.Routes(app, conf)
 	question.Routes(app, conf)
 	answare.Routes(app, conf)

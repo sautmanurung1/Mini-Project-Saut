@@ -3,15 +3,19 @@ package role
 import (
 	"Tugas-Mini-Project/infrastructure/database"
 	"Tugas-Mini-Project/repository/role"
+	service "Tugas-Mini-Project/service/role"
 	"github.com/labstack/echo/v4"
 )
 
-func Routes(echo *echo.Echo) {
-	db := database.InitDB()
+func Routes(echo *echo.Echo, conf database.Config) {
+	db := database.InitDB(conf)
 
 	reporsitory := role.NewRoleRepository(db)
-	handler := NewRoleHandler(reporsitory)
+	svc := service.NewRoleService(reporsitory, conf)
 
-	echo.GET("/role/:id", handler.GetRole)
-	echo.POST("/role", handler.CreateRole)
+	controller := RoleHandler{
+		svc: svc,
+	}
+
+	echo.POST("/role", controller.CreateRole)
 }
