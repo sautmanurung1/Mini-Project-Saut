@@ -4,16 +4,6 @@ import (
 	"Tugas-Mini-Project/entities"
 )
 
-/*
-type AssignmentHandler interface {
-	CreateAssignmentHandler(c echo.Context) error
-	GetAssignmentByIdHandler(c echo.Context) error
-	GetAllAssignmentHandler(c echo.Context) error
-	UpdateAssignmentHandler(c echo.Context) error
-	DeleteAssignmentHandler(c echo.Context) error
-}
-*/
-
 type AssignmentRepository interface {
 	CreateAssignment(assignment entities.Assignment) error
 	GetAssignmentById(id int, assign entities.Assignment) error

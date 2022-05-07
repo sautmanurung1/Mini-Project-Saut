@@ -17,10 +17,7 @@ func NewDiscussionsRepository(db *gorm.DB) domains.DiscussionsRepository {
 }
 
 func (r *repository) GetAllDiscussions() ([]entities.Discussions, error) {
-	var discussions []entities.Discussions
-	err := r.DB.Find(&discussions).Error
-	if err != nil {
-		return nil, err
-	}
+	discussions := []entities.Discussions{}
+	r.DB.Find(&discussions)
 	return discussions, nil
 }
