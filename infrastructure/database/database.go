@@ -28,7 +28,7 @@ func InitDB(conf Config) *gorm.DB {
 		conf.DB_NAME,
 	)
 	DB, err := gorm.Open(mysql.Open(connectionString), &gorm.Config{
-		DisableForeignKeyConstraintWhenMigrating: true,
+		// DisableForeignKeyConstraintWhenMigrating: true,
 	})
 	if err != nil {
 		panic(err)

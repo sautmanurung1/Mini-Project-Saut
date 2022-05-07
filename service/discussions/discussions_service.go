@@ -18,6 +18,6 @@ func NewDiscussionsService(repo domains.DiscussionsRepository, c database.Config
 	}
 }
 
-func (s *svcDiscussions) GetAllDiscussionsService() (discuss []entities.Discussions, err error) {
-	return s.repo.GetAllDiscussions()
+func (s *svcDiscussions) GetAllDiscussionsService(discussions entities.Discussions) (discuss []entities.Discussions, err error) {
+	return s.repo.GetAllDiscussions(discussions)
 }
