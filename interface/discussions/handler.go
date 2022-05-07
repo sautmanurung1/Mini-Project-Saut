@@ -2,6 +2,7 @@ package discussions
 
 import (
 	"Tugas-Mini-Project/domains"
+	"Tugas-Mini-Project/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -11,7 +12,8 @@ type DiscussionHandler struct {
 }
 
 func (h *DiscussionHandler) GetAllDiscussions(c echo.Context) error {
-	discussions, err := h.svc.GetAllDiscussionsService()
+	var discuss entities.Discussions
+	err := h.svc.GetAllDiscussionsService(discuss)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Status":  http.StatusBadRequest,
@@ -23,6 +25,6 @@ func (h *DiscussionHandler) GetAllDiscussions(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
 		"Message": "Success Get All Discussions",
-		"Data":    discussions,
+		"Data":    discuss,
 	})
 }

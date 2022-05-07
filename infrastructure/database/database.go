@@ -15,7 +15,6 @@ type Config struct {
 	DB_HOST       string
 	Login_Teacher string
 	Login_Student string
-	Token         string
 }
 
 func InitDB(conf Config) *gorm.DB {

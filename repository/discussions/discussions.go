@@ -16,7 +16,7 @@ func NewDiscussionsRepository(db *gorm.DB) domains.DiscussionsRepository {
 	}
 }
 
-func (r *repository) GetAllDiscussions(discussions entities.Discussions) ([]entities.Discussions, error) {
+func (r *repository) GetAllDiscussions(discussions entities.Discussions) error {
 	discuss := []entities.Discussions{}
 	var user entities.User
 	var questions entities.Question
@@ -30,5 +30,5 @@ func (r *repository) GetAllDiscussions(discussions entities.Discussions) ([]enti
 	discussions.QuestionUser = questions.QuestionUser
 	discussions.AnswereUser = answare.AnswareUser
 
-	return discuss, nil
+	return nil
 }
