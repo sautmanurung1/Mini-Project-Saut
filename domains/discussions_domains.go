@@ -1,10 +1,11 @@
 package domains
 
-type DiscussionsRepository interface {
-}
+import "Tugas-Mini-Project/entities"
 
-type DiscussionsHandler interface {
+type DiscussionsRepository interface {
+	GetAllDiscussions() ([]entities.Discussions, error)
 }
 
 type DiscussionsService interface {
+	GetAllDiscussionsService() (discuss []entities.Discussions, err error)
 }
