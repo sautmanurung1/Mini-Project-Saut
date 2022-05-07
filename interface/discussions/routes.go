@@ -15,6 +15,6 @@ func Routes(echo *echo.Echo, conf database.Config) {
 	controller := DiscussionHandler{
 		svc: svc,
 	}
-
 	echo.GET("/discussions", controller.GetAllDiscussions)
+	echo.POST("/discussions", controller.CreateDiscsussions)
 }

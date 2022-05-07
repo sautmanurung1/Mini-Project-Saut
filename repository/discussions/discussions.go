@@ -16,19 +16,21 @@ func NewDiscussionsRepository(db *gorm.DB) domains.DiscussionsRepository {
 	}
 }
 
-func (r *repository) GetAllDiscussions(discussions entities.Discussions) error {
-	discuss := []entities.Discussions{}
+func (r *repository) CreateDiscussions(discussions entities.Discussions) error {
 	var user entities.User
 	var questions entities.Question
 	var answare entities.Answare
-
-	r.DB.Find(&discuss)
-	discussions.QuestionId = int(questions.ID)
-	discussions.UserId = int(user.ID)
-	discussions.AnswareId = int(answare.ID)
+	r.DB.Where("id = ?", discussions.QuestionId).Find(&questions)
+	r.DB.Where("id = ? ", discussions.UserId).Find(&user)
+	r.DB.Where("id = ?", discussions.AnswareId).Find(&answare)
 	discussions.Name = user.Name
 	discussions.QuestionUser = questions.QuestionUser
 	discussions.AnswereUser = answare.AnswareUser
 
+	r.DB.Create(&discussions)
 	return nil
+}
+func (r *repository) GetAllDiscussions() (discussions []entities.Discussions, err error) {
+	r.DB.Find(&discussions)
+	return discussions, nil
 }

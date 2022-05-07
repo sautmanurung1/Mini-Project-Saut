@@ -11,9 +11,37 @@ type DiscussionHandler struct {
 	svc domains.DiscussionsService
 }
 
+func (h *DiscussionHandler) CreateDiscsussions(c echo.Context) error {
+	discuss := entities.Discussions{}
+
+	e := c.Bind(&discuss)
+
+	if e != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"Error": "Error To Create Assignment",
+			"Data":  e.Error(),
+		})
+	}
+
+	discussions, err := h.svc.CreateDiscussionsService(discuss)
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"Status": http.StatusInternalServerError,
+			"Error":  "Error",
+			"Data":   err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"Status":  http.StatusOK,
+		"Message": "Success Create Answare",
+		"Data":    discussions,
+	})
+}
+
 func (h *DiscussionHandler) GetAllDiscussions(c echo.Context) error {
-	var discuss entities.Discussions
-	err := h.svc.GetAllDiscussionsService(discuss)
+	discuss, err := h.svc.GetAllDiscussionsService()
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Status":  http.StatusBadRequest,
