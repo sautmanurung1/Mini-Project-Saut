@@ -8,17 +8,11 @@ import (
 	"strconv"
 )
 
-type handler struct {
-	repository domains.AssignmentRepository
+type AssignmentHandler struct {
+	svc domains.AssignmentService
 }
 
-func NewAssignmentHandler(repository domains.AssignmentRepository) domains.AssignmentHandler {
-	return &handler{
-		repository: repository,
-	}
-}
-
-func (h *handler) CreateAssignmentHandler(c echo.Context) error {
+func (h *AssignmentHandler) CreateAssignmentHandler(c echo.Context) error {
 	assign := entities.Assignment{}
 
 	e := c.Bind(&assign)
@@ -30,7 +24,7 @@ func (h *handler) CreateAssignmentHandler(c echo.Context) error {
 		})
 	}
 
-	err := h.repository.CreateAssignment(assign)
+	result, err := h.svc.CreateAssignmentService(assign)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -43,12 +37,12 @@ func (h *handler) CreateAssignmentHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
 		"Message": "Success Create Assignment",
-		"Data":    assign,
+		"Data":    result,
 	})
 }
 
-func (h *handler) GetAllAssignmentHandler(c echo.Context) error {
-	assignments, err := h.repository.GetAllAssignment()
+func (h *AssignmentHandler) GetAllAssignmentHandler(c echo.Context) error {
+	assignments, err := h.svc.GetAllAssignmentService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"Status":  "error",
@@ -62,7 +56,8 @@ func (h *handler) GetAllAssignmentHandler(c echo.Context) error {
 	})
 }
 
-func (h *handler) GetAssignmentByIdHandler(c echo.Context) error {
+func (h *AssignmentHandler) GetAssignmentByIdHandler(c echo.Context) error {
+	var assignment entities.Assignment
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
@@ -72,7 +67,7 @@ func (h *handler) GetAssignmentByIdHandler(c echo.Context) error {
 		})
 	}
 
-	assign, e := h.repository.GetAssignmentById(id)
+	assign, e := h.svc.GetAssignmentByIdService(id, assignment)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -87,7 +82,7 @@ func (h *handler) GetAssignmentByIdHandler(c echo.Context) error {
 	})
 }
 
-func (h *handler) UpdateAssignmentHandler(c echo.Context) error {
+func (h *AssignmentHandler) UpdateAssignmentHandler(c echo.Context) error {
 	var assignments entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -98,7 +93,7 @@ func (h *handler) UpdateAssignmentHandler(c echo.Context) error {
 		})
 	}
 
-	result, e := h.repository.UpdateAssignment(id, assignments)
+	result, e := h.svc.UpdateAssignmentService(id, assignments)
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -113,7 +108,7 @@ func (h *handler) UpdateAssignmentHandler(c echo.Context) error {
 	})
 }
 
-func (h *handler) DeleteAssignmentHandler(c echo.Context) error {
+func (h *AssignmentHandler) DeleteAssignmentHandler(c echo.Context) error {
 	var assign entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -125,7 +120,7 @@ func (h *handler) DeleteAssignmentHandler(c echo.Context) error {
 		})
 	}
 
-	assignments, er := h.repository.DeleteAssignment(id)
+	assignments, er := h.svc.DeleteAssignmentService(id, assign)
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{

@@ -27,11 +27,7 @@ func (s *svcQuestion) CreateQuestionService(question entities.Question) (string,
 }
 
 func (s *svcQuestion) GetQuestionByIDService(id int, question entities.Question) (string, error) {
-	if id != question.AssignmentId {
-		return "Question Not Found", nil
-	} else {
-		return "Question Found", s.repo.GetQuestionByID(id, question)
-	}
+	return "This is Your Question", s.repo.GetQuestionByID(id, question)
 }
 
 func (s *svcQuestion) GetAllQuestionService() (question []entities.Question, err error) {
@@ -39,7 +35,7 @@ func (s *svcQuestion) GetAllQuestionService() (question []entities.Question, err
 }
 
 func (s *svcQuestion) UpdateQuestionService(id int, question entities.Question) (string, error) {
-	if question.UserId == 1 && question.AssignmentId != id {
+	if question.UserId == 1 && question.AssignmentId == id {
 		return "Teacher Update Question ", s.repo.UpdateQuestion(id, question)
 	} else {
 		return "User Can't Update Question Because the user is Student", nil
@@ -47,5 +43,9 @@ func (s *svcQuestion) UpdateQuestionService(id int, question entities.Question) 
 }
 
 func (s *svcQuestion) DeleteQuestionService(id int, question entities.Question) (string, error) {
-	return "Delete Question By ID", s.repo.DeleteQuestion(id, question)
+	if question.UserId == 1 && question.AssignmentId == id {
+		return "Delete Question By ID", s.repo.DeleteQuestion(id, question)
+	} else {
+		return "User Can't Update Question Because the user is Student", nil
+	}
 }

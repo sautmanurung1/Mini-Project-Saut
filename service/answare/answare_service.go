@@ -39,7 +39,7 @@ func (s *svcAnsware) GetAllAnswareService() (ans []entities.Answare, err error) 
 }
 
 func (s *svcAnsware) UpdateAnswareService(id int, answare entities.Answare) (string, error) {
-	if answare.UserId == 1 && answare.QuestionId != id {
+	if answare.UserId == 1 && answare.QuestionId == id {
 		return "User Can't Answare Because the user is Teacher", nil
 	} else {
 		return "Student Update Answare From Question ...", s.repo.UpdateAnsware(id, answare)
@@ -47,5 +47,9 @@ func (s *svcAnsware) UpdateAnswareService(id int, answare entities.Answare) (str
 }
 
 func (s *svcAnsware) DeleteAnswareService(id int, ans entities.Answare) (string, error) {
-	return "Delete Answare From Question ...", s.repo.DeleteAnsware(id, ans)
+	if ans.UserId == 1 && ans.QuestionId == id {
+		return "User Can't Answare Because the user is Teacher", nil
+	} else {
+		return "Delete Answare From Question ...", s.repo.DeleteAnsware(id, ans)
+	}
 }
