@@ -8,20 +8,20 @@ import (
 )
 
 type RoleHandler struct {
-	svc domains.RoleService
+	Svc domains.RoleService
 }
 
 func (h *RoleHandler) CreateRole(c echo.Context) error {
 	roles := entities.Role{}
 	err := c.Bind(&roles)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"status":  "error",
+		return c.JSON(http.StatusNotFound, map[string]interface{}{
+			"status":  "Data Not Found",
 			"message": err.Error(),
 		})
 	}
 
-	e := h.svc.CreateRoleService(roles)
+	e := h.Svc.CreateRoleService(roles)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{

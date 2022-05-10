@@ -14,7 +14,7 @@ func Routes(echo *echo.Echo, conf database.Config) {
 	svc := service.NewRoleService(reporsitory, conf)
 
 	controller := RoleHandler{
-		svc: svc,
+		Svc: svc,
 	}
 
 	echo.POST("/role", controller.CreateRole)
