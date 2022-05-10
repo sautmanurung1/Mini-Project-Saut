@@ -2,7 +2,7 @@ name: Unit Testing
 on:
   push:
     branches:
-      - master
+      - dev
 jobs:
   hello-world:
     runs-on: ubuntu-latest
