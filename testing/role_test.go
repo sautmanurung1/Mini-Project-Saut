@@ -75,6 +75,7 @@ func TestCreateRoleService(t *testing.T) {
 
 		assert.Equal(t, 404, w.Result().StatusCode)
 	})
+
 	t.Run("BadRequest", func(t *testing.T) {
 		svc.On("CreateRoleService", mock.Anything).Return(errors.New("Error To Make Unit Testing")).Once()
 		e := echo.New()

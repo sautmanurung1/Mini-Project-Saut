@@ -8,7 +8,7 @@ import (
 )
 
 type AuthHandler struct {
-	svc domains.AuthService
+	Svc domains.AuthService
 }
 
 func (h *AuthHandler) RegisterHandler(c echo.Context) error {
@@ -22,11 +22,10 @@ func (h *AuthHandler) RegisterHandler(c echo.Context) error {
 		})
 	}
 
-	er := h.svc.RegisterService(user)
+	er := h.Svc.RegisterService(user)
 
 	if er != nil {
-		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"Status":  http.StatusNotFound,
+		return c.JSON(http.StatusUnauthorized, map[string]interface{}{
 			"Message": "User UnRegistered",
 			"Data":    er.Error(),
 		})
@@ -44,26 +43,30 @@ func (h *AuthHandler) LoginHandler(c echo.Context) error {
 	err := c.Bind(&userLogin)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "Bad Request",
-			"error":   err.Error(),
+			"status": "Bad Request",
+			"error":  err.Error(),
 		})
 	}
 
-	token, statusCode := h.svc.LoginService(userLogin.Username, userLogin.Password, userLogin.RoleId)
+	token, statusCode := h.Svc.LoginService(userLogin.Username, userLogin.Password, userLogin.RoleId)
 
 	if statusCode == http.StatusUnauthorized {
 		return c.JSON(http.StatusUnauthorized, map[string]interface{}{
-			"message": "Your Username and Password Wrong",
-			"status":  "Unauthorized",
+			"message":    "Your Username and Password Wrong",
+			"status":     "Unauthorized",
+			"statusCode": statusCode,
 		})
 	} else if statusCode == http.StatusInternalServerError {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"message": "Internal Server Error",
+			"message":    "Internal Server Error",
+			"status":     "Server Error",
+			"statusCode": statusCode,
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success Login",
+		"status":  "Success",
 		"data":    token,
 	})
 }

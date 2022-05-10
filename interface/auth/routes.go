@@ -14,7 +14,7 @@ func Routes(echo *echo.Echo, conf database.Config) {
 	svc := service.NewAuthService(repo, conf)
 
 	controller := AuthHandler{
-		svc: svc,
+		Svc: svc,
 	}
 
 	echo.POST("/register", controller.RegisterHandler)
