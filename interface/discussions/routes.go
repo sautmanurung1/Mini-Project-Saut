@@ -13,7 +13,7 @@ func Routes(echo *echo.Echo, conf database.Config) {
 	repo := discussions.NewDiscussionsRepository(db)
 	svc := service.NewDiscussionsService(repo, conf)
 	controller := DiscussionHandler{
-		svc: svc,
+		Svc: svc,
 	}
 	echo.GET("/discussions", controller.GetAllDiscussions)
 	echo.POST("/discussions", controller.CreateDiscsussions)

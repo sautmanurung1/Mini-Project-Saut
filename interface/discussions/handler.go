@@ -8,7 +8,7 @@ import (
 )
 
 type DiscussionHandler struct {
-	svc domains.DiscussionsService
+	Svc domains.DiscussionsService
 }
 
 func (h *DiscussionHandler) CreateDiscsussions(c echo.Context) error {
@@ -23,7 +23,7 @@ func (h *DiscussionHandler) CreateDiscsussions(c echo.Context) error {
 		})
 	}
 
-	discussions, err := h.svc.CreateDiscussionsService(discuss)
+	discussions, err := h.Svc.CreateDiscussionsService(discuss)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -41,7 +41,7 @@ func (h *DiscussionHandler) CreateDiscsussions(c echo.Context) error {
 }
 
 func (h *DiscussionHandler) GetAllDiscussions(c echo.Context) error {
-	discuss, err := h.svc.GetAllDiscussionsService()
+	discuss, err := h.Svc.GetAllDiscussionsService()
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Status":  http.StatusBadRequest,
