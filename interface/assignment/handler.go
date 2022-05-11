@@ -9,7 +9,7 @@ import (
 )
 
 type AssignmentHandler struct {
-	svc domains.AssignmentService
+	Svc domains.AssignmentService
 }
 
 func (h *AssignmentHandler) CreateAssignmentHandler(c echo.Context) error {
@@ -24,7 +24,7 @@ func (h *AssignmentHandler) CreateAssignmentHandler(c echo.Context) error {
 		})
 	}
 
-	result, err := h.svc.CreateAssignmentService(assign)
+	result, err := h.Svc.CreateAssignmentService(assign)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -42,7 +42,7 @@ func (h *AssignmentHandler) CreateAssignmentHandler(c echo.Context) error {
 }
 
 func (h *AssignmentHandler) GetAllAssignmentHandler(c echo.Context) error {
-	assignments, err := h.svc.GetAllAssignmentService()
+	assignments, err := h.Svc.GetAllAssignmentService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"Status":  "error",
@@ -67,7 +67,7 @@ func (h *AssignmentHandler) GetAssignmentByIdHandler(c echo.Context) error {
 		})
 	}
 
-	assign, e := h.svc.GetAssignmentByIdService(id, assignment)
+	assign, e := h.Svc.GetAssignmentByIdService(id, assignment)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -93,7 +93,7 @@ func (h *AssignmentHandler) UpdateAssignmentHandler(c echo.Context) error {
 		})
 	}
 
-	result, e := h.svc.UpdateAssignmentService(id, assignments)
+	result, e := h.Svc.UpdateAssignmentService(id, assignments)
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -120,7 +120,7 @@ func (h *AssignmentHandler) DeleteAssignmentHandler(c echo.Context) error {
 		})
 	}
 
-	assignments, er := h.svc.DeleteAssignmentService(id, assign)
+	assignments, er := h.Svc.DeleteAssignmentService(id, assign)
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{

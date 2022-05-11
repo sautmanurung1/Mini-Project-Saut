@@ -9,7 +9,7 @@ import (
 )
 
 type AnswareHandler struct {
-	svc domains.AnswareService
+	Svc domains.AnswareService
 }
 
 func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
@@ -24,7 +24,7 @@ func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
 		})
 	}
 
-	answered, err := h.svc.CreateAnswareService(ans)
+	answered, err := h.Svc.CreateAnswareService(ans)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -52,7 +52,7 @@ func (h *AnswareHandler) GetAnswareByIdHandler(c echo.Context) error {
 		})
 	}
 
-	ans, e := h.svc.GetAnswareByIdService(id, answerers)
+	ans, e := h.Svc.GetAnswareByIdService(id, answerers)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -68,7 +68,7 @@ func (h *AnswareHandler) GetAnswareByIdHandler(c echo.Context) error {
 }
 
 func (h *AnswareHandler) GetAllAnswareHandler(c echo.Context) error {
-	ans, err := h.svc.GetAllAnswareService()
+	ans, err := h.Svc.GetAllAnswareService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"Status":  "error",
@@ -93,7 +93,7 @@ func (h *AnswareHandler) UpdateAnswareHandler(c echo.Context) error {
 		})
 	}
 
-	result, e := h.svc.UpdateAnswareService(id, ans)
+	result, e := h.Svc.UpdateAnswareService(id, ans)
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -120,7 +120,7 @@ func (h *AnswareHandler) DeleteAnswareHandler(c echo.Context) error {
 		})
 	}
 
-	result, er := h.svc.DeleteAnswareService(id, ans)
+	result, er := h.Svc.DeleteAnswareService(id, ans)
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{

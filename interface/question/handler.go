@@ -9,7 +9,7 @@ import (
 )
 
 type QuestionHandler struct {
-	svc domains.QuestionService
+	Svc domains.QuestionService
 }
 
 func (h *QuestionHandler) CreateQuestionHandler(c echo.Context) error {
@@ -24,7 +24,7 @@ func (h *QuestionHandler) CreateQuestionHandler(c echo.Context) error {
 		})
 	}
 
-	question, err := h.svc.CreateQuestionService(questions)
+	question, err := h.Svc.CreateQuestionService(questions)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -53,7 +53,7 @@ func (h *QuestionHandler) GetQuestionByIdHandler(c echo.Context) error {
 		})
 	}
 
-	questions, er := h.svc.GetQuestionByIDService(id, question)
+	questions, er := h.Svc.GetQuestionByIDService(id, question)
 
 	if er != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -71,7 +71,7 @@ func (h *QuestionHandler) GetQuestionByIdHandler(c echo.Context) error {
 }
 
 func (h *QuestionHandler) GetAllQuestionsHandler(c echo.Context) error {
-	questions, err := h.svc.GetAllQuestionService()
+	questions, err := h.Svc.GetAllQuestionService()
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Status":  http.StatusBadRequest,
@@ -99,7 +99,7 @@ func (h *QuestionHandler) UpdateQuestionHandler(c echo.Context) error {
 		})
 	}
 
-	result, er := h.svc.UpdateQuestionService(id, questions)
+	result, er := h.Svc.UpdateQuestionService(id, questions)
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -128,7 +128,7 @@ func (h *QuestionHandler) DeleteQuestionHandler(c echo.Context) error {
 		})
 	}
 
-	result, er := h.svc.DeleteQuestionService(id, questions)
+	result, er := h.Svc.DeleteQuestionService(id, questions)
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{

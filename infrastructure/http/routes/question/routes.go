@@ -3,6 +3,7 @@ package question
 import (
 	"Tugas-Mini-Project/infrastructure/database"
 	m "Tugas-Mini-Project/infrastructure/http/middleware"
+	questions "Tugas-Mini-Project/interface/question"
 	"Tugas-Mini-Project/repository/question"
 	service "Tugas-Mini-Project/service/question"
 	"github.com/labstack/echo/v4"
@@ -14,8 +15,8 @@ func Routes(echo *echo.Echo, conf database.Config) {
 	repo := question.NewQuestionRepository(db)
 	svc := service.NewQuestionService(repo, conf)
 	teacher := echo.Group("/teacher")
-	controller := QuestionHandler{
-		svc: svc,
+	controller := questions.QuestionHandler{
+		Svc: svc,
 	}
 
 	teacher.POST("/questions", controller.CreateQuestionHandler, m.JWTTeacherMiddleware())
