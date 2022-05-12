@@ -1,24 +1,19 @@
 package assignment
 
 import (
-	"Tugas-Mini-Project/domains/assignment"
+	"Tugas-Mini-Project/domains"
+	"Tugas-Mini-Project/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
 )
 
-type handler struct {
-	repository assignment.AssignmentRepository
+type AssignmentHandler struct {
+	Svc domains.AssignmentService
 }
 
-func NewAssignmentHandler(repository assignment.AssignmentRepository) assignment.AssignmentHandler {
-	return &handler{
-		repository: repository,
-	}
-}
-
-func (h *handler) CreateAssignmentHandler(c echo.Context) error {
-	assign := assignment.Assignment{}
+func (h *AssignmentHandler) CreateAssignmentHandler(c echo.Context) error {
+	assign := entities.Assignment{}
 
 	e := c.Bind(&assign)
 
@@ -29,7 +24,7 @@ func (h *handler) CreateAssignmentHandler(c echo.Context) error {
 		})
 	}
 
-	err := h.repository.CreateAssignment(assign)
+	result, err := h.Svc.CreateAssignmentService(assign)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -42,12 +37,12 @@ func (h *handler) CreateAssignmentHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
 		"Message": "Success Create Assignment",
-		"Data":    assign,
+		"Data":    result,
 	})
 }
 
-func (h *handler) GetAllAssignmentHandler(c echo.Context) error {
-	assignments, err := h.repository.GetAllAssignment()
+func (h *AssignmentHandler) GetAllAssignmentHandler(c echo.Context) error {
+	assignments, err := h.Svc.GetAllAssignmentService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"Status":  "error",
@@ -61,17 +56,11 @@ func (h *handler) GetAllAssignmentHandler(c echo.Context) error {
 	})
 }
 
-func (h *handler) GetAssignmentByIdHandler(c echo.Context) error {
-	id, err := strconv.Atoi(c.Param("id"))
+func (h *AssignmentHandler) GetAssignmentByIdHandler(c echo.Context) error {
+	var assignment entities.Assignment
+	id, _ := strconv.Atoi(c.Param("id"))
 
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Message": "Error to Get the Assignment",
-			"Error":   err.Error(),
-		})
-	}
-
-	assign, e := h.repository.GetAssignmentById(id)
+	assign, e := h.Svc.GetAssignmentByIdService(id, assignment)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -86,18 +75,18 @@ func (h *handler) GetAssignmentByIdHandler(c echo.Context) error {
 	})
 }
 
-func (h *handler) UpdateAssignmentHandler(c echo.Context) error {
-	var assignments assignment.Assignment
+func (h *AssignmentHandler) UpdateAssignmentHandler(c echo.Context) error {
+	var assignments entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&assignments); err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Message": "Error to Update the Assignment",
 			"Error":   err.Error(),
 		})
 	}
 
-	result, e := h.repository.UpdateAssignment(id, assignments)
+	result, e := h.Svc.UpdateAssignmentService(id, assignments)
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -112,19 +101,19 @@ func (h *handler) UpdateAssignmentHandler(c echo.Context) error {
 	})
 }
 
-func (h *handler) DeleteAssignmentHandler(c echo.Context) error {
-	var assign assignment.Assignment
+func (h *AssignmentHandler) DeleteAssignmentHandler(c echo.Context) error {
+	var assign entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&assign); err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status": http.StatusInternalServerError,
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"Status": http.StatusBadRequest,
 			"Error":  "Error To Delete the Assignment",
 			"Data":   err.Error(),
 		})
 	}
 
-	assignments, er := h.repository.DeleteAssignment(id)
+	assignments, er := h.Svc.DeleteAssignmentService(id, assign)
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{

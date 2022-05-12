@@ -1,10 +1,15 @@
 package database
 
 import (
+	"github.com/joho/godotenv"
 	"os"
 )
 
 func ENVDatabase() Config {
+	err := godotenv.Load()
+	if err != nil {
+		panic("Error loading .env file")
+	}
 	return Config{
 		Login_Student: os.Getenv("LOGIN_STUDENT"),
 		Login_Teacher: os.Getenv("LOGIN_TEACHER"),

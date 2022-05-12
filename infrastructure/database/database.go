@@ -1,12 +1,7 @@
 package database
 
 import (
-	"Tugas-Mini-Project/domains/answare"
-	"Tugas-Mini-Project/domains/assignment"
-	"Tugas-Mini-Project/domains/auth"
-	"Tugas-Mini-Project/domains/discussions"
-	"Tugas-Mini-Project/domains/question"
-	"Tugas-Mini-Project/domains/role"
+	"Tugas-Mini-Project/entities"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -22,8 +17,8 @@ type Config struct {
 	Login_Student string
 }
 
-func InitDB() *gorm.DB {
-	conf := ENVDatabase()
+func InitDB(conf Config) *gorm.DB {
+	conf = ENVDatabase()
 	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		conf.DB_USERNAME,
 		conf.DB_PASSWORD,
@@ -32,13 +27,13 @@ func InitDB() *gorm.DB {
 		conf.DB_NAME,
 	)
 	DB, err := gorm.Open(mysql.Open(connectionString), &gorm.Config{
-		DisableForeignKeyConstraintWhenMigrating: true,
+		// DisableForeignKeyConstraintWhenMigrating: true,
 	})
 	if err != nil {
 		panic(err)
 	}
 
-	e := DB.AutoMigrate(&auth.User{}, &role.Role{}, &assignment.Assignment{}, &answare.Answare{}, discussions.Discussions{}, &question.Question{})
+	e := DB.AutoMigrate(&entities.User{}, &entities.Role{}, &entities.Assignment{}, &entities.Answare{}, entities.Discussions{}, &entities.Question{})
 	if e != nil {
 		panic(e)
 	}

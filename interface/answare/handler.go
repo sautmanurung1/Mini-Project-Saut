@@ -1,24 +1,19 @@
 package answare
 
 import (
-	"Tugas-Mini-Project/domains/answare"
+	"Tugas-Mini-Project/domains"
+	"Tugas-Mini-Project/entities"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
 )
 
-type handler struct {
-	repository answare.AnswareRepository
+type AnswareHandler struct {
+	Svc domains.AnswareService
 }
 
-func NewAnswareHandler(repository answare.AnswareRepository) answare.AnswareHandler {
-	return &handler{
-		repository: repository,
-	}
-}
-
-func (h handler) CreateAnswareHandler(c echo.Context) error {
-	ans := answare.Answare{}
+func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
+	ans := entities.Answare{}
 
 	e := c.Bind(&ans)
 
@@ -29,7 +24,7 @@ func (h handler) CreateAnswareHandler(c echo.Context) error {
 		})
 	}
 
-	err := h.repository.CreateAnsware(ans)
+	answered, err := h.Svc.CreateAnswareService(ans)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -41,22 +36,16 @@ func (h handler) CreateAnswareHandler(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
-		"Message": "Success Create Assignment",
-		"Data":    ans,
+		"Message": "Success Create Answare",
+		"Data":    answered,
 	})
 }
 
-func (h handler) GetAnswareByIdHandler(c echo.Context) error {
-	id, err := strconv.Atoi(c.Param("id"))
+func (h *AnswareHandler) GetAnswareByIdHandler(c echo.Context) error {
+	answerers := entities.Answare{}
+	id, _ := strconv.Atoi(c.Param("id"))
 
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Message": "Error to Get the Assignment",
-			"Error":   err.Error(),
-		})
-	}
-
-	ans, e := h.repository.GetAnswareById(id)
+	ans, e := h.Svc.GetAnswareByIdService(id, answerers)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -71,8 +60,8 @@ func (h handler) GetAnswareByIdHandler(c echo.Context) error {
 	})
 }
 
-func (h handler) GetAllAnswareHandler(c echo.Context) error {
-	ans, err := h.repository.GetAllAnsware()
+func (h *AnswareHandler) GetAllAnswareHandler(c echo.Context) error {
+	ans, err := h.Svc.GetAllAnswareService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"Status":  "error",
@@ -86,18 +75,18 @@ func (h handler) GetAllAnswareHandler(c echo.Context) error {
 	})
 }
 
-func (h handler) UpdateAnswareHandler(c echo.Context) error {
-	var ans answare.Answare
+func (h *AnswareHandler) UpdateAnswareHandler(c echo.Context) error {
+	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&ans); err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Message": "Error to Update the Assignment",
 			"Error":   err.Error(),
 		})
 	}
 
-	result, e := h.repository.UpdateAnsware(id, ans)
+	result, e := h.Svc.UpdateAnswareService(id, ans)
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -112,19 +101,19 @@ func (h handler) UpdateAnswareHandler(c echo.Context) error {
 	})
 }
 
-func (h handler) DeleteAnswareHandler(c echo.Context) error {
-	var ans answare.Answare
+func (h *AnswareHandler) DeleteAnswareHandler(c echo.Context) error {
+	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&ans); err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status": http.StatusInternalServerError,
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"Status": http.StatusBadRequest,
 			"Error":  "Error To Delete the Assignment",
 			"Data":   err.Error(),
 		})
 	}
 
-	result, er := h.repository.DeleteAnsware(id)
+	result, er := h.Svc.DeleteAnswareService(id, ans)
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
