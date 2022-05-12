@@ -43,15 +43,7 @@ func (h *QuestionHandler) CreateQuestionHandler(c echo.Context) error {
 
 func (h *QuestionHandler) GetQuestionByIdHandler(c echo.Context) error {
 	question := entities.Question{}
-	id, err := strconv.Atoi(c.Param("id"))
-
-	if err != nil {
-		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"Status":  http.StatusNotFound,
-			"Message": "Nothing to Get",
-			"Error":   err.Error(),
-		})
-	}
+	id, _ := strconv.Atoi(c.Param("id"))
 
 	questions, er := h.Svc.GetQuestionByIDService(id, question)
 
@@ -118,15 +110,7 @@ func (h *QuestionHandler) UpdateQuestionHandler(c echo.Context) error {
 
 func (h *QuestionHandler) DeleteQuestionHandler(c echo.Context) error {
 	var questions entities.Question
-	id, err := strconv.Atoi(c.Param("id"))
-
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Status":  http.StatusBadRequest,
-			"Message": "Error",
-			"Data":    err.Error(),
-		})
-	}
+	id, _ := strconv.Atoi(c.Param("id"))
 
 	result, er := h.Svc.DeleteQuestionService(id, questions)
 

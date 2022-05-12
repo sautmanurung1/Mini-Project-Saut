@@ -43,14 +43,7 @@ func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
 
 func (h *AnswareHandler) GetAnswareByIdHandler(c echo.Context) error {
 	answerers := entities.Answare{}
-	id, err := strconv.Atoi(c.Param("id"))
-
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Message": "Error to Get the Assignment",
-			"Error":   err.Error(),
-		})
-	}
+	id, _ := strconv.Atoi(c.Param("id"))
 
 	ans, e := h.Svc.GetAnswareByIdService(id, answerers)
 
@@ -87,7 +80,7 @@ func (h *AnswareHandler) UpdateAnswareHandler(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&ans); err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Message": "Error to Update the Assignment",
 			"Error":   err.Error(),
 		})
@@ -113,8 +106,8 @@ func (h *AnswareHandler) DeleteAnswareHandler(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&ans); err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status": http.StatusInternalServerError,
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"Status": http.StatusBadRequest,
 			"Error":  "Error To Delete the Assignment",
 			"Data":   err.Error(),
 		})
