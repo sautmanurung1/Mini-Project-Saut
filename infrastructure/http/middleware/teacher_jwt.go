@@ -7,7 +7,7 @@ import (
 )
 
 func JWTTeacherMiddleware() echo.MiddlewareFunc {
-	secret := database.ENVDatabase()
+	secret := database.Config{}
 	return middleware.JWTWithConfig(middleware.JWTConfig{
 		SigningKey:    []byte(secret.Login_Teacher),
 		SigningMethod: "HS256",
