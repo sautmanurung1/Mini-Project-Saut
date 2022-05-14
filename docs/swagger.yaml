@@ -1,0 +1,17 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact: {}
+  description: This is School Discussions Room API
+  title: School Discussions Room API Documentation
+  version: "2.0"
+paths: {}
+schemes:
+- http
+- https
+securityDefinitions:
+  JWT:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
