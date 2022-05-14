@@ -1,11 +1,129 @@
-basePath: /api/v1
+definitions:
+  entities.Role:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  entities.User:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      role_id:
+        type: integer
+      username:
+        type: string
+    required:
+    - name
+    - password
+    - username
+    type: object
 host: localhost:8080
 info:
   contact: {}
   description: This is School Discussions Room API
   title: School Discussions Room API Documentation
   version: "2.0"
-paths: {}
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Login User
+      parameters:
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/entities.User'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.User'
+      summary: Login User
+      tags:
+      - Auth
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Create Register User
+      parameters:
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/entities.User'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.User'
+      summary: Register User
+      tags:
+      - Auth
+  /role:
+    post:
+      consumes:
+      - application/json
+      description: Create Role user
+      parameters:
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Role'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Role'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/entities.Role'
+      summary: Create Role
+      tags:
+      - Role
 schemes:
 - http
 - https
