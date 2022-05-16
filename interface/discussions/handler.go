@@ -18,10 +18,10 @@ type DiscussionHandler struct {
 // @accept json
 // @Produce json
 // @Router /discussions [post]
-// @param data body entities.Discussions true "required"
+// @param data body entities.DiscussionsResponse true "required"
 // @Success 200 {object} entities.Discussions
 // @Failure 400 {object} entities.Discussions
-// @Failute 500 {object} entities.Discussions
+// @Failure 500 {object} entities.Discussions
 func (h *DiscussionHandler) CreateDiscussions(c echo.Context) error {
 	discuss := entities.Discussions{}
 

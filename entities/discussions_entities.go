@@ -1,11 +1,7 @@
 package entities
 
-import (
-	"gorm.io/gorm"
-)
-
 type Discussions struct {
-	gorm.Model
+	ID           uint     `gorm:"primaryKey"`
 	UserId       int      `gorm:"not null" json:"user_id"`
 	User         User     `gorm:"ForeignKey:UserId;References:ID;null" json:"-"`
 	Name         string   `json:"name" validate:"required"`

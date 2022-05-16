@@ -22,7 +22,7 @@ type AnswareHandler struct {
 // @param data body entities.AnswareResponse true "required"
 // @Success 200 {object} entities.Answare
 // @Failure 400 {object} entities.Answare
-// @Failute 500 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
 // @Security JWT
 func (h *AnswareHandler) CreateAnsware(c echo.Context) error {
 	ans := entities.Answare{}
@@ -60,7 +60,7 @@ func (h *AnswareHandler) CreateAnsware(c echo.Context) error {
 // @accept json
 // @Produce json
 // @Router /answare/{id} [get]
-// @param id path id entities.AnswareResponse true "id"
+// @param id path int true "id"
 // @Success 200 {object} entities.Answare
 // @Failure 400 {object} entities.Answare
 func (h *AnswareHandler) GetAnswareById(c echo.Context) error {
@@ -71,13 +71,13 @@ func (h *AnswareHandler) GetAnswareById(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Message": "Error to get the Assignment By ID",
+			"Message": "Error to get the Answare By ID",
 			"Error":   e.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Message": "Success Get Assignment By ID",
+		"Message": "Success Get Answare By ID",
 		"Data":    ans,
 	})
 }
@@ -101,7 +101,7 @@ func (h *AnswareHandler) GetAllAnsware(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Message": "Success Get All Assignment",
+		"Message": "Success Get All Answare",
 		"Data":    ans,
 	})
 }
@@ -113,10 +113,10 @@ func (h *AnswareHandler) GetAllAnsware(c echo.Context) error {
 // @accept json
 // @Produce json
 // @Router /student/answare/{id} [put]
-// @param id path id entities.AnswareResponse true "id"
+// @param id path int true "id"
 // @Success 200 {object} entities.Answare
 // @Failure 400 {object} entities.Answare
-// @Failute 500 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
 // @Security JWT
 func (h *AnswareHandler) UpdateAnsware(c echo.Context) error {
 	var ans entities.Answare
@@ -124,7 +124,7 @@ func (h *AnswareHandler) UpdateAnsware(c echo.Context) error {
 
 	if err := c.Bind(&ans); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Message": "Error to Update the Assignment",
+			"Message": "Error to Update the Answare",
 			"Error":   err.Error(),
 		})
 	}
@@ -133,13 +133,13 @@ func (h *AnswareHandler) UpdateAnsware(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Message": "Error to Update the Assignment",
+			"Message": "Error to Update the Answare",
 			"Error":   e.Error(),
 		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
-		"Message": "Success Update Assignment",
+		"Message": "Success Update Answare",
 		"Data":    result,
 	})
 }
@@ -151,10 +151,10 @@ func (h *AnswareHandler) UpdateAnsware(c echo.Context) error {
 // @accept json
 // @Produce json
 // @Router /student/answare/{id} [delete]
-// @param id path id entities.AnswareResponse true "id"
+// @param id path int true "id"
 // @Success 200 {object} entities.Answare
 // @Failure 400 {object} entities.Answare
-// @Failute 500 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
 // @Security JWT
 func (h *AnswareHandler) DeleteAnsware(c echo.Context) error {
 	var ans entities.Answare
@@ -163,7 +163,7 @@ func (h *AnswareHandler) DeleteAnsware(c echo.Context) error {
 	if err := c.Bind(&ans); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Status": http.StatusBadRequest,
-			"Error":  "Error To Delete the Assignment",
+			"Error":  "Error To Delete the Answare",
 			"Data":   err.Error(),
 		})
 	}
@@ -173,14 +173,14 @@ func (h *AnswareHandler) DeleteAnsware(c echo.Context) error {
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"Status": http.StatusInternalServerError,
-			"Error":  "Error To Delete the Assignment",
+			"Error":  "Error To Delete the Answare",
 			"Data":   er.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
-		"Message": "Success To Delete The Assignment",
+		"Message": "Success To Delete The Answare",
 		"Data":    result,
 	})
 }

@@ -18,11 +18,11 @@ type AssignmentHandler struct {
 // @Tags Assignment
 // @accept json
 // @Produce json
-// @Router /teacher/answare [post]
+// @Router /teacher/assignment [post]
 // @param data body entities.AssignmentResponse true "required"
 // @Success 200 {object} entities.Assignment
 // @Failure 400 {object} entities.Assignment
-// @Failute 500 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
 // @Security JWT
 func (h *AssignmentHandler) CreateAssignment(c echo.Context) error {
 	assign := entities.Assignment{}
@@ -83,11 +83,10 @@ func (h *AssignmentHandler) GetAllAssignment(c echo.Context) error {
 // @Tags Assignment
 // @accept json
 // @Produce json
-// @Router /answare/{id} [get]
-// @param id path entities.AssignmentResponse true "id"
+// @Router /assignment/{id} [get]
+// @param id path int true "id"
 // @Success 200 {object} entities.Assignment
 // @Failure 400 {object} entities.Assignment
-// @Security JWT
 func (h *AssignmentHandler) GetAssignmentById(c echo.Context) error {
 	var assignment entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -113,11 +112,11 @@ func (h *AssignmentHandler) GetAssignmentById(c echo.Context) error {
 // @Tags Assignment
 // @accept json
 // @Produce json
-// @Router /teacher/answare/{id} [put]
-// @param id path entities.AssignmentResponse true "id"
+// @Router /teacher/assignment/{id} [put]
+// @param id path int true "id"
 // @Success 200 {object} entities.Assignment
 // @Failure 400 {object} entities.Assignment
-// @Failute 500 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
 // @Security JWT
 func (h *AssignmentHandler) UpdateAssignment(c echo.Context) error {
 	var assignments entities.Assignment
@@ -151,11 +150,11 @@ func (h *AssignmentHandler) UpdateAssignment(c echo.Context) error {
 // @Tags Assignment
 // @accept json
 // @Produce json
-// @Router /teacher/answare/{id} [delete]
-// @param id path entities.AssignmentResponse true "id"
+// @Router /teacher/assignment/{id} [delete]
+// @param id path int true "id"
 // @Success 200 {object} entities.Assignment
 // @Failure 400 {object} entities.Assignment
-// @Failute 500 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
 // @Security JWT
 func (h *AssignmentHandler) DeleteAssignment(c echo.Context) error {
 	var assign entities.Assignment

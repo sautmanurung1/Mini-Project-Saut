@@ -12,6 +12,18 @@ type QuestionHandler struct {
 	Svc domains.QuestionService
 }
 
+// CreateQuestion godoc
+// @Summary Teacher Create Question
+// @Description Teacher Can Create Question
+// @Tags Question
+// @accept json
+// @Produce json
+// @Router /teacher/questions [post]
+// @param data body entities.QuestionResponse true "required"
+// @Success 200 {object} entities.Question
+// @Failure 400 {object} entities.Question
+// @Failure 500 {object} entities.Question
+// @Security JWT
 func (h *QuestionHandler) CreateQuestion(c echo.Context) error {
 	questions := entities.Question{}
 
@@ -41,6 +53,16 @@ func (h *QuestionHandler) CreateQuestion(c echo.Context) error {
 	})
 }
 
+// GetQuestionById godoc
+// @Summary Get Question By Id
+// @Description User Can Get Question By Id
+// @Tags Question
+// @accept json
+// @Produce json
+// @Router /questions/{id} [get]
+// @param id path int true "id"
+// @Success 200 {object} entities.Question
+// @Failure 400 {object} entities.Question
 func (h *QuestionHandler) GetQuestionById(c echo.Context) error {
 	question := entities.Question{}
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -62,6 +84,15 @@ func (h *QuestionHandler) GetQuestionById(c echo.Context) error {
 	})
 }
 
+// GetAllQuestions godoc
+// @Summary Get All Question
+// @Description Get ALl Question
+// @Tags Question
+// @accept json
+// @Produce json
+// @Router /questions [get]
+// @Success 200 {object} entities.Question
+// Failure 400 {object} entities.Question
 func (h *QuestionHandler) GetAllQuestions(c echo.Context) error {
 	questions, err := h.Svc.GetAllQuestionService()
 	if err != nil {
@@ -79,6 +110,18 @@ func (h *QuestionHandler) GetAllQuestions(c echo.Context) error {
 	})
 }
 
+// UpdateQuestion godoc
+// @Summary Update Question Teacher
+// @Description Teacher Can Update Them Question
+// @Tags Question
+// @accept json
+// @Produce json
+// @Router /teacher/question/{id} [put]
+// @param id path int true "id"
+// @Success 200 {object} entities.Question
+// @Failure 400 {object} entities.Question
+// @Failure 500 {object} entities.Question
+// @Security JWT
 func (h *QuestionHandler) UpdateQuestion(c echo.Context) error {
 	var questions entities.Question
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -108,6 +151,18 @@ func (h *QuestionHandler) UpdateQuestion(c echo.Context) error {
 	})
 }
 
+// DeleteQuestion godoc
+// @Summary Delete Question Teacher
+// @Description Teacher Can delete Them Question
+// @Tags Question
+// @accept json
+// @Produce json
+// @Router /teacher/question/{id} [delete]
+// @param id path int true "id"
+// @Success 200 {object} entities.Question
+// @Failure 400 {object} entities.Question
+// @Failure 500 {object} entities.Question
+// @Security JWT
 func (h *QuestionHandler) DeleteQuestion(c echo.Context) error {
 	var questions entities.Question
 	id, _ := strconv.Atoi(c.Param("id"))

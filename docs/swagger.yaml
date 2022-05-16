@@ -1,4 +1,167 @@
 definitions:
+  entities.Answare:
+    properties:
+      answare_user:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      question_id:
+        type: integer
+      questions:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - answare_user
+    - name
+    type: object
+  entities.AnswareResponse:
+    properties:
+      answare_user:
+        type: string
+      id:
+        type: integer
+      question_id:
+        type: integer
+      user_id:
+        type: integer
+    required:
+    - answare_user
+    - question_id
+    - user_id
+    type: object
+  entities.Assignment:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      questions:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - description
+    - name
+    - questions
+    - title
+    type: object
+  entities.AssignmentResponse:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      questions:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - description
+    - questions
+    - title
+    - user_id
+    type: object
+  entities.Discussions:
+    properties:
+      answare_id:
+        type: integer
+      answare_user:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      question_id:
+        type: integer
+      question_user:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - answare_user
+    - name
+    - question_user
+    type: object
+  entities.DiscussionsResponse:
+    properties:
+      answare_id:
+        type: integer
+      question_id:
+        type: integer
+      user_id:
+        type: integer
+    required:
+    - answare_id
+    - question_id
+    - user_id
+    type: object
+  entities.LoginUser:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  entities.Question:
+    properties:
+      assignment_id:
+        type: integer
+      assignment_title:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      question_user:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - name
+    - question_user
+    type: object
+  entities.QuestionResponse:
+    properties:
+      assignment_id:
+        type: integer
+      id:
+        type: integer
+      question_user:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - assignment_id
+    - question_user
+    - user_id
+    type: object
+  entities.RegisterUser:
+    properties:
+      name:
+        type: string
+      password:
+        type: string
+      role_id:
+        type: integer
+      username:
+        type: string
+    required:
+    - name
+    - password
+    - username
+    type: object
   entities.Role:
     properties:
       id:
@@ -30,6 +193,142 @@ info:
   title: School Discussions Room API Documentation
   version: "2.0"
 paths:
+  /answare:
+    get:
+      consumes:
+      - application/json
+      description: Student Can Get Answare
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Answare'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Answare'
+      summary: Get All Answare Student
+      tags:
+      - Answare
+  /answare/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Student Can Get Answare By Id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Answare'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Answare'
+      summary: Get Answare Student By Id
+      tags:
+      - Answare
+  /assignment:
+    get:
+      consumes:
+      - application/json
+      description: User Can Get Assignment
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Assignment'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Assignment'
+      summary: Get All Assignment
+      tags:
+      - Assignment
+  /assignment/{id}:
+    get:
+      consumes:
+      - application/json
+      description: User Can Get Answare By ID
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Assignment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Assignment'
+      summary: Get Assignment By Id
+      tags:
+      - Assignment
+  /discussions:
+    get:
+      consumes:
+      - application/json
+      description: User can Get All Discussions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Discussions'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Discussions'
+      summary: Get All Discussions
+      tags:
+      - Discussions
+    post:
+      consumes:
+      - application/json
+      description: User can Create Discussions
+      parameters:
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.DiscussionsResponse'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Discussions'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Discussions'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Discussions'
+      summary: Create Discussions
+      tags:
+      - Discussions
   /login:
     post:
       consumes:
@@ -41,7 +340,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/entities.User'
+          $ref: '#/definitions/entities.LoginUser'
       produces:
       - application/json
       responses:
@@ -64,6 +363,46 @@ paths:
       summary: Login User
       tags:
       - Auth
+  /questions:
+    get:
+      consumes:
+      - application/json
+      description: Get ALl Question
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Question'
+      summary: Get All Question
+      tags:
+      - Question
+  /questions/{id}:
+    get:
+      consumes:
+      - application/json
+      description: User Can Get Question By Id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Question'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Question'
+      summary: Get Question By Id
+      tags:
+      - Question
   /register:
     post:
       consumes:
@@ -75,7 +414,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/entities.User'
+          $ref: '#/definitions/entities.RegisterUser'
       produces:
       - application/json
       responses:
@@ -124,6 +463,285 @@ paths:
       summary: Create Role
       tags:
       - Role
+  /student/answare:
+    post:
+      consumes:
+      - application/json
+      description: Student Can Create Answare
+      parameters:
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.AnswareResponse'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Answare'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Answare'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Answare'
+      security:
+      - JWT: []
+      summary: Create Answare Student
+      tags:
+      - Answare
+  /student/answare/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Student Can Delete Them Answare
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Answare'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Answare'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Answare'
+      security:
+      - JWT: []
+      summary: Delete Answare Student
+      tags:
+      - Answare
+    put:
+      consumes:
+      - application/json
+      description: Student Can Update Them Answare
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Answare'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Answare'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Answare'
+      security:
+      - JWT: []
+      summary: Update Answare Student
+      tags:
+      - Answare
+  /teacher/assignment:
+    post:
+      consumes:
+      - application/json
+      description: Teacher Can Create Assignment
+      parameters:
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.AssignmentResponse'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Assignment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Assignment'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Answare'
+      security:
+      - JWT: []
+      summary: Create Assignment Teacher
+      tags:
+      - Assignment
+  /teacher/assignment/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Teacher Can Delete Assignment
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Assignment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Assignment'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Answare'
+      security:
+      - JWT: []
+      summary: Delete Assignment Teacher
+      tags:
+      - Assignment
+    put:
+      consumes:
+      - application/json
+      description: Teacher Can Update Assignment
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Assignment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Assignment'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Answare'
+      security:
+      - JWT: []
+      summary: Update Assignment Teacher
+      tags:
+      - Assignment
+  /teacher/question/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Teacher Can delete Them Question
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Question'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Question'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Question'
+      security:
+      - JWT: []
+      summary: Delete Question Teacher
+      tags:
+      - Question
+    put:
+      consumes:
+      - application/json
+      description: Teacher Can Update Them Question
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Question'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Question'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Question'
+      security:
+      - JWT: []
+      summary: Update Question Teacher
+      tags:
+      - Question
+  /teacher/questions:
+    post:
+      consumes:
+      - application/json
+      description: Teacher Can Create Question
+      parameters:
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.QuestionResponse'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Question'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entities.Question'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entities.Question'
+      security:
+      - JWT: []
+      summary: Teacher Create Question
+      tags:
+      - Question
 schemes:
 - http
 - https
