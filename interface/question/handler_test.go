@@ -29,7 +29,7 @@ func TestCreateQuestion(t *testing.T) {
 		w := httptest.NewRecorder()
 
 		echoContext := e.NewContext(r, w)
-		err := questionController.CreateQuestionHandler(echoContext)
+		err := questionController.CreateQuestion(echoContext)
 
 		if err != nil {
 			return
@@ -46,7 +46,7 @@ func TestCreateQuestion(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := questionController.CreateQuestionHandler(echoContext)
+		err := questionController.CreateQuestion(echoContext)
 
 		if err != nil {
 			return
@@ -63,7 +63,7 @@ func TestCreateQuestion(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := questionController.CreateQuestionHandler(echoContext)
+		err := questionController.CreateQuestion(echoContext)
 
 		if err != nil {
 			return
@@ -108,7 +108,7 @@ func TestGetAllQuestion(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.GetAllQuestionsHandler(echoContext)
+		er := questionController.GetAllQuestions(echoContext)
 
 		if er != nil {
 			return
@@ -129,7 +129,7 @@ func TestGetAllQuestion(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.GetAllQuestionsHandler(echoContext)
+		er := questionController.GetAllQuestions(echoContext)
 
 		if er != nil {
 			return
@@ -168,7 +168,7 @@ func TestGetQuestionById(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.GetQuestionByIdHandler(echoContext)
+		er := questionController.GetQuestionById(echoContext)
 
 		if er != nil {
 			return
@@ -189,7 +189,7 @@ func TestGetQuestionById(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.GetQuestionByIdHandler(echoContext)
+		er := questionController.GetQuestionById(echoContext)
 
 		if er != nil {
 			return
@@ -227,7 +227,7 @@ func TestUpdateQuestion(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.UpdateQuestionHandler(echoContext)
+		er := questionController.UpdateQuestion(echoContext)
 
 		if er != nil {
 			return
@@ -248,7 +248,7 @@ func TestUpdateQuestion(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.UpdateQuestionHandler(echoContext)
+		er := questionController.UpdateQuestion(echoContext)
 
 		if er != nil {
 			return
@@ -269,7 +269,7 @@ func TestUpdateQuestion(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.UpdateQuestionHandler(echoContext)
+		er := questionController.UpdateQuestion(echoContext)
 
 		if er != nil {
 			return
@@ -307,7 +307,7 @@ func TestDeleteQuestion(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.DeleteQuestionHandler(echoContext)
+		er := questionController.DeleteQuestion(echoContext)
 
 		if er != nil {
 			return
@@ -328,7 +328,7 @@ func TestDeleteQuestion(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.DeleteQuestionHandler(echoContext)
+		er := questionController.DeleteQuestion(echoContext)
 
 		if er != nil {
 			return

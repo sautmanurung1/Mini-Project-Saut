@@ -12,7 +12,7 @@ type QuestionHandler struct {
 	Svc domains.QuestionService
 }
 
-func (h *QuestionHandler) CreateQuestionHandler(c echo.Context) error {
+func (h *QuestionHandler) CreateQuestion(c echo.Context) error {
 	questions := entities.Question{}
 
 	e := c.Bind(&questions)
@@ -41,7 +41,7 @@ func (h *QuestionHandler) CreateQuestionHandler(c echo.Context) error {
 	})
 }
 
-func (h *QuestionHandler) GetQuestionByIdHandler(c echo.Context) error {
+func (h *QuestionHandler) GetQuestionById(c echo.Context) error {
 	question := entities.Question{}
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -62,7 +62,7 @@ func (h *QuestionHandler) GetQuestionByIdHandler(c echo.Context) error {
 	})
 }
 
-func (h *QuestionHandler) GetAllQuestionsHandler(c echo.Context) error {
+func (h *QuestionHandler) GetAllQuestions(c echo.Context) error {
 	questions, err := h.Svc.GetAllQuestionService()
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -79,7 +79,7 @@ func (h *QuestionHandler) GetAllQuestionsHandler(c echo.Context) error {
 	})
 }
 
-func (h *QuestionHandler) UpdateQuestionHandler(c echo.Context) error {
+func (h *QuestionHandler) UpdateQuestion(c echo.Context) error {
 	var questions entities.Question
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -108,7 +108,7 @@ func (h *QuestionHandler) UpdateQuestionHandler(c echo.Context) error {
 	})
 }
 
-func (h *QuestionHandler) DeleteQuestionHandler(c echo.Context) error {
+func (h *QuestionHandler) DeleteQuestion(c echo.Context) error {
 	var questions entities.Question
 	id, _ := strconv.Atoi(c.Param("id"))
 
