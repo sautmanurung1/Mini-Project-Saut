@@ -1,10 +1,8 @@
-package testing
+package answare
 
 import (
-	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/domains/mocks"
 	"Tugas-Mini-Project/entities"
-	answares "Tugas-Mini-Project/interface/answare"
 	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
@@ -15,39 +13,10 @@ import (
 	"testing"
 )
 
-func TestCreateAnsware(t *testing.T) {
-	answareRepository := new(mocks.AnswareRepository)
-	answareData := entities.Answare{
-		QuestionId:  1,
-		UserId:      2,
-		Questions:   "Testing Question",
-		AnswareUser: "Testing Answare",
-		Name:        "Testing Name",
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		answareRepository.On("CreateAnsware", mock.Anything).Return(nil).Once()
-
-		answareRepository := domains.AnswareRepository(answareRepository)
-		err := answareRepository.CreateAnsware(answareData)
-
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		answareRepository.On("CreateAnsware", mock.Anything).Return(errors.New("Error To Create Answare")).Once()
-
-		answareRepository := domains.AnswareRepository(answareRepository)
-		err := answareRepository.CreateAnsware(answareData)
-
-		assert.Error(t, err)
-	})
-}
-
-func TestCreateAnswareService(t *testing.T) {
+func TestCreateAnswareHandler(t *testing.T) {
 	svc := mocks.AnswareService{}
 
-	answareController := answares.AnswareHandler{
+	answareController := AnswareHandler{
 		Svc: &svc,
 	}
 
@@ -103,47 +72,7 @@ func TestCreateAnswareService(t *testing.T) {
 	})
 }
 
-func TestGetAllAnsware(t *testing.T) {
-	answareRepo := new(mocks.AnswareRepository)
-	answareData := []entities.Answare{
-		{
-			QuestionId:  1,
-			UserId:      2,
-			Questions:   "Testing Question",
-			AnswareUser: "Testing Answare",
-			Name:        "Testing Name",
-		},
-		{
-			QuestionId:  2,
-			UserId:      3,
-			Questions:   "Testing Question 1",
-			AnswareUser: "Testing Answare 1",
-			Name:        "Testing Name 1",
-		},
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		answareRepo.On("GetAllAnsware").Return(answareData, nil).Once()
-
-		answareRepo := domains.AnswareRepository(answareRepo)
-		getAllAnsware, err := answareRepo.GetAllAnsware()
-
-		assert.Equal(t, getAllAnsware, answareData)
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		answareRepo.On("GetAllAnsware").Return(answareData, errors.New("Error To Get All Answare")).Once()
-
-		answareRepo := domains.AnswareRepository(answareRepo)
-		getAllAnsware, err := answareRepo.GetAllAnsware()
-
-		assert.Equal(t, getAllAnsware, answareData)
-		assert.Error(t, err)
-	})
-}
-
-func TestGetAllAnswareService(t *testing.T) {
+func TestGetAllAnswareHandler(t *testing.T) {
 	svc := mocks.AnswareService{}
 
 	answareService := new(mocks.AnswareService)
@@ -164,7 +93,7 @@ func TestGetAllAnswareService(t *testing.T) {
 		},
 	}
 
-	answareController := answares.AnswareHandler{
+	answareController := AnswareHandler{
 		Svc: &svc,
 	}
 
@@ -211,36 +140,7 @@ func TestGetAllAnswareService(t *testing.T) {
 	})
 }
 
-func TestGetAnswareById(t *testing.T) {
-	answareRepo := new(mocks.AnswareRepository)
-	answareData := entities.Answare{
-		QuestionId:  1,
-		UserId:      2,
-		Questions:   "Testing Question",
-		AnswareUser: "Testing Answare",
-		Name:        "Testing Name",
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		answareRepo.On("GetAnswareById", mock.Anything, mock.Anything).Return(nil).Once()
-
-		answareRepo := domains.AnswareRepository(answareRepo)
-		err := answareRepo.GetAnswareById(int(answareData.ID), answareData)
-
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		answareRepo.On("GetAnswareById", mock.Anything, mock.Anything).Return(errors.New("Error To Get Answare By Id")).Once()
-
-		answareRepo := domains.AnswareRepository(answareRepo)
-		err := answareRepo.GetAnswareById(int(answareData.ID), answareData)
-
-		assert.Error(t, err)
-	})
-}
-
-func TestGetAnswareByIdService(t *testing.T) {
+func TestGetAnswareByIdHandler(t *testing.T) {
 	svc := mocks.AnswareService{}
 
 	answareService := new(mocks.AnswareService)
@@ -253,7 +153,7 @@ func TestGetAnswareByIdService(t *testing.T) {
 		Name:        "Testing Name",
 	}
 
-	answareController := answares.AnswareHandler{
+	answareController := AnswareHandler{
 		Svc: &svc,
 	}
 
@@ -300,36 +200,7 @@ func TestGetAnswareByIdService(t *testing.T) {
 	})
 }
 
-func TestUpdateAnsware(t *testing.T) {
-	answareRepo := new(mocks.AnswareRepository)
-	answareData := entities.Answare{
-		QuestionId:  1,
-		UserId:      2,
-		Questions:   "Testing Question",
-		AnswareUser: "Testing Answare",
-		Name:        "Testing Name",
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		answareRepo.On("UpdateAnsware", mock.Anything, mock.Anything).Return(nil).Once()
-
-		answareRepo := domains.AnswareRepository(answareRepo)
-		err := answareRepo.UpdateAnsware(int(answareData.ID), answareData)
-
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		answareRepo.On("UpdateAnsware", mock.Anything, mock.Anything).Return(errors.New("Error To Update The Answare")).Once()
-
-		answareRepo := domains.AnswareRepository(answareRepo)
-		err := answareRepo.UpdateAnsware(int(answareData.ID), answareData)
-
-		assert.Error(t, err)
-	})
-}
-
-func TestUpdateAnswareService(t *testing.T) {
+func TestUpdateAnswareHandler(t *testing.T) {
 	svc := mocks.AnswareService{}
 
 	answareService := new(mocks.AnswareService)
@@ -342,7 +213,7 @@ func TestUpdateAnswareService(t *testing.T) {
 		Name:        "Testing Name",
 	}
 
-	answareController := answares.AnswareHandler{
+	answareController := AnswareHandler{
 		Svc: &svc,
 	}
 
@@ -410,36 +281,7 @@ func TestUpdateAnswareService(t *testing.T) {
 	})
 }
 
-func TestDeleteAnsware(t *testing.T) {
-	answareRepo := new(mocks.AnswareRepository)
-	answareData := entities.Answare{
-		QuestionId:  1,
-		UserId:      2,
-		Questions:   "Testing Question",
-		AnswareUser: "Testing Answare",
-		Name:        "Testing Name",
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		answareRepo.On("DeleteAnsware", mock.Anything, mock.Anything).Return(nil).Once()
-
-		answareRepo := domains.AnswareRepository(answareRepo)
-		err := answareRepo.DeleteAnsware(int(answareData.ID), answareData)
-
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		answareRepo.On("DeleteAnsware", mock.Anything, mock.Anything).Return(errors.New("Error To Update The Answare")).Once()
-
-		answareRepo := domains.AnswareRepository(answareRepo)
-		err := answareRepo.DeleteAnsware(int(answareData.ID), answareData)
-
-		assert.Error(t, err)
-	})
-}
-
-func TestDeleteAnswareService(t *testing.T) {
+func TestDeleteAnswareHandler(t *testing.T) {
 	svc := mocks.AnswareService{}
 
 	answareService := new(mocks.AnswareService)
@@ -452,7 +294,7 @@ func TestDeleteAnswareService(t *testing.T) {
 		Name:        "Testing Name",
 	}
 
-	answareController := answares.AnswareHandler{
+	answareController := AnswareHandler{
 		Svc: &svc,
 	}
 
