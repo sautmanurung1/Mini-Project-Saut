@@ -14,7 +14,7 @@ import (
 	"testing"
 )
 
-func TestCreateQuestionHandler(t *testing.T) {
+func TestCreateQuestion(t *testing.T) {
 	svc := mocks.QuestionService{}
 
 	questionController := question.QuestionHandler{
@@ -73,7 +73,7 @@ func TestCreateQuestionHandler(t *testing.T) {
 	})
 }
 
-func TestGetAllQuestionHandler(t *testing.T) {
+func TestGetAllQuestion(t *testing.T) {
 	svc := mocks.QuestionService{}
 
 	questionService := new(mocks.QuestionService)
@@ -141,7 +141,7 @@ func TestGetAllQuestionHandler(t *testing.T) {
 	})
 }
 
-func TestGetQuestionByIdHandler(t *testing.T) {
+func TestGetQuestionById(t *testing.T) {
 	svc := mocks.QuestionService{}
 
 	questionService := new(mocks.QuestionService)
@@ -201,7 +201,7 @@ func TestGetQuestionByIdHandler(t *testing.T) {
 	})
 }
 
-func TestUpdateQuestionHandler(t *testing.T) {
+func TestUpdateQuestion(t *testing.T) {
 	svc := mocks.QuestionService{}
 
 	questionService := new(mocks.QuestionService)
@@ -281,7 +281,7 @@ func TestUpdateQuestionHandler(t *testing.T) {
 	})
 }
 
-func TestDeleteQuestionHandler(t *testing.T) {
+func TestDeleteQuestion(t *testing.T) {
 	svc := mocks.QuestionService{}
 
 	questionService := new(mocks.QuestionService)

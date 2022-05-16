@@ -11,6 +11,7 @@ type Assignment struct {
 }
 
 type AssignmentResponse struct {
+	ID          int    `json:"id"`
 	Questions   string `json:"questions" validate:"required"`
 	Description string `json:"description" validate:"required"`
 	UserId      int    `json:"user_id" validate:"required"`

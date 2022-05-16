@@ -24,7 +24,7 @@ type AnswareHandler struct {
 // @Failure 400 {object} entities.Answare
 // @Failute 500 {object} entities.Answare
 // @Security JWT
-func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
+func (h *AnswareHandler) CreateAnsware(c echo.Context) error {
 	ans := entities.Answare{}
 
 	e := c.Bind(&ans)
@@ -53,17 +53,17 @@ func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
 	})
 }
 
-// GetAnswareByID godoc
+// GetAnswareById godoc
 // @Summary Get Answare Student By Id
 // @Description Student Can Get Answare By Id
 // @Tags Answare
 // @accept json
 // @Produce json
 // @Router /answare/{id} [get]
-// @param id path id entities.Answare true "id"
+// @param id path id entities.AnswareResponse true "id"
 // @Success 200 {object} entities.Answare
 // @Failure 400 {object} entities.Answare
-func (h *AnswareHandler) GetAnswareByIdHandler(c echo.Context) error {
+func (h *AnswareHandler) GetAnswareById(c echo.Context) error {
 	answerers := entities.Answare{}
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -91,7 +91,7 @@ func (h *AnswareHandler) GetAnswareByIdHandler(c echo.Context) error {
 // @Router /answare [get]
 // @Success 200 {object} entities.Answare
 // @Failure 500 {object} entities.Answare
-func (h *AnswareHandler) GetAllAnswareHandler(c echo.Context) error {
+func (h *AnswareHandler) GetAllAnsware(c echo.Context) error {
 	ans, err := h.Svc.GetAllAnswareService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -113,12 +113,12 @@ func (h *AnswareHandler) GetAllAnswareHandler(c echo.Context) error {
 // @accept json
 // @Produce json
 // @Router /student/answare/{id} [put]
-// @param data body entities.AnswareResponse true "required"
+// @param id path id entities.AnswareResponse true "id"
 // @Success 200 {object} entities.Answare
 // @Failure 400 {object} entities.Answare
 // @Failute 500 {object} entities.Answare
 // @Security JWT
-func (h *AnswareHandler) UpdateAnswareHandler(c echo.Context) error {
+func (h *AnswareHandler) UpdateAnsware(c echo.Context) error {
 	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -151,12 +151,12 @@ func (h *AnswareHandler) UpdateAnswareHandler(c echo.Context) error {
 // @accept json
 // @Produce json
 // @Router /student/answare/{id} [delete]
-// @param data body entities.AnswareResponse true "required"
+// @param id path id entities.AnswareResponse true "id"
 // @Success 200 {object} entities.Answare
 // @Failure 400 {object} entities.Answare
 // @Failute 500 {object} entities.Answare
 // @Security JWT
-func (h *AnswareHandler) DeleteAnswareHandler(c echo.Context) error {
+func (h *AnswareHandler) DeleteAnsware(c echo.Context) error {
 	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
 

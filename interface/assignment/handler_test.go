@@ -29,7 +29,7 @@ func TestCreateAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 
 		echoContext := e.NewContext(r, w)
-		err := assignmentController.CreateAssignmentHandler(echoContext)
+		err := assignmentController.CreateAssignment(echoContext)
 
 		if err != nil {
 			return
@@ -46,7 +46,7 @@ func TestCreateAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := assignmentController.CreateAssignmentHandler(echoContext)
+		err := assignmentController.CreateAssignment(echoContext)
 
 		if err != nil {
 			return
@@ -63,7 +63,7 @@ func TestCreateAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := assignmentController.CreateAssignmentHandler(echoContext)
+		err := assignmentController.CreateAssignment(echoContext)
 
 		if err != nil {
 			return
@@ -108,7 +108,7 @@ func TestGetAllAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := assignmentController.GetAllAssignmentHandler(echoContext)
+		er := assignmentController.GetAllAssignment(echoContext)
 
 		if er != nil {
 			return
@@ -129,7 +129,7 @@ func TestGetAllAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := assignmentController.GetAllAssignmentHandler(echoContext)
+		er := assignmentController.GetAllAssignment(echoContext)
 
 		if er != nil {
 			return
@@ -168,7 +168,7 @@ func TestGetAssignmentByIdHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := assignmentController.GetAssignmentByIdHandler(echoContext)
+		er := assignmentController.GetAssignmentById(echoContext)
 
 		if er != nil {
 			return
@@ -189,7 +189,7 @@ func TestGetAssignmentByIdHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := assignmentController.GetAssignmentByIdHandler(echoContext)
+		er := assignmentController.GetAssignmentById(echoContext)
 
 		if er != nil {
 			return
@@ -227,7 +227,7 @@ func TestUpdateAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := assignmentController.UpdateAssignmentHandler(echoContext)
+		er := assignmentController.UpdateAssignment(echoContext)
 
 		if er != nil {
 			return
@@ -248,7 +248,7 @@ func TestUpdateAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := assignmentController.UpdateAssignmentHandler(echoContext)
+		er := assignmentController.UpdateAssignment(echoContext)
 
 		if er != nil {
 			return
@@ -269,7 +269,7 @@ func TestUpdateAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := assignmentController.UpdateAssignmentHandler(echoContext)
+		er := assignmentController.UpdateAssignment(echoContext)
 
 		if er != nil {
 			return
@@ -307,7 +307,7 @@ func TestDeleteAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := assignmentController.DeleteAssignmentHandler(echoContext)
+		er := assignmentController.DeleteAssignment(echoContext)
 
 		if er != nil {
 			return
@@ -328,7 +328,7 @@ func TestDeleteAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := assignmentController.DeleteAssignmentHandler(echoContext)
+		er := assignmentController.DeleteAssignment(echoContext)
 
 		if er != nil {
 			return
@@ -349,7 +349,7 @@ func TestDeleteAssignmentHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := assignmentController.DeleteAssignmentHandler(echoContext)
+		er := assignmentController.DeleteAssignment(echoContext)
 
 		if er != nil {
 			return

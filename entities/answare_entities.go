@@ -12,6 +12,7 @@ type Answare struct {
 }
 
 type AnswareResponse struct {
+	ID          int    `json:"id"`
 	UserAnsware string `json:"answare_user" validate:"required"`
 	IdUser      int    `json:"user_id" validate:"required"`
 	IdQuestion  int    `json:"question_id" validate:"required"`

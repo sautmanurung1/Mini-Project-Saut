@@ -28,7 +28,7 @@ func TestCreateAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 
 		echoContext := e.NewContext(r, w)
-		err := answareController.CreateAnswareHandler(echoContext)
+		err := answareController.CreateAnsware(echoContext)
 
 		if err != nil {
 			return
@@ -45,7 +45,7 @@ func TestCreateAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := answareController.CreateAnswareHandler(echoContext)
+		err := answareController.CreateAnsware(echoContext)
 
 		if err != nil {
 			return
@@ -62,7 +62,7 @@ func TestCreateAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := answareController.CreateAnswareHandler(echoContext)
+		err := answareController.CreateAnsware(echoContext)
 
 		if err != nil {
 			return
@@ -107,7 +107,7 @@ func TestGetAllAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := answareController.GetAllAnswareHandler(echoContext)
+		er := answareController.GetAllAnsware(echoContext)
 
 		if er != nil {
 			return
@@ -128,7 +128,7 @@ func TestGetAllAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := answareController.GetAllAnswareHandler(echoContext)
+		er := answareController.GetAllAnsware(echoContext)
 
 		if er != nil {
 			return
@@ -167,7 +167,7 @@ func TestGetAnswareByIdHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := answareController.GetAnswareByIdHandler(echoContext)
+		er := answareController.GetAnswareById(echoContext)
 
 		if er != nil {
 			return
@@ -188,7 +188,7 @@ func TestGetAnswareByIdHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := answareController.GetAnswareByIdHandler(echoContext)
+		er := answareController.GetAnswareById(echoContext)
 
 		if er != nil {
 			return
@@ -227,7 +227,7 @@ func TestUpdateAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := answareController.UpdateAnswareHandler(echoContext)
+		er := answareController.UpdateAnsware(echoContext)
 
 		if er != nil {
 			return
@@ -248,7 +248,7 @@ func TestUpdateAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := answareController.UpdateAnswareHandler(echoContext)
+		er := answareController.UpdateAnsware(echoContext)
 
 		if er != nil {
 			return
@@ -269,7 +269,7 @@ func TestUpdateAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := answareController.UpdateAnswareHandler(echoContext)
+		er := answareController.UpdateAnsware(echoContext)
 
 		if er != nil {
 			return
@@ -308,7 +308,7 @@ func TestDeleteAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := answareController.DeleteAnswareHandler(echoContext)
+		er := answareController.DeleteAnsware(echoContext)
 
 		if er != nil {
 			return
@@ -329,7 +329,7 @@ func TestDeleteAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := answareController.DeleteAnswareHandler(echoContext)
+		er := answareController.DeleteAnsware(echoContext)
 
 		if er != nil {
 			return
@@ -350,7 +350,7 @@ func TestDeleteAnswareHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := answareController.DeleteAnswareHandler(echoContext)
+		er := answareController.DeleteAnsware(echoContext)
 
 		if er != nil {
 			return

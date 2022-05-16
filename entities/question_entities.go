@@ -12,6 +12,7 @@ type Question struct {
 }
 
 type QuestionResponse struct {
+	ID           int    `json:"id"`
 	QuestionUser string `json:"question_user" validate:"required"`
 	UserId       int    `json:"user_id" validate:"required"`
 	AssignmentId int    `json:"assignment_id" validate:"required"`

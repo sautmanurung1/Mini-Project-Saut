@@ -14,7 +14,7 @@ import (
 	"testing"
 )
 
-func TestCreateDiscussionsHandler(t *testing.T) {
+func TestCreateDiscussions(t *testing.T) {
 	svc := mocks.DiscussionsService{}
 
 	discussController := discussions.DiscussionHandler{
@@ -29,7 +29,7 @@ func TestCreateDiscussionsHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 
 		echoContext := e.NewContext(r, w)
-		err := discussController.CreateDiscsussions(echoContext)
+		err := discussController.CreateDiscussions(echoContext)
 
 		if err != nil {
 			return
@@ -46,7 +46,7 @@ func TestCreateDiscussionsHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := discussController.CreateDiscsussions(echoContext)
+		err := discussController.CreateDiscussions(echoContext)
 
 		if err != nil {
 			return
@@ -63,7 +63,7 @@ func TestCreateDiscussionsHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := discussController.CreateDiscsussions(echoContext)
+		err := discussController.CreateDiscussions(echoContext)
 
 		if err != nil {
 			return
@@ -73,7 +73,7 @@ func TestCreateDiscussionsHandler(t *testing.T) {
 	})
 }
 
-func TestGetAllDiscussionsHandler(t *testing.T) {
+func TestGetAllDiscussions(t *testing.T) {
 	svc := mocks.DiscussionsService{}
 
 	discussionService := new(mocks.DiscussionsService)

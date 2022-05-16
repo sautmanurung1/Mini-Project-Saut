@@ -24,7 +24,7 @@ type AssignmentHandler struct {
 // @Failure 400 {object} entities.Assignment
 // @Failute 500 {object} entities.Answare
 // @Security JWT
-func (h *AssignmentHandler) CreateAssignmentHandler(c echo.Context) error {
+func (h *AssignmentHandler) CreateAssignment(c echo.Context) error {
 	assign := entities.Assignment{}
 
 	e := c.Bind(&assign)
@@ -62,7 +62,7 @@ func (h *AssignmentHandler) CreateAssignmentHandler(c echo.Context) error {
 // @Router /assignment [get]
 // @Success 200 {object} entities.Assignment
 // @Failure 500 {object} entities.Assignment
-func (h *AssignmentHandler) GetAllAssignmentHandler(c echo.Context) error {
+func (h *AssignmentHandler) GetAllAssignment(c echo.Context) error {
 	assignments, err := h.Svc.GetAllAssignmentService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -77,18 +77,18 @@ func (h *AssignmentHandler) GetAllAssignmentHandler(c echo.Context) error {
 	})
 }
 
-// GetAssignmentByID godoc
+// GetAssignmentById godoc
 // @Summary Get Assignment By Id
 // @Description User Can Get Answare By ID
 // @Tags Assignment
 // @accept json
 // @Produce json
 // @Router /answare/{id} [get]
-// @param id path entities.Assignment true "id"
+// @param id path entities.AssignmentResponse true "id"
 // @Success 200 {object} entities.Assignment
 // @Failure 400 {object} entities.Assignment
 // @Security JWT
-func (h *AssignmentHandler) GetAssignmentByIdHandler(c echo.Context) error {
+func (h *AssignmentHandler) GetAssignmentById(c echo.Context) error {
 	var assignment entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -114,12 +114,12 @@ func (h *AssignmentHandler) GetAssignmentByIdHandler(c echo.Context) error {
 // @accept json
 // @Produce json
 // @Router /teacher/answare/{id} [put]
-// @param id path entities.Assignment true "id"
+// @param id path entities.AssignmentResponse true "id"
 // @Success 200 {object} entities.Assignment
 // @Failure 400 {object} entities.Assignment
 // @Failute 500 {object} entities.Answare
 // @Security JWT
-func (h *AssignmentHandler) UpdateAssignmentHandler(c echo.Context) error {
+func (h *AssignmentHandler) UpdateAssignment(c echo.Context) error {
 	var assignments entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -152,12 +152,12 @@ func (h *AssignmentHandler) UpdateAssignmentHandler(c echo.Context) error {
 // @accept json
 // @Produce json
 // @Router /teacher/answare/{id} [delete]
-// @param id path entities.Assignment true "id"
+// @param id path entities.AssignmentResponse true "id"
 // @Success 200 {object} entities.Assignment
 // @Failure 400 {object} entities.Assignment
 // @Failute 500 {object} entities.Answare
 // @Security JWT
-func (h *AssignmentHandler) DeleteAssignmentHandler(c echo.Context) error {
+func (h *AssignmentHandler) DeleteAssignment(c echo.Context) error {
 	var assign entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 

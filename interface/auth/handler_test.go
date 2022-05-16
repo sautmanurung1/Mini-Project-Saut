@@ -29,7 +29,7 @@ func TestRegisterHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := authController.RegisterHandler(echoContext)
+		err := authController.Register(echoContext)
 		if err != nil {
 			return
 		}
@@ -44,7 +44,7 @@ func TestRegisterHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 
 		echoContext := e.NewContext(r, w)
-		err := authController.RegisterHandler(echoContext)
+		err := authController.Register(echoContext)
 		if err != nil {
 			return
 		}
@@ -59,7 +59,7 @@ func TestRegisterHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 
 		echoContext := e.NewContext(r, w)
-		err := authController.RegisterHandler(echoContext)
+		err := authController.Register(echoContext)
 		if err != nil {
 			return
 		}
@@ -89,7 +89,7 @@ func TestLoginHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := authController.LoginHandler(echoContext)
+		err := authController.Login(echoContext)
 		if err != nil {
 			return
 		}
@@ -106,7 +106,7 @@ func TestLoginHandler(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := authController.LoginHandler(echoContext)
+		err := authController.Login(echoContext)
 		if err != nil {
 			return
 		}
