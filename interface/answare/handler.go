@@ -12,6 +12,18 @@ type AnswareHandler struct {
 	Svc domains.AnswareService
 }
 
+// CreateAnsware godoc
+// @Summary Create Answare Student
+// @Description Student Can Create Answare
+// @Tags Answare
+// @accept json
+// @Produce json
+// @Router /student/answare [post]
+// @param data body entities.AnswareResponse true "required"
+// @Success 200 {object} entities.Answare
+// @Failure 400 {object} entities.Answare
+// @Failute 500 {object} entities.Answare
+// @Security JWT
 func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
 	ans := entities.Answare{}
 
@@ -41,6 +53,16 @@ func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
 	})
 }
 
+// GetAnswareByID godoc
+// @Summary Get Answare Student By Id
+// @Description Student Can Get Answare By Id
+// @Tags Answare
+// @accept json
+// @Produce json
+// @Router /answare/{id} [get]
+// @param id path id entities.Answare true "id"
+// @Success 200 {object} entities.Answare
+// @Failure 400 {object} entities.Answare
 func (h *AnswareHandler) GetAnswareByIdHandler(c echo.Context) error {
 	answerers := entities.Answare{}
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -60,6 +82,15 @@ func (h *AnswareHandler) GetAnswareByIdHandler(c echo.Context) error {
 	})
 }
 
+// GetAllAnsware godoc
+// @Summary Get All Answare Student
+// @Description Student Can Get Answare
+// @Tags Answare
+// @accept json
+// @Produce json
+// @Router /answare [get]
+// @Success 200 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
 func (h *AnswareHandler) GetAllAnswareHandler(c echo.Context) error {
 	ans, err := h.Svc.GetAllAnswareService()
 	if err != nil {
@@ -75,6 +106,18 @@ func (h *AnswareHandler) GetAllAnswareHandler(c echo.Context) error {
 	})
 }
 
+// UpdateAnsware godoc
+// @Summary Update Answare Student
+// @Description Student Can Update Them Answare
+// @Tags Answare
+// @accept json
+// @Produce json
+// @Router /student/answare/{id} [put]
+// @param data body entities.AnswareResponse true "required"
+// @Success 200 {object} entities.Answare
+// @Failure 400 {object} entities.Answare
+// @Failute 500 {object} entities.Answare
+// @Security JWT
 func (h *AnswareHandler) UpdateAnswareHandler(c echo.Context) error {
 	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -101,6 +144,18 @@ func (h *AnswareHandler) UpdateAnswareHandler(c echo.Context) error {
 	})
 }
 
+// DeleteAnsware godoc
+// @Summary Delete Answare Student
+// @Description Student Can Delete Them Answare
+// @Tags Answare
+// @accept json
+// @Produce json
+// @Router /student/answare/{id} [delete]
+// @param data body entities.AnswareResponse true "required"
+// @Success 200 {object} entities.Answare
+// @Failure 400 {object} entities.Answare
+// @Failute 500 {object} entities.Answare
+// @Security JWT
 func (h *AnswareHandler) DeleteAnswareHandler(c echo.Context) error {
 	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))

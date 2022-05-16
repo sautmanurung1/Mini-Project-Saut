@@ -18,7 +18,7 @@ type AuthHandler struct {
 // @accept json
 // @Produce json
 // @Router /register [post]
-// @Param data body entities.User true "required"
+// @Param data body entities.RegisterUser true "required"
 // @Success 200 {object} entities.User
 // @Failure 401 {object} entities.User
 // @Failure 500 {object} entities.User
@@ -55,7 +55,7 @@ func (h *AuthHandler) RegisterHandler(c echo.Context) error {
 // @accept json
 // @Produce json
 // @Router /login [post]
-// @Param data body entities.User true "required"
+// @Param data body entities.LoginUser true "required"
 // @Success 200 {object} entities.User
 // @Success 400 {object} entities.User
 // @Failure 401 {object} entities.User

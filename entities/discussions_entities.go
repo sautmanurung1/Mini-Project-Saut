@@ -17,6 +17,12 @@ type Discussions struct {
 	AnswereUser  string   `json:"answare_user" validate:"required"`
 }
 
+type DiscussionsResponse struct {
+	UserId     int `json:"user_id" validate:"required"`
+	QuestionId int `json:"question_id" validate:"required"`
+	AnswareId  int `json:"answare_id" validate:"required"`
+}
+
 func (*Discussions) TableName() string {
 	return "discussions"
 }
