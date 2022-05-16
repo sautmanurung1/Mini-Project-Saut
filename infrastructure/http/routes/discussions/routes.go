@@ -17,5 +17,5 @@ func Routes(echo *echo.Echo, conf database.Config) {
 		Svc: svc,
 	}
 	echo.GET("/discussions", controller.GetAllDiscussions)
-	echo.POST("/discussions", controller.CreateDiscsussions)
+	echo.POST("/discussions", controller.CreateDiscussions)
 }
