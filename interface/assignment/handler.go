@@ -88,10 +88,9 @@ func (h *AssignmentHandler) GetAllAssignment(c echo.Context) error {
 // @Success 200 {object} entities.Assignment
 // @Failure 400 {object} entities.Assignment
 func (h *AssignmentHandler) GetAssignmentById(c echo.Context) error {
-	var assignment entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	assign, e := h.Svc.GetAssignmentByIdService(id, assignment)
+	assign, e := h.Svc.GetAssignmentByIdService(id)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{

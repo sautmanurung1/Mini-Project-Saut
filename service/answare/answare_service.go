@@ -26,11 +26,12 @@ func (s *svcAnsware) CreateAnswareService(answare entities.Answare) (string, err
 	}
 }
 
-func (s *svcAnsware) GetAnswareByIdService(id int, answare entities.Answare) (string, error) {
+func (s *svcAnsware) GetAnswareByIdService(id int) (entities.Answare, error) {
+	var answare entities.Answare
 	if id != answare.QuestionId {
-		return "ID not Match", nil
+		return answare, nil
 	} else {
-		return "Get Answare By Id ...", s.repo.GetAnswareById(id, answare)
+		return s.repo.GetAnswareById(id)
 	}
 }
 
@@ -38,11 +39,11 @@ func (s *svcAnsware) GetAllAnswareService() (ans []entities.Answare, err error) 
 	return s.repo.GetAllAnsware()
 }
 
-func (s *svcAnsware) UpdateAnswareService(id int, answare entities.Answare) (string, error) {
+func (s *svcAnsware) UpdateAnswareService(id int, answare entities.Answare) (entities.Answare, error) {
 	if answare.UserId == 1 && answare.QuestionId == id {
-		return "User Can't Answare Because the user is Teacher", nil
+		return answare, nil
 	} else {
-		return "Student Update Answare From Question ...", s.repo.UpdateAnsware(id, answare)
+		return s.repo.UpdateAnsware(id, answare)
 	}
 }
 

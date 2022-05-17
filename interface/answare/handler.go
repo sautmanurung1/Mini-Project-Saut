@@ -64,10 +64,9 @@ func (h *AnswareHandler) CreateAnsware(c echo.Context) error {
 // @Success 200 {object} entities.Answare
 // @Failure 400 {object} entities.Answare
 func (h *AnswareHandler) GetAnswareById(c echo.Context) error {
-	answerers := entities.Answare{}
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	ans, e := h.Svc.GetAnswareByIdService(id, answerers)
+	ans, e := h.Svc.GetAnswareByIdService(id)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{

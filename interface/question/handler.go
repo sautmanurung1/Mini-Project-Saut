@@ -64,11 +64,10 @@ func (h *QuestionHandler) CreateQuestion(c echo.Context) error {
 // @Success 200 {object} entities.Question
 // @Failure 400 {object} entities.Question
 func (h *QuestionHandler) GetQuestionById(c echo.Context) error {
-	question := entities.Question{}
+	// question := entities.Question{}
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	questions, er := h.Svc.GetQuestionByIDService(id, question)
-
+	questions, er := h.Svc.GetQuestionByIDService(id)
 	if er != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Status":  http.StatusBadRequest,

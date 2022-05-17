@@ -3,7 +3,7 @@ package entities
 type Assignment struct {
 	ID          uint   `gorm:"primaryKey" json:"id"`
 	UserId      int    `gorm:"not null" json:"user_id"`
-	User        User   `gorm:"ForeignKey:UserId;References:ID;null" json:"-"`
+	User        User   `gorm:"ForeignKey:UserId;References:ID;null;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"-"`
 	Description string `json:"description" validate:"required"`
 	Questions   string `json:"questions" validate:"required"`
 	Name        string `json:"name" validate:"required" gorm:"column:name"`

@@ -18,8 +18,8 @@ func NewDiscussionsService(repo domains.DiscussionsRepository, c database.Config
 	}
 }
 
-func (s *svcDiscussions) CreateDiscussionsService(discussions entities.Discussions) (string, error) {
-	return "You can Create some Discussions", s.repo.CreateDiscussions(discussions)
+func (s *svcDiscussions) CreateDiscussionsService(discussions entities.Discussions) error {
+	return s.repo.CreateDiscussions(discussions)
 }
 
 func (s *svcDiscussions) GetAllDiscussionsService() (discussions []entities.Discussions, err error) {
