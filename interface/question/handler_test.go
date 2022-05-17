@@ -1,9 +1,9 @@
 package question_test
 
 import (
-	"Tugas-Mini-Project/domains/mocks"
 	"Tugas-Mini-Project/entities"
 	"Tugas-Mini-Project/interface/question"
+	question2 "Tugas-Mini-Project/testing/service_test/question"
 	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
@@ -15,7 +15,7 @@ import (
 )
 
 func TestCreateQuestion(t *testing.T) {
-	svc := mocks.QuestionService{}
+	svc := question2.QuestionService{}
 
 	questionController := question.QuestionHandler{
 		Svc: &svc,
@@ -74,9 +74,9 @@ func TestCreateQuestion(t *testing.T) {
 }
 
 func TestGetAllQuestion(t *testing.T) {
-	svc := mocks.QuestionService{}
+	svc := question2.QuestionService{}
 
-	questionService := new(mocks.QuestionService)
+	questionService := new(question2.QuestionService)
 	questionData := []entities.Question{
 		{
 			AssignmentId:    1,
@@ -142,9 +142,9 @@ func TestGetAllQuestion(t *testing.T) {
 }
 
 func TestGetQuestionById(t *testing.T) {
-	svc := mocks.QuestionService{}
+	svc := question2.QuestionService{}
 
-	questionService := new(mocks.QuestionService)
+	questionService := new(question2.QuestionService)
 
 	questionData := entities.Question{
 		AssignmentId:    1,
@@ -202,9 +202,9 @@ func TestGetQuestionById(t *testing.T) {
 }
 
 func TestUpdateQuestion(t *testing.T) {
-	svc := mocks.QuestionService{}
+	svc := question2.QuestionService{}
 
-	questionService := new(mocks.QuestionService)
+	questionService := new(question2.QuestionService)
 	questionData := entities.Question{
 		AssignmentId:    1,
 		AssignmentTitle: "Assignment Title Testing",
@@ -282,9 +282,9 @@ func TestUpdateQuestion(t *testing.T) {
 }
 
 func TestDeleteQuestion(t *testing.T) {
-	svc := mocks.QuestionService{}
+	svc := question2.QuestionService{}
 
-	questionService := new(mocks.QuestionService)
+	questionService := new(question2.QuestionService)
 	questionData := entities.Question{
 		AssignmentId:    1,
 		AssignmentTitle: "Assignment Title Testing",

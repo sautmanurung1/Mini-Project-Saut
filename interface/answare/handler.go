@@ -113,6 +113,7 @@ func (h *AnswareHandler) GetAllAnsware(c echo.Context) error {
 // @Produce json
 // @Router /student/answare/{id} [put]
 // @param id path int true "id"
+// @param data body entities.AnswareResponse true "required"
 // @Success 200 {object} entities.Answare
 // @Failure 400 {object} entities.Answare
 // @Failure 500 {object} entities.Answare
@@ -151,6 +152,7 @@ func (h *AnswareHandler) UpdateAnsware(c echo.Context) error {
 // @Produce json
 // @Router /student/answare/{id} [delete]
 // @param id path int true "id"
+// @param data body entities.AnswareResponse true "required"
 // @Success 200 {object} entities.Answare
 // @Failure 400 {object} entities.Answare
 // @Failure 500 {object} entities.Answare

@@ -1,9 +1,9 @@
 package auth_test
 
 import (
-	"Tugas-Mini-Project/domains/mocks"
 	"Tugas-Mini-Project/entities"
 	"Tugas-Mini-Project/interface/auth"
+	auth2 "Tugas-Mini-Project/testing/service_test/auth"
 	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
@@ -16,7 +16,7 @@ import (
 )
 
 func TestRegisterHandler(t *testing.T) {
-	svc := mocks.AuthService{}
+	svc := auth2.AuthService{}
 
 	authController := auth.AuthHandler{
 		Svc: &svc,
@@ -69,8 +69,8 @@ func TestRegisterHandler(t *testing.T) {
 }
 
 func TestLoginHandler(t *testing.T) {
-	svc := mocks.AuthService{}
-	userLogin := new(mocks.AuthService)
+	svc := auth2.AuthService{}
+	userLogin := new(auth2.AuthService)
 	userLoginData := entities.User{
 		Username: "Username Testing",
 		Password: "Password Testing",

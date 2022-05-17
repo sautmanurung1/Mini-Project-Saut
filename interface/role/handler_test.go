@@ -1,8 +1,8 @@
 package role_test
 
 import (
-	"Tugas-Mini-Project/domains/mocks"
 	"Tugas-Mini-Project/interface/role"
+	role2 "Tugas-Mini-Project/testing/service_test/role"
 	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
@@ -14,7 +14,7 @@ import (
 )
 
 func TestCreateRoleHandler(t *testing.T) {
-	svc := mocks.RoleService{}
+	svc := role2.RoleService{}
 
 	roleController := role.RoleHandler{
 		Svc: &svc,

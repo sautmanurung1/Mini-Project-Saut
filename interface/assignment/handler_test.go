@@ -1,9 +1,9 @@
 package assignment_test
 
 import (
-	"Tugas-Mini-Project/domains/mocks"
 	"Tugas-Mini-Project/entities"
 	"Tugas-Mini-Project/interface/assignment"
+	assignment2 "Tugas-Mini-Project/testing/service_test/assignment"
 	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
@@ -15,7 +15,7 @@ import (
 )
 
 func TestCreateAssignmentHandler(t *testing.T) {
-	svc := mocks.AssignmentService{}
+	svc := assignment2.AssignmentService{}
 
 	assignmentController := assignment.AssignmentHandler{
 		Svc: &svc,
@@ -74,9 +74,9 @@ func TestCreateAssignmentHandler(t *testing.T) {
 }
 
 func TestGetAllAssignmentHandler(t *testing.T) {
-	svc := mocks.AssignmentService{}
+	svc := assignment2.AssignmentService{}
 
-	assignmentService := new(mocks.AssignmentService)
+	assignmentService := new(assignment2.AssignmentService)
 	assignmentData := []entities.Assignment{
 		{
 			UserId:      1,
@@ -142,9 +142,9 @@ func TestGetAllAssignmentHandler(t *testing.T) {
 }
 
 func TestGetAssignmentByIdHandler(t *testing.T) {
-	svc := mocks.AssignmentService{}
+	svc := assignment2.AssignmentService{}
 
-	assignmentService := new(mocks.AssignmentService)
+	assignmentService := new(assignment2.AssignmentService)
 
 	assignmentData := entities.Assignment{
 		UserId:      1,
@@ -202,9 +202,9 @@ func TestGetAssignmentByIdHandler(t *testing.T) {
 }
 
 func TestUpdateAssignmentHandler(t *testing.T) {
-	svc := mocks.AssignmentService{}
+	svc := assignment2.AssignmentService{}
 
-	assignmentService := new(mocks.AssignmentService)
+	assignmentService := new(assignment2.AssignmentService)
 	assignmentData := entities.Assignment{
 		UserId:      1,
 		Description: "Description Testing",
@@ -282,9 +282,9 @@ func TestUpdateAssignmentHandler(t *testing.T) {
 }
 
 func TestDeleteAssignmentHandler(t *testing.T) {
-	svc := mocks.AssignmentService{}
+	svc := assignment2.AssignmentService{}
 
-	assignmentService := new(mocks.AssignmentService)
+	assignmentService := new(assignment2.AssignmentService)
 	assignmentData := entities.Assignment{
 		UserId:      1,
 		Description: "Description Testing",

@@ -1,9 +1,9 @@
 package discussions_test
 
 import (
-	"Tugas-Mini-Project/domains/mocks"
 	"Tugas-Mini-Project/entities"
 	"Tugas-Mini-Project/interface/discussions"
+	discussions2 "Tugas-Mini-Project/testing/service_test/discussions"
 	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
@@ -15,7 +15,7 @@ import (
 )
 
 func TestCreateDiscussions(t *testing.T) {
-	svc := mocks.DiscussionsService{}
+	svc := discussions2.DiscussionsService{}
 
 	discussController := discussions.DiscussionHandler{
 		Svc: &svc,
@@ -57,9 +57,9 @@ func TestCreateDiscussions(t *testing.T) {
 }
 
 func TestGetAllDiscussions(t *testing.T) {
-	svc := mocks.DiscussionsService{}
+	svc := discussions2.DiscussionsService{}
 
-	discussionService := new(mocks.DiscussionsService)
+	discussionService := new(discussions2.DiscussionsService)
 	discussionsData := []entities.Discussions{
 		{
 			UserId:       1,

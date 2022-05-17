@@ -508,6 +508,12 @@ paths:
         name: id
         required: true
         type: integer
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.AnswareResponse'
       produces:
       - application/json
       responses:
@@ -538,6 +544,12 @@ paths:
         name: id
         required: true
         type: integer
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.AnswareResponse'
       produces:
       - application/json
       responses:
@@ -601,6 +613,12 @@ paths:
         name: id
         required: true
         type: integer
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.AssignmentResponse'
       produces:
       - application/json
       responses:
@@ -631,6 +649,12 @@ paths:
         name: id
         required: true
         type: integer
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.AssignmentResponse'
       produces:
       - application/json
       responses:
@@ -662,6 +686,12 @@ paths:
         name: id
         required: true
         type: integer
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.QuestionResponse'
       produces:
       - application/json
       responses:
@@ -692,6 +722,12 @@ paths:
         name: id
         required: true
         type: integer
+      - description: required
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entities.QuestionResponse'
       produces:
       - application/json
       responses:

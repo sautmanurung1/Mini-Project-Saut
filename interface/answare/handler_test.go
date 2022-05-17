@@ -1,8 +1,8 @@
 package answare
 
 import (
-	"Tugas-Mini-Project/domains/mocks"
 	"Tugas-Mini-Project/entities"
+	"Tugas-Mini-Project/testing/service_test/answare"
 	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
@@ -14,7 +14,7 @@ import (
 )
 
 func TestCreateAnswareHandler(t *testing.T) {
-	svc := mocks.AnswareService{}
+	svc := answare.AnswareService{}
 
 	answareController := AnswareHandler{
 		Svc: &svc,
@@ -73,9 +73,9 @@ func TestCreateAnswareHandler(t *testing.T) {
 }
 
 func TestGetAllAnswareHandler(t *testing.T) {
-	svc := mocks.AnswareService{}
+	svc := answare.AnswareService{}
 
-	answareService := new(mocks.AnswareService)
+	answareService := new(answare.AnswareService)
 	answareData := []entities.Answare{
 		{
 			QuestionId:  1,
@@ -141,9 +141,9 @@ func TestGetAllAnswareHandler(t *testing.T) {
 }
 
 func TestGetAnswareByIdHandler(t *testing.T) {
-	svc := mocks.AnswareService{}
+	svc := answare.AnswareService{}
 
-	answareService := new(mocks.AnswareService)
+	answareService := new(answare.AnswareService)
 
 	answareData := entities.Answare{
 		QuestionId:  1,
@@ -201,9 +201,9 @@ func TestGetAnswareByIdHandler(t *testing.T) {
 }
 
 func TestUpdateAnswareHandler(t *testing.T) {
-	svc := mocks.AnswareService{}
+	svc := answare.AnswareService{}
 
-	answareService := new(mocks.AnswareService)
+	answareService := new(answare.AnswareService)
 
 	answareData := entities.Answare{
 		QuestionId:  1,
@@ -282,9 +282,9 @@ func TestUpdateAnswareHandler(t *testing.T) {
 }
 
 func TestDeleteAnswareHandler(t *testing.T) {
-	svc := mocks.AnswareService{}
+	svc := answare.AnswareService{}
 
-	answareService := new(mocks.AnswareService)
+	answareService := new(answare.AnswareService)
 
 	answareData := entities.Answare{
 		QuestionId:  1,
