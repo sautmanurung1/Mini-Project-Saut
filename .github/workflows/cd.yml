@@ -24,7 +24,7 @@ jobs:
         with:
           push: true
           tags: sautmanurung234/mini-project:v1
-      - name: ssh aws ec2 and redeploy docker
+      - name: ssh aws ec2 and redeploy docker and running
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
