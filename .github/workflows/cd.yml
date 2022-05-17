@@ -32,8 +32,6 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
           script: |
-            apt update
-            apt install docker docker.io
             docker login -u sautmanurung234 -p X123stnd234
             docker pull sautmanurung234/mini-project:v1
             docker run -d -p 80:8080 sautmanurung234/mini-project:v1
