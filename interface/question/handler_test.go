@@ -159,10 +159,10 @@ func TestGetQuestionById(t *testing.T) {
 	}
 
 	t.Run("Success", func(t *testing.T) {
-		questionService.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return("Success To Get Question By Id", nil).Once()
-		service, err := questionService.GetQuestionByIDService(int(questionData.ID), questionData)
+		questionService.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return(questionData, nil).Once()
+		service, err := questionService.GetQuestionByIDService(int(questionData.ID))
 
-		svc.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return("Success To Get Question By Id", nil).Once()
+		svc.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return(questionData, nil).Once()
 		e := echo.New()
 		r := httptest.NewRequest("GET", "/question/:id", nil)
 		w := httptest.NewRecorder()
@@ -174,16 +174,16 @@ func TestGetQuestionById(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, service, "Success To Get Question By Id")
+		assert.Equal(t, service, questionData)
 		assert.Equal(t, 200, w.Result().StatusCode)
 		assert.NoError(t, err)
 	})
 
 	t.Run("BadRequest", func(t *testing.T) {
-		questionService.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return("Failed To Get Question By Id", errors.New("Error To Get Question By Id")).Once()
-		service, err := questionService.GetQuestionByIDService(int(questionData.ID), questionData)
+		questionService.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Get Question By Id")).Once()
+		service, err := questionService.GetQuestionByIDService(int(questionData.ID))
 
-		svc.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return("Failed To Get Assignment By Id", errors.New("Error To Get Question By Id")).Once()
+		svc.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Get Question By Id")).Once()
 		e := echo.New()
 		r := httptest.NewRequest("GET", "/question/:id", io.Reader(strings.NewReader(`{"Status" : "Bad Request"}`)))
 		w := httptest.NewRecorder()
@@ -195,7 +195,7 @@ func TestGetQuestionById(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, service, "Failed To Get Question By Id")
+		assert.Equal(t, service, questionData)
 		assert.Equal(t, 400, w.Result().StatusCode)
 		assert.Error(t, err)
 	})
@@ -218,10 +218,10 @@ func TestUpdateQuestion(t *testing.T) {
 	}
 
 	t.Run("Success", func(t *testing.T) {
-		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Success To Update Question By Id", nil).Once()
+		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, nil).Once()
 		service, err := questionService.UpdateQuestionService(int(questionData.ID), questionData)
 
-		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Success To Update Assignment By Id", nil).Once()
+		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, nil).Once()
 		e := echo.New()
 		r := httptest.NewRequest("PUT", "/teacher/question/:id", nil)
 		w := httptest.NewRecorder()
@@ -233,16 +233,16 @@ func TestUpdateQuestion(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, service, "Success To Update Question By Id")
+		assert.Equal(t, service, questionData)
 		assert.Equal(t, 200, w.Result().StatusCode)
 		assert.NoError(t, err)
 	})
 
 	t.Run("BadRequest", func(t *testing.T) {
-		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Error To Update Question By Id", errors.New("Error To Update Question By Id")).Once()
+		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Update Question By Id")).Once()
 		service, err := questionService.UpdateQuestionService(int(questionData.ID), questionData)
 
-		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Error To Update Question By Id", errors.New("Error To Update Question By Id")).Once()
+		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Update Question By Id")).Once()
 		e := echo.New()
 		r := httptest.NewRequest("PUT", "/teacher/question/:id", io.Reader(strings.NewReader(`{"Status" : "Bad Request"}`)))
 		w := httptest.NewRecorder()
@@ -254,16 +254,16 @@ func TestUpdateQuestion(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, service, "Error To Update Question By Id")
+		assert.Equal(t, service, questionData)
 		assert.Equal(t, 400, w.Result().StatusCode)
 		assert.Error(t, err)
 	})
 
 	t.Run("ServerError", func(t *testing.T) {
-		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Error To Update Question By Id", errors.New("Error To Update Question By Id")).Once()
+		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Update Question By Id")).Once()
 		service, err := questionService.UpdateQuestionService(int(questionData.ID), questionData)
 
-		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Error To Update Question By Id", errors.New("Error To Update Question By Id")).Once()
+		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Update Question By Id")).Once()
 		e := echo.New()
 		r := httptest.NewRequest("PUT", "/teacher/question/:id", nil)
 		w := httptest.NewRecorder()
@@ -275,7 +275,7 @@ func TestUpdateQuestion(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, service, "Error To Update Question By Id")
+		assert.Equal(t, service, questionData)
 		assert.Equal(t, 500, w.Result().StatusCode)
 		assert.Error(t, err)
 	})

@@ -159,10 +159,10 @@ func TestGetAssignmentByIdHandler(t *testing.T) {
 	}
 
 	t.Run("Success", func(t *testing.T) {
-		assignmentService.On("GetAssignmentByIdService", mock.Anything, mock.Anything).Return("Success To Get Assignment By Id", nil).Once()
-		service, err := assignmentService.GetAssignmentByIdService(int(assignmentData.ID), assignmentData)
+		assignmentService.On("GetAssignmentByIdService", mock.Anything, mock.Anything).Return(assignmentData, nil).Once()
+		service, err := assignmentService.GetAssignmentByIdService(int(assignmentData.ID))
 
-		svc.On("GetAssignmentByIdService", mock.Anything, mock.Anything).Return("Success To Get Assignment By Id", nil).Once()
+		svc.On("GetAssignmentByIdService", mock.Anything, mock.Anything).Return(assignmentData, nil).Once()
 		e := echo.New()
 		r := httptest.NewRequest("GET", "/assignment/:id", nil)
 		w := httptest.NewRecorder()
@@ -174,16 +174,16 @@ func TestGetAssignmentByIdHandler(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, service, "Success To Get Assignment By Id")
+		assert.Equal(t, service, assignmentData)
 		assert.Equal(t, 200, w.Result().StatusCode)
 		assert.NoError(t, err)
 	})
 
 	t.Run("BadRequest", func(t *testing.T) {
-		assignmentService.On("GetAssignmentByIdService", mock.Anything, mock.Anything).Return("Failed To Get Assignment By Id", errors.New("Error To Get Assignment By Id")).Once()
-		service, err := assignmentService.GetAssignmentByIdService(int(assignmentData.ID), assignmentData)
+		assignmentService.On("GetAssignmentByIdService", mock.Anything, mock.Anything).Return(assignmentData, errors.New("Error To Get Assignment By Id")).Once()
+		service, err := assignmentService.GetAssignmentByIdService(int(assignmentData.ID))
 
-		svc.On("GetAssignmentByIdService", mock.Anything, mock.Anything).Return("Failed To Get Assignment By Id", errors.New("Error To Get Assignment By Id")).Once()
+		svc.On("GetAssignmentByIdService", mock.Anything, mock.Anything).Return(assignmentData, errors.New("Error To Get Assignment By Id")).Once()
 		e := echo.New()
 		r := httptest.NewRequest("GET", "/assignment/:id", io.Reader(strings.NewReader(`{"Status" : "Bad Request"}`)))
 		w := httptest.NewRecorder()
@@ -195,7 +195,7 @@ func TestGetAssignmentByIdHandler(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, service, "Failed To Get Assignment By Id")
+		assert.Equal(t, service, assignmentData)
 		assert.Equal(t, 400, w.Result().StatusCode)
 		assert.Error(t, err)
 	})
@@ -218,10 +218,10 @@ func TestUpdateAssignmentHandler(t *testing.T) {
 	}
 
 	t.Run("Success", func(t *testing.T) {
-		assignmentService.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return("Success To Update Assignment By Id", nil).Once()
+		assignmentService.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return(assignmentData, nil).Once()
 		service, err := assignmentService.UpdateAssignmentService(int(assignmentData.ID), assignmentData)
 
-		svc.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return("Success To Update Assignment By Id", nil).Once()
+		svc.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return(assignmentData, nil).Once()
 		e := echo.New()
 		r := httptest.NewRequest("PUT", "/teacher/assignment/:id", nil)
 		w := httptest.NewRecorder()
@@ -233,16 +233,16 @@ func TestUpdateAssignmentHandler(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, service, "Success To Update Assignment By Id")
+		assert.Equal(t, service, assignmentData)
 		assert.Equal(t, 200, w.Result().StatusCode)
 		assert.NoError(t, err)
 	})
 
 	t.Run("BadRequest", func(t *testing.T) {
-		assignmentService.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return("Error To Update Assignment By Id", errors.New("Error To Update Assignment By Id")).Once()
+		assignmentService.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return(assignmentData, errors.New("Error To Update Assignment By Id")).Once()
 		service, err := assignmentService.UpdateAssignmentService(int(assignmentData.ID), assignmentData)
 
-		svc.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return("Error To Update Assignment By Id", errors.New("Error To Update Assignment By Id")).Once()
+		svc.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return(assignmentData, errors.New("Error To Update Assignment By Id")).Once()
 		e := echo.New()
 		r := httptest.NewRequest("PUT", "/teacher/assignment/:id", io.Reader(strings.NewReader(`{"Status" : "Bad Request"}`)))
 		w := httptest.NewRecorder()
@@ -254,16 +254,16 @@ func TestUpdateAssignmentHandler(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, service, "Error To Update Assignment By Id")
+		assert.Equal(t, service, assignmentData)
 		assert.Equal(t, 400, w.Result().StatusCode)
 		assert.Error(t, err)
 	})
 
 	t.Run("ServerError", func(t *testing.T) {
-		assignmentService.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return("Error To Update Assignment By Id", errors.New("Error To Update Assignment By Id")).Once()
+		assignmentService.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return(assignmentData, errors.New("Error To Update Assignment By Id")).Once()
 		service, err := assignmentService.UpdateAssignmentService(int(assignmentData.ID), assignmentData)
 
-		svc.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return("Error To Update Assignment By Id", errors.New("Error To Update Assignment By Id")).Once()
+		svc.On("UpdateAssignmentService", mock.Anything, mock.Anything).Return(assignmentData, errors.New("Error To Update Assignment By Id")).Once()
 		e := echo.New()
 		r := httptest.NewRequest("PUT", "/teacher/assignment/:id", nil)
 		w := httptest.NewRecorder()
@@ -275,7 +275,7 @@ func TestUpdateAssignmentHandler(t *testing.T) {
 			return
 		}
 
-		assert.Equal(t, service, "Error To Update Assignment By Id")
+		assert.Equal(t, service, assignmentData)
 		assert.Equal(t, 500, w.Result().StatusCode)
 		assert.Error(t, err)
 	})

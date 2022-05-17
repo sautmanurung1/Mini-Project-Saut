@@ -22,7 +22,7 @@ func TestCreateDiscussions(t *testing.T) {
 	}
 
 	t.Run("Success", func(t *testing.T) {
-		svc.On("CreateDiscussionsService", mock.Anything).Return("Success Create Discussions", nil).Once()
+		svc.On("CreateDiscussionsService", mock.Anything).Return(nil).Once()
 
 		e := echo.New()
 		r := httptest.NewRequest("POST", "/discussions", nil)
@@ -39,7 +39,7 @@ func TestCreateDiscussions(t *testing.T) {
 	})
 
 	t.Run("BadRequest", func(t *testing.T) {
-		svc.On("CreateDiscussionsService", mock.Anything).Return("Server Have Bad Request", errors.New("Error To Create Discussions")).Once()
+		svc.On("CreateDiscussionsService", mock.Anything).Return(errors.New("Error To Create Discussions")).Once()
 
 		e := echo.New()
 		r := httptest.NewRequest("POST", "/discussions", io.Reader(strings.NewReader(`{"Status" : "Bad Request"}`)))
@@ -53,23 +53,6 @@ func TestCreateDiscussions(t *testing.T) {
 		}
 
 		assert.Equal(t, 400, w.Result().StatusCode)
-	})
-
-	t.Run("ServerError", func(t *testing.T) {
-		svc.On("CreateDiscussionsService", mock.Anything).Return("Internal Server Error", errors.New("Error To Create Discussions")).Once()
-
-		e := echo.New()
-		r := httptest.NewRequest("POST", "/discussions", nil)
-		w := httptest.NewRecorder()
-		echoContext := e.NewContext(r, w)
-
-		err := discussController.CreateDiscussions(echoContext)
-
-		if err != nil {
-			return
-		}
-
-		assert.Equal(t, 500, w.Result().StatusCode)
 	})
 }
 

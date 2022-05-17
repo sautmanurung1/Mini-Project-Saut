@@ -35,15 +35,6 @@ func (h *DiscussionHandler) CreateDiscussions(c echo.Context) error {
 	}
 
 	discussions := h.Svc.CreateDiscussionsService(discuss)
-	/*
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-				"Status": http.StatusInternalServerError,
-				"Error":  "Error",
-				"Data":   err.Error(),
-			})
-		}
-	*/
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
