@@ -24,3 +24,13 @@ jobs:
         with:
           push: true
           tags: sautmanurung234/mini-project:v1
+      - name: ssh aws ec2 and redeploy docker
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secret.HOST }}
+          username: ${{ secret.USERNAME }}
+          key: ${{ secret.KEY }}
+          port: ${{ secret.PORT }}
+          script: |
+            docker pull sautmanurung234/mini-project:v1
+            docker run -p 80:8080 --name mini-project --detach sautmanurung234/mini-project:v1
