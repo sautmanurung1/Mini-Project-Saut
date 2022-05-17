@@ -18,6 +18,6 @@ func Routes(echo *echo.Echo, conf database.Config) {
 		Svc: svc,
 	}
 
-	echo.POST("/register", controller.RegisterHandler)
-	echo.POST("/login", controller.LoginHandler)
+	echo.POST("/register", controller.Register)
+	echo.POST("/login", controller.Login)
 }

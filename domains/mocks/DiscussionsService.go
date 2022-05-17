@@ -14,24 +14,17 @@ type DiscussionsService struct {
 }
 
 // CreateDiscussionsService provides a mock function with given fields: discussions
-func (_m *DiscussionsService) CreateDiscussionsService(discussions entities.Discussions) (string, error) {
+func (_m *DiscussionsService) CreateDiscussionsService(discussions entities.Discussions) error {
 	ret := _m.Called(discussions)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(entities.Discussions) string); ok {
+	var r0 error
+	if rf, ok := ret.Get(0).(func(entities.Discussions) error); ok {
 		r0 = rf(discussions)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Error(0)
 	}
 
-	var r1 error
-	if rf, ok := ret.Get(1).(func(entities.Discussions) error); ok {
-		r1 = rf(discussions)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
+	return r0
 }
 
 // GetAllDiscussionsService provides a mock function with given fields:

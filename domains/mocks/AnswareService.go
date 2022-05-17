@@ -4,7 +4,6 @@ package mocks
 
 import (
 	entities "Tugas-Mini-Project/entities"
-
 	mock "github.com/stretchr/testify/mock"
 )
 
@@ -78,20 +77,20 @@ func (_m *AnswareService) GetAllAnswareService() ([]entities.Answare, error) {
 	return r0, r1
 }
 
-// GetAnswareByIdService provides a mock function with given fields: id, answare
-func (_m *AnswareService) GetAnswareByIdService(id int, answare entities.Answare) (string, error) {
-	ret := _m.Called(id, answare)
+// GetAnswareByIdService provides a mock function with given fields: id
+func (_m *AnswareService) GetAnswareByIdService(id int) (entities.Answare, error) {
+	ret := _m.Called(id)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(int, entities.Answare) string); ok {
-		r0 = rf(id, answare)
+	var r0 entities.Answare
+	if rf, ok := ret.Get(0).(func(int) entities.Answare); ok {
+		r0 = rf(id)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(entities.Answare)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(int, entities.Answare) error); ok {
-		r1 = rf(id, answare)
+	if rf, ok := ret.Get(1).(func(int) error); ok {
+		r1 = rf(id)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -100,14 +99,14 @@ func (_m *AnswareService) GetAnswareByIdService(id int, answare entities.Answare
 }
 
 // UpdateAnswareService provides a mock function with given fields: id, answare
-func (_m *AnswareService) UpdateAnswareService(id int, answare entities.Answare) (string, error) {
+func (_m *AnswareService) UpdateAnswareService(id int, answare entities.Answare) (entities.Answare, error) {
 	ret := _m.Called(id, answare)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(int, entities.Answare) string); ok {
+	var r0 entities.Answare
+	if rf, ok := ret.Get(0).(func(int, entities.Answare) entities.Answare); ok {
 		r0 = rf(id, answare)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(entities.Answare)
 	}
 
 	var r1 error

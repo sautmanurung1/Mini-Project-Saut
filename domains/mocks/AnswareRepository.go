@@ -64,30 +64,44 @@ func (_m *AnswareRepository) GetAllAnsware() ([]entities.Answare, error) {
 	return r0, r1
 }
 
-// GetAnswareById provides a mock function with given fields: id, ans
-func (_m *AnswareRepository) GetAnswareById(id int, ans entities.Answare) error {
-	ret := _m.Called(id, ans)
+// GetAnswareById provides a mock function with given fields: id
+func (_m *AnswareRepository) GetAnswareById(id int) (entities.Answare, error) {
+	ret := _m.Called(id)
 
-	var r0 error
-	if rf, ok := ret.Get(0).(func(int, entities.Answare) error); ok {
-		r0 = rf(id, ans)
+	var r0 entities.Answare
+	if rf, ok := ret.Get(0).(func(int) entities.Answare); ok {
+		r0 = rf(id)
 	} else {
-		r0 = ret.Error(0)
+		r0 = ret.Get(0).(entities.Answare)
 	}
 
-	return r0
+	var r1 error
+	if rf, ok := ret.Get(1).(func(int) error); ok {
+		r1 = rf(id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 // UpdateAnsware provides a mock function with given fields: id, answare
-func (_m *AnswareRepository) UpdateAnsware(id int, answare entities.Answare) error {
+func (_m *AnswareRepository) UpdateAnsware(id int, answare entities.Answare) (entities.Answare, error) {
 	ret := _m.Called(id, answare)
 
-	var r0 error
-	if rf, ok := ret.Get(0).(func(int, entities.Answare) error); ok {
+	var r0 entities.Answare
+	if rf, ok := ret.Get(0).(func(int, entities.Answare) entities.Answare); ok {
 		r0 = rf(id, answare)
 	} else {
-		r0 = ret.Error(0)
+		r0 = ret.Get(0).(entities.Answare)
 	}
 
-	return r0
+	var r1 error
+	if rf, ok := ret.Get(1).(func(int, entities.Answare) error); ok {
+		r1 = rf(id, answare)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }

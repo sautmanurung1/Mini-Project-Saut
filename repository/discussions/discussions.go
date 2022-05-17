@@ -23,6 +23,7 @@ func (r *repository) CreateDiscussions(discussions entities.Discussions) error {
 	r.DB.Where("id = ?", discussions.QuestionId).Find(&questions)
 	r.DB.Where("id = ? ", discussions.UserId).Find(&user)
 	r.DB.Where("id = ?", discussions.AnswareId).Find(&answare)
+	// r.DB.Where("answare_user = ?", discussions.AnswereUser).Find(&answare)
 	discussions.Name = user.Name
 	discussions.QuestionUser = questions.QuestionUser
 	discussions.AnswereUser = answare.AnswareUser

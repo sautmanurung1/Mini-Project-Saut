@@ -11,7 +11,18 @@ type AuthHandler struct {
 	Svc domains.AuthService
 }
 
-func (h *AuthHandler) RegisterHandler(c echo.Context) error {
+// Register godoc
+// @Summary Register User
+// @Description Create Register User
+// @Tags Auth
+// @accept json
+// @Produce json
+// @Router /register [post]
+// @Param data body entities.RegisterUser true "required"
+// @Success 200 {object} entities.User
+// @Failure 401 {object} entities.User
+// @Failure 500 {object} entities.User
+func (h *AuthHandler) Register(c echo.Context) error {
 	user := entities.User{}
 	err := c.Bind(&user)
 
@@ -37,7 +48,19 @@ func (h *AuthHandler) RegisterHandler(c echo.Context) error {
 	})
 }
 
-func (h *AuthHandler) LoginHandler(c echo.Context) error {
+// Login godoc
+// @Summary Login User
+// @Description Login User
+// @Tags Auth
+// @accept json
+// @Produce json
+// @Router /login [post]
+// @Param data body entities.LoginUser true "required"
+// @Success 200 {object} entities.User
+// @Success 400 {object} entities.User
+// @Failure 401 {object} entities.User
+// @Failure 500 {object} entities.User
+func (h *AuthHandler) Login(c echo.Context) error {
 	userLogin := entities.User{}
 
 	err := c.Bind(&userLogin)

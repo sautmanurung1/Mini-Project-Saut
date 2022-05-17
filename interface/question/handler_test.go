@@ -1,7 +1,6 @@
-package testing
+package question_test
 
 import (
-	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/domains/mocks"
 	"Tugas-Mini-Project/entities"
 	"Tugas-Mini-Project/interface/question"
@@ -16,35 +15,6 @@ import (
 )
 
 func TestCreateQuestion(t *testing.T) {
-	questionRepository := new(mocks.QuestionRepository)
-	questionData := entities.Question{
-		AssignmentId:    1,
-		AssignmentTitle: "Assignment Title Testing",
-		UserId:          1,
-		QuestionUser:    "User Testing",
-		Name:            "Name Testing",
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		questionRepository.On("CreateQuestion", mock.Anything).Return(nil).Once()
-
-		questionRepository := domains.QuestionRepository(questionRepository)
-		err := questionRepository.CreateQuestion(questionData)
-
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		questionRepository.On("CreateQuestion", mock.Anything).Return(errors.New("Error To Create Question")).Once()
-
-		questionRepository := domains.QuestionRepository(questionRepository)
-		err := questionRepository.CreateQuestion(questionData)
-
-		assert.Error(t, err)
-	})
-}
-
-func TestCreateQuestionService(t *testing.T) {
 	svc := mocks.QuestionService{}
 
 	questionController := question.QuestionHandler{
@@ -59,7 +29,7 @@ func TestCreateQuestionService(t *testing.T) {
 		w := httptest.NewRecorder()
 
 		echoContext := e.NewContext(r, w)
-		err := questionController.CreateQuestionHandler(echoContext)
+		err := questionController.CreateQuestion(echoContext)
 
 		if err != nil {
 			return
@@ -76,7 +46,7 @@ func TestCreateQuestionService(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := questionController.CreateQuestionHandler(echoContext)
+		err := questionController.CreateQuestion(echoContext)
 
 		if err != nil {
 			return
@@ -93,7 +63,7 @@ func TestCreateQuestionService(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := questionController.CreateQuestionHandler(echoContext)
+		err := questionController.CreateQuestion(echoContext)
 
 		if err != nil {
 			return
@@ -104,46 +74,6 @@ func TestCreateQuestionService(t *testing.T) {
 }
 
 func TestGetAllQuestion(t *testing.T) {
-	questionRepo := new(mocks.QuestionRepository)
-	questionData := []entities.Question{
-		{
-			AssignmentId:    1,
-			AssignmentTitle: "Assignment Title Testing",
-			UserId:          1,
-			QuestionUser:    "User Testing",
-			Name:            "Name Testing",
-		},
-		{
-			AssignmentId:    2,
-			AssignmentTitle: "Assignment Title Testing",
-			UserId:          2,
-			QuestionUser:    "User Testing",
-			Name:            "Name Testing",
-		},
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		questionRepo.On("GetAllQuestion").Return(questionData, nil).Once()
-
-		questionRepo := domains.QuestionRepository(questionRepo)
-		getAllQuestion, err := questionRepo.GetAllQuestion()
-
-		assert.Equal(t, getAllQuestion, questionData)
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		questionRepo.On("GetAllQuestion").Return(questionData, errors.New("Error To Get All Question")).Once()
-
-		questionRepo := domains.QuestionRepository(questionRepo)
-		getAllQuestion, err := questionRepo.GetAllQuestion()
-
-		assert.Equal(t, getAllQuestion, questionData)
-		assert.Error(t, err)
-	})
-}
-
-func TestGetAllQuestionService(t *testing.T) {
 	svc := mocks.QuestionService{}
 
 	questionService := new(mocks.QuestionService)
@@ -178,7 +108,7 @@ func TestGetAllQuestionService(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.GetAllQuestionsHandler(echoContext)
+		er := questionController.GetAllQuestions(echoContext)
 
 		if er != nil {
 			return
@@ -199,7 +129,7 @@ func TestGetAllQuestionService(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.GetAllQuestionsHandler(echoContext)
+		er := questionController.GetAllQuestions(echoContext)
 
 		if er != nil {
 			return
@@ -211,36 +141,7 @@ func TestGetAllQuestionService(t *testing.T) {
 	})
 }
 
-func TestGetQuestionByID(t *testing.T) {
-	questionRepository := new(mocks.QuestionRepository)
-	questionData := entities.Question{
-		AssignmentId:    1,
-		AssignmentTitle: "Assignment Title Testing",
-		UserId:          1,
-		QuestionUser:    "User Testing",
-		Name:            "Name Testing",
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		questionRepository.On("GetQuestionByID", mock.Anything, mock.Anything).Return(nil).Once()
-
-		questionRepository := domains.QuestionRepository(questionRepository)
-		err := questionRepository.GetQuestionByID(int(questionData.ID), questionData)
-
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		questionRepository.On("GetQuestionByID", mock.Anything, mock.Anything).Return(errors.New("Error To Get Question By Id")).Once()
-
-		questionRepository := domains.QuestionRepository(questionRepository)
-		err := questionRepository.GetQuestionByID(int(questionData.ID), questionData)
-
-		assert.Error(t, err)
-	})
-}
-
-func TestGetQuestionByIdService(t *testing.T) {
+func TestGetQuestionById(t *testing.T) {
 	svc := mocks.QuestionService{}
 
 	questionService := new(mocks.QuestionService)
@@ -258,78 +159,49 @@ func TestGetQuestionByIdService(t *testing.T) {
 	}
 
 	t.Run("Success", func(t *testing.T) {
-		questionService.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return("Success To Get Question By Id", nil).Once()
-		service, err := questionService.GetQuestionByIDService(int(questionData.ID), questionData)
+		questionService.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return(questionData, nil).Once()
+		service, err := questionService.GetQuestionByIDService(int(questionData.ID))
 
-		svc.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return("Success To Get Question By Id", nil).Once()
+		svc.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return(questionData, nil).Once()
 		e := echo.New()
 		r := httptest.NewRequest("GET", "/question/:id", nil)
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.GetQuestionByIdHandler(echoContext)
+		er := questionController.GetQuestionById(echoContext)
 
 		if er != nil {
 			return
 		}
 
-		assert.Equal(t, service, "Success To Get Question By Id")
+		assert.Equal(t, service, questionData)
 		assert.Equal(t, 200, w.Result().StatusCode)
 		assert.NoError(t, err)
 	})
 
 	t.Run("BadRequest", func(t *testing.T) {
-		questionService.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return("Failed To Get Question By Id", errors.New("Error To Get Question By Id")).Once()
-		service, err := questionService.GetQuestionByIDService(int(questionData.ID), questionData)
+		questionService.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Get Question By Id")).Once()
+		service, err := questionService.GetQuestionByIDService(int(questionData.ID))
 
-		svc.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return("Failed To Get Assignment By Id", errors.New("Error To Get Question By Id")).Once()
+		svc.On("GetQuestionByIDService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Get Question By Id")).Once()
 		e := echo.New()
 		r := httptest.NewRequest("GET", "/question/:id", io.Reader(strings.NewReader(`{"Status" : "Bad Request"}`)))
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.GetQuestionByIdHandler(echoContext)
+		er := questionController.GetQuestionById(echoContext)
 
 		if er != nil {
 			return
 		}
 
-		assert.Equal(t, service, "Failed To Get Question By Id")
+		assert.Equal(t, service, questionData)
 		assert.Equal(t, 400, w.Result().StatusCode)
 		assert.Error(t, err)
 	})
 }
 
 func TestUpdateQuestion(t *testing.T) {
-	questionRepository := new(mocks.QuestionRepository)
-	questionData := entities.Question{
-		AssignmentId:    1,
-		AssignmentTitle: "Assignment Title Testing",
-		UserId:          1,
-		QuestionUser:    "User Testing",
-		Name:            "Name Testing",
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		questionRepository.On("UpdateQuestion", mock.Anything, mock.Anything).Return(nil).Once()
-
-		questionRepository := domains.QuestionRepository(questionRepository)
-		err := questionRepository.UpdateQuestion(int(questionData.ID), questionData)
-
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		questionRepository.On("UpdateQuestion", mock.Anything, mock.Anything).Return(errors.New("Error To Update The Question")).Once()
-
-		questionRepository := domains.QuestionRepository(questionRepository)
-		err := questionRepository.UpdateQuestion(int(questionData.ID), questionData)
-
-		assert.Error(t, err)
-	})
-}
-
-func TestUpdateQuestionService(t *testing.T) {
 	svc := mocks.QuestionService{}
 
 	questionService := new(mocks.QuestionService)
@@ -346,99 +218,70 @@ func TestUpdateQuestionService(t *testing.T) {
 	}
 
 	t.Run("Success", func(t *testing.T) {
-		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Success To Update Question By Id", nil).Once()
+		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, nil).Once()
 		service, err := questionService.UpdateQuestionService(int(questionData.ID), questionData)
 
-		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Success To Update Assignment By Id", nil).Once()
+		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, nil).Once()
 		e := echo.New()
 		r := httptest.NewRequest("PUT", "/teacher/question/:id", nil)
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.UpdateQuestionHandler(echoContext)
+		er := questionController.UpdateQuestion(echoContext)
 
 		if er != nil {
 			return
 		}
 
-		assert.Equal(t, service, "Success To Update Question By Id")
+		assert.Equal(t, service, questionData)
 		assert.Equal(t, 200, w.Result().StatusCode)
 		assert.NoError(t, err)
 	})
 
 	t.Run("BadRequest", func(t *testing.T) {
-		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Error To Update Question By Id", errors.New("Error To Update Question By Id")).Once()
+		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Update Question By Id")).Once()
 		service, err := questionService.UpdateQuestionService(int(questionData.ID), questionData)
 
-		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Error To Update Question By Id", errors.New("Error To Update Question By Id")).Once()
+		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Update Question By Id")).Once()
 		e := echo.New()
 		r := httptest.NewRequest("PUT", "/teacher/question/:id", io.Reader(strings.NewReader(`{"Status" : "Bad Request"}`)))
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.UpdateQuestionHandler(echoContext)
+		er := questionController.UpdateQuestion(echoContext)
 
 		if er != nil {
 			return
 		}
 
-		assert.Equal(t, service, "Error To Update Question By Id")
+		assert.Equal(t, service, questionData)
 		assert.Equal(t, 400, w.Result().StatusCode)
 		assert.Error(t, err)
 	})
 
 	t.Run("ServerError", func(t *testing.T) {
-		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Error To Update Question By Id", errors.New("Error To Update Question By Id")).Once()
+		questionService.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Update Question By Id")).Once()
 		service, err := questionService.UpdateQuestionService(int(questionData.ID), questionData)
 
-		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return("Error To Update Question By Id", errors.New("Error To Update Question By Id")).Once()
+		svc.On("UpdateQuestionService", mock.Anything, mock.Anything).Return(questionData, errors.New("Error To Update Question By Id")).Once()
 		e := echo.New()
 		r := httptest.NewRequest("PUT", "/teacher/question/:id", nil)
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.UpdateQuestionHandler(echoContext)
+		er := questionController.UpdateQuestion(echoContext)
 
 		if er != nil {
 			return
 		}
 
-		assert.Equal(t, service, "Error To Update Question By Id")
+		assert.Equal(t, service, questionData)
 		assert.Equal(t, 500, w.Result().StatusCode)
 		assert.Error(t, err)
 	})
 }
 
 func TestDeleteQuestion(t *testing.T) {
-	questionRepository := new(mocks.QuestionRepository)
-	questionData := entities.Question{
-		AssignmentId:    1,
-		AssignmentTitle: "Assignment Title Testing",
-		UserId:          1,
-		QuestionUser:    "User Testing",
-		Name:            "Name Testing",
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		questionRepository.On("DeleteQuestion", mock.Anything, mock.Anything).Return(nil).Once()
-
-		questionRepository := domains.QuestionRepository(questionRepository)
-		err := questionRepository.DeleteQuestion(int(questionData.ID), questionData)
-
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		questionRepository.On("DeleteQuestion", mock.Anything, mock.Anything).Return(errors.New("Error To Delete Question")).Once()
-
-		questionRepository := domains.QuestionRepository(questionRepository)
-		err := questionRepository.DeleteQuestion(int(questionData.ID), questionData)
-
-		assert.Error(t, err)
-	})
-}
-
-func TestDeleteQuestionService(t *testing.T) {
 	svc := mocks.QuestionService{}
 
 	questionService := new(mocks.QuestionService)
@@ -464,7 +307,7 @@ func TestDeleteQuestionService(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.DeleteQuestionHandler(echoContext)
+		er := questionController.DeleteQuestion(echoContext)
 
 		if er != nil {
 			return
@@ -485,7 +328,7 @@ func TestDeleteQuestionService(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		er := questionController.DeleteQuestionHandler(echoContext)
+		er := questionController.DeleteQuestion(echoContext)
 
 		if er != nil {
 			return

@@ -78,20 +78,20 @@ func (_m *AssignmentService) GetAllAssignmentService() ([]entities.Assignment, e
 	return r0, r1
 }
 
-// GetAssignmentByIdService provides a mock function with given fields: id, assignment
-func (_m *AssignmentService) GetAssignmentByIdService(id int, assignment entities.Assignment) (string, error) {
-	ret := _m.Called(id, assignment)
+// GetAssignmentByIdService provides a mock function with given fields: id
+func (_m *AssignmentService) GetAssignmentByIdService(id int) (entities.Assignment, error) {
+	ret := _m.Called(id)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(int, entities.Assignment) string); ok {
-		r0 = rf(id, assignment)
+	var r0 entities.Assignment
+	if rf, ok := ret.Get(0).(func(int) entities.Assignment); ok {
+		r0 = rf(id)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(entities.Assignment)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(int, entities.Assignment) error); ok {
-		r1 = rf(id, assignment)
+	if rf, ok := ret.Get(1).(func(int) error); ok {
+		r1 = rf(id)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -100,14 +100,14 @@ func (_m *AssignmentService) GetAssignmentByIdService(id int, assignment entitie
 }
 
 // UpdateAssignmentService provides a mock function with given fields: id, assignment
-func (_m *AssignmentService) UpdateAssignmentService(id int, assignment entities.Assignment) (string, error) {
+func (_m *AssignmentService) UpdateAssignmentService(id int, assignment entities.Assignment) (entities.Assignment, error) {
 	ret := _m.Called(id, assignment)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(int, entities.Assignment) string); ok {
+	var r0 entities.Assignment
+	if rf, ok := ret.Get(0).(func(int, entities.Assignment) entities.Assignment); ok {
 		r0 = rf(id, assignment)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(entities.Assignment)
 	}
 
 	var r1 error

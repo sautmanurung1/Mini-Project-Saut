@@ -1,9 +1,7 @@
-package testing_test
+package role_test
 
 import (
-	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/domains/mocks"
-	"Tugas-Mini-Project/entities"
 	"Tugas-Mini-Project/interface/role"
 	"errors"
 	"github.com/labstack/echo/v4"
@@ -15,31 +13,7 @@ import (
 	"testing"
 )
 
-func TestCreateRole(t *testing.T) {
-	roleRepository := new(mocks.RoleRepository)
-	roleData := entities.Role{
-		ID:   1,
-		Name: "Name Testing",
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		roleRepository.On("CreateRole", mock.Anything).Return(nil).Once()
-
-		roleRepository := domains.RoleRepository(roleRepository)
-		err := roleRepository.CreateRole(roleData)
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		roleRepository.On("CreateRole", mock.Anything).Return(errors.New("Error to Make Unit Testing")).Once()
-
-		roleRepository := domains.RoleRepository(roleRepository)
-		err := roleRepository.CreateRole(roleData)
-		assert.Error(t, err)
-	})
-}
-
-func TestCreateRoleService(t *testing.T) {
+func TestCreateRoleHandler(t *testing.T) {
 	svc := mocks.RoleService{}
 
 	roleController := role.RoleHandler{

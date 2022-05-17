@@ -1,6 +1,8 @@
 package main
 
-import "Tugas-Mini-Project/infrastructure/http/server"
+import (
+	"Tugas-Mini-Project/infrastructure/http/server"
+)
 
 func main() {
 	app := server.Server()

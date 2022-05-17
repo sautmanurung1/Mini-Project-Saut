@@ -12,7 +12,19 @@ type AnswareHandler struct {
 	Svc domains.AnswareService
 }
 
-func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
+// CreateAnsware godoc
+// @Summary Create Answare Student
+// @Description Student Can Create Answare
+// @Tags Answare
+// @accept json
+// @Produce json
+// @Router /student/answare [post]
+// @param data body entities.AnswareResponse true "required"
+// @Success 200 {object} entities.Answare
+// @Failure 400 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
+// @Security JWT
+func (h *AnswareHandler) CreateAnsware(c echo.Context) error {
 	ans := entities.Answare{}
 
 	e := c.Bind(&ans)
@@ -41,26 +53,44 @@ func (h *AnswareHandler) CreateAnswareHandler(c echo.Context) error {
 	})
 }
 
-func (h *AnswareHandler) GetAnswareByIdHandler(c echo.Context) error {
-	answerers := entities.Answare{}
+// GetAnswareById godoc
+// @Summary Get Answare Student By Id
+// @Description Student Can Get Answare By Id
+// @Tags Answare
+// @accept json
+// @Produce json
+// @Router /answare/{id} [get]
+// @param id path int true "id"
+// @Success 200 {object} entities.Answare
+// @Failure 400 {object} entities.Answare
+func (h *AnswareHandler) GetAnswareById(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	ans, e := h.Svc.GetAnswareByIdService(id, answerers)
+	ans, e := h.Svc.GetAnswareByIdService(id)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Message": "Error to get the Assignment By ID",
+			"Message": "Error to get the Answare By ID",
 			"Error":   e.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Message": "Success Get Assignment By ID",
+		"Message": "Success Get Answare By ID",
 		"Data":    ans,
 	})
 }
 
-func (h *AnswareHandler) GetAllAnswareHandler(c echo.Context) error {
+// GetAllAnsware godoc
+// @Summary Get All Answare Student
+// @Description Student Can Get Answare
+// @Tags Answare
+// @accept json
+// @Produce json
+// @Router /answare [get]
+// @Success 200 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
+func (h *AnswareHandler) GetAllAnsware(c echo.Context) error {
 	ans, err := h.Svc.GetAllAnswareService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -70,18 +100,30 @@ func (h *AnswareHandler) GetAllAnswareHandler(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Message": "Success Get All Assignment",
+		"Message": "Success Get All Answare",
 		"Data":    ans,
 	})
 }
 
-func (h *AnswareHandler) UpdateAnswareHandler(c echo.Context) error {
+// UpdateAnsware godoc
+// @Summary Update Answare Student
+// @Description Student Can Update Them Answare
+// @Tags Answare
+// @accept json
+// @Produce json
+// @Router /student/answare/{id} [put]
+// @param id path int true "id"
+// @Success 200 {object} entities.Answare
+// @Failure 400 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
+// @Security JWT
+func (h *AnswareHandler) UpdateAnsware(c echo.Context) error {
 	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&ans); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Message": "Error to Update the Assignment",
+			"Message": "Error to Update the Answare",
 			"Error":   err.Error(),
 		})
 	}
@@ -90,25 +132,37 @@ func (h *AnswareHandler) UpdateAnswareHandler(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Message": "Error to Update the Assignment",
+			"Message": "Error to Update the Answare",
 			"Error":   e.Error(),
 		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
-		"Message": "Success Update Assignment",
+		"Message": "Success Update Answare",
 		"Data":    result,
 	})
 }
 
-func (h *AnswareHandler) DeleteAnswareHandler(c echo.Context) error {
+// DeleteAnsware godoc
+// @Summary Delete Answare Student
+// @Description Student Can Delete Them Answare
+// @Tags Answare
+// @accept json
+// @Produce json
+// @Router /student/answare/{id} [delete]
+// @param id path int true "id"
+// @Success 200 {object} entities.Answare
+// @Failure 400 {object} entities.Answare
+// @Failure 500 {object} entities.Answare
+// @Security JWT
+func (h *AnswareHandler) DeleteAnsware(c echo.Context) error {
 	var ans entities.Answare
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	if err := c.Bind(&ans); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"Status": http.StatusBadRequest,
-			"Error":  "Error To Delete the Assignment",
+			"Error":  "Error To Delete the Answare",
 			"Data":   err.Error(),
 		})
 	}
@@ -118,14 +172,14 @@ func (h *AnswareHandler) DeleteAnswareHandler(c echo.Context) error {
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"Status": http.StatusInternalServerError,
-			"Error":  "Error To Delete the Assignment",
+			"Error":  "Error To Delete the Answare",
 			"Data":   er.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
-		"Message": "Success To Delete The Assignment",
+		"Message": "Success To Delete The Answare",
 		"Data":    result,
 	})
 }
