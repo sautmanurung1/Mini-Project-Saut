@@ -23,4 +23,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: sautmanurung234/Tugas-Mini-Project:v1
+          tags: sautmanurung234/mini-project:v1
