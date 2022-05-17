@@ -7,6 +7,7 @@ Tools :
 - Echo (Framework/library)
 - JWT (JSON Web Token)
 
+Deployment : AWS (EC2 Instance), Mysql (Railway)
 
 Workflow : 
 
