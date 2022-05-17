@@ -10,6 +10,6 @@ type DiscussionsRepository interface {
 }
 
 type DiscussionsService interface {
-	CreateDiscussionsService(discussions entities.Discussions) (string, error)
+	CreateDiscussionsService(discussions entities.Discussions) error
 	GetAllDiscussionsService() (discussions []entities.Discussions, err error)
 }

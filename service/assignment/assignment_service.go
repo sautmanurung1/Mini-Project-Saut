@@ -26,19 +26,19 @@ func (s *svcAssignment) CreateAssignmentService(assignment entities.Assignment) 
 	}
 }
 
-func (s *svcAssignment) GetAssignmentByIdService(id int, assignment entities.Assignment) (string, error) {
-	return "This is You're Assignment", s.repo.GetAssignmentById(id, assignment)
+func (s *svcAssignment) GetAssignmentByIdService(id int) (entities.Assignment, error) {
+	return s.repo.GetAssignmentById(id)
 }
 
 func (s *svcAssignment) GetAllAssignmentService() (assignment []entities.Assignment, err error) {
 	return s.repo.GetAllAssignment()
 }
 
-func (s *svcAssignment) UpdateAssignmentService(id int, assignment entities.Assignment) (string, error) {
+func (s *svcAssignment) UpdateAssignmentService(id int, assignment entities.Assignment) (entities.Assignment, error) {
 	if assignment.UserId != 1 {
-		return "You can't Update The Assignment", nil
+		return assignment, nil
 	} else {
-		return "You can Update The Assignment", s.repo.UpdateAssignment(id, assignment)
+		return s.repo.UpdateAssignment(id, assignment)
 	}
 }
 

@@ -26,19 +26,19 @@ func (s *svcQuestion) CreateQuestionService(question entities.Question) (string,
 	}
 }
 
-func (s *svcQuestion) GetQuestionByIDService(id int, question entities.Question) (string, error) {
-	return "This is Your Question", s.repo.GetQuestionByID(id, question)
+func (s *svcQuestion) GetQuestionByIDService(id int) (entities.Question, error) {
+	return s.repo.GetQuestionByID(id)
 }
 
 func (s *svcQuestion) GetAllQuestionService() (question []entities.Question, err error) {
 	return s.repo.GetAllQuestion()
 }
 
-func (s *svcQuestion) UpdateQuestionService(id int, question entities.Question) (string, error) {
+func (s *svcQuestion) UpdateQuestionService(id int, question entities.Question) (entities.Question, error) {
 	if question.UserId == 1 && question.AssignmentId == id {
-		return "Teacher Update Question ", s.repo.UpdateQuestion(id, question)
+		return s.repo.UpdateQuestion(id, question)
 	} else {
-		return "User Can't Update Question Because the user is Student", nil
+		return question, nil
 	}
 }
 

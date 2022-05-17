@@ -21,9 +21,9 @@ func Routes(echo *echo.Echo, conf database.Config) {
 
 	student := echo.Group("/student")
 
-	student.POST("/answare", controller.CreateAnswareHandler, m.JWTStudentMiddleware())
-	echo.GET("/answare", controller.GetAllAnswareHandler)
-	echo.GET("/answare/:id", controller.GetAnswareByIdHandler)
-	student.PUT("/answare/:id", controller.UpdateAnswareHandler, m.JWTStudentMiddleware())
-	student.DELETE("/answare/:id", controller.DeleteAnswareHandler, m.JWTStudentMiddleware())
+	student.POST("/answare", controller.CreateAnsware, m.JWTStudentMiddleware())
+	echo.GET("/answare", controller.GetAllAnsware)
+	echo.GET("/answare/:id", controller.GetAnswareById)
+	student.PUT("/answare/:id", controller.UpdateAnsware, m.JWTStudentMiddleware())
+	student.DELETE("/answare/:id", controller.DeleteAnsware, m.JWTStudentMiddleware())
 }

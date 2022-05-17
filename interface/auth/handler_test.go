@@ -1,7 +1,6 @@
-package testing
+package auth_test
 
 import (
-	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/domains/mocks"
 	"Tugas-Mini-Project/entities"
 	"Tugas-Mini-Project/interface/auth"
@@ -16,58 +15,7 @@ import (
 	"testing"
 )
 
-func TestRegister(t *testing.T) {
-	userRegister := new(mocks.AuthRepository)
-	userRegisterData := entities.User{
-		Name:     "Name Testing",
-		Username: "Username Testing",
-		Password: "Password Testing",
-		RoleId:   1,
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		userRegister.On("Register", mock.Anything).Return(nil).Once()
-
-		userRegister := domains.AuthRepository(userRegister)
-		err := userRegister.Register(userRegisterData)
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		userRegister.On("Register", mock.Anything).Return(errors.New("Error to Make Unit Testing")).Once()
-
-		userRegister := domains.AuthRepository(userRegister)
-		err := userRegister.Register(userRegisterData)
-		assert.Error(t, err)
-	})
-}
-
-func TestLogin(t *testing.T) {
-	userLogin := new(mocks.AuthRepository)
-	userLoginData := entities.User{
-		Username: "Username Testing",
-		Password: "Password Testing",
-		RoleId:   1,
-	}
-
-	t.Run("Success", func(t *testing.T) {
-		userLogin.On("Login", mock.Anything, mock.Anything, mock.Anything).Return(userLoginData, nil).Once()
-		userLogin := domains.AuthRepository(userLogin)
-		login, err := userLogin.Login(userLoginData.Username, userLoginData.Password, userLoginData.RoleId)
-		assert.Equal(t, login, userLoginData)
-		assert.NoError(t, err)
-	})
-
-	t.Run("Failed", func(t *testing.T) {
-		userLogin.On("Login", mock.Anything, mock.Anything, mock.Anything).Return(userLoginData, errors.New("Error to Make Unit Testing")).Once()
-		userLogin := domains.AuthRepository(userLogin)
-		login, err := userLogin.Login(userLoginData.Username, userLoginData.Password, userLoginData.RoleId)
-		assert.Equal(t, login, userLoginData)
-		assert.Error(t, err)
-	})
-}
-
-func TestRegisterService(t *testing.T) {
+func TestRegisterHandler(t *testing.T) {
 	svc := mocks.AuthService{}
 
 	authController := auth.AuthHandler{
@@ -81,7 +29,7 @@ func TestRegisterService(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := authController.RegisterHandler(echoContext)
+		err := authController.Register(echoContext)
 		if err != nil {
 			return
 		}
@@ -96,7 +44,7 @@ func TestRegisterService(t *testing.T) {
 		w := httptest.NewRecorder()
 
 		echoContext := e.NewContext(r, w)
-		err := authController.RegisterHandler(echoContext)
+		err := authController.Register(echoContext)
 		if err != nil {
 			return
 		}
@@ -111,7 +59,7 @@ func TestRegisterService(t *testing.T) {
 		w := httptest.NewRecorder()
 
 		echoContext := e.NewContext(r, w)
-		err := authController.RegisterHandler(echoContext)
+		err := authController.Register(echoContext)
 		if err != nil {
 			return
 		}
@@ -120,7 +68,7 @@ func TestRegisterService(t *testing.T) {
 	})
 }
 
-func TestLoginService(t *testing.T) {
+func TestLoginHandler(t *testing.T) {
 	svc := mocks.AuthService{}
 	userLogin := new(mocks.AuthService)
 	userLoginData := entities.User{
@@ -141,7 +89,7 @@ func TestLoginService(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := authController.LoginHandler(echoContext)
+		err := authController.Login(echoContext)
 		if err != nil {
 			return
 		}
@@ -158,7 +106,7 @@ func TestLoginService(t *testing.T) {
 		w := httptest.NewRecorder()
 		echoContext := e.NewContext(r, w)
 
-		err := authController.LoginHandler(echoContext)
+		err := authController.Login(echoContext)
 		if err != nil {
 			return
 		}

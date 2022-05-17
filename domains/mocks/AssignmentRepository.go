@@ -64,30 +64,44 @@ func (_m *AssignmentRepository) GetAllAssignment() ([]entities.Assignment, error
 	return r0, r1
 }
 
-// GetAssignmentById provides a mock function with given fields: id, assign
-func (_m *AssignmentRepository) GetAssignmentById(id int, assign entities.Assignment) error {
-	ret := _m.Called(id, assign)
+// GetAssignmentById provides a mock function with given fields: id
+func (_m *AssignmentRepository) GetAssignmentById(id int) (entities.Assignment, error) {
+	ret := _m.Called(id)
 
-	var r0 error
-	if rf, ok := ret.Get(0).(func(int, entities.Assignment) error); ok {
-		r0 = rf(id, assign)
+	var r0 entities.Assignment
+	if rf, ok := ret.Get(0).(func(int) entities.Assignment); ok {
+		r0 = rf(id)
 	} else {
-		r0 = ret.Error(0)
+		r0 = ret.Get(0).(entities.Assignment)
 	}
 
-	return r0
+	var r1 error
+	if rf, ok := ret.Get(1).(func(int) error); ok {
+		r1 = rf(id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 // UpdateAssignment provides a mock function with given fields: id, assignment
-func (_m *AssignmentRepository) UpdateAssignment(id int, assignment entities.Assignment) error {
+func (_m *AssignmentRepository) UpdateAssignment(id int, assignment entities.Assignment) (entities.Assignment, error) {
 	ret := _m.Called(id, assignment)
 
-	var r0 error
-	if rf, ok := ret.Get(0).(func(int, entities.Assignment) error); ok {
+	var r0 entities.Assignment
+	if rf, ok := ret.Get(0).(func(int, entities.Assignment) entities.Assignment); ok {
 		r0 = rf(id, assignment)
 	} else {
-		r0 = ret.Error(0)
+		r0 = ret.Get(0).(entities.Assignment)
 	}
 
-	return r0
+	var r1 error
+	if rf, ok := ret.Get(1).(func(int, entities.Assignment) error); ok {
+		r1 = rf(id, assignment)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }

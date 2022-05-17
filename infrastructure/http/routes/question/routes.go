@@ -19,9 +19,9 @@ func Routes(echo *echo.Echo, conf database.Config) {
 		Svc: svc,
 	}
 
-	teacher.POST("/questions", controller.CreateQuestionHandler, m.JWTTeacherMiddleware())
-	echo.GET("/questions", controller.GetAllQuestionsHandler)
-	echo.GET("/questions/:id", controller.GetQuestionByIdHandler)
-	teacher.PUT("/questions/:id", controller.UpdateQuestionHandler, m.JWTTeacherMiddleware())
-	teacher.DELETE("/questions/:id", controller.DeleteQuestionHandler, m.JWTTeacherMiddleware())
+	teacher.POST("/questions", controller.CreateQuestion, m.JWTTeacherMiddleware())
+	echo.GET("/questions", controller.GetAllQuestions)
+	echo.GET("/questions/:id", controller.GetQuestionById)
+	teacher.PUT("/questions/:id", controller.UpdateQuestion, m.JWTTeacherMiddleware())
+	teacher.DELETE("/questions/:id", controller.DeleteQuestion, m.JWTTeacherMiddleware())
 }

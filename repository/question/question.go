@@ -30,12 +30,13 @@ func (r *repository) CreateQuestion(question entities.Question) error {
 	return nil
 }
 
-func (r *repository) GetQuestionByID(id int, questions entities.Question) error {
+func (r *repository) GetQuestionByID(id int) (entities.Question, error) {
+	var questions entities.Question
 	var assign entities.Assignment
 	r.DB.Joins("JOIN assignments ON assignments.id = questions.assignment_id").Where("questions.id = ?", id).First(&questions)
 	r.DB.Where("id = ?", questions.AssignmentId).First(&assign)
 	questions.Name = assign.Name
-	return nil
+	return questions, nil
 }
 
 func (r *repository) GetAllQuestion() ([]entities.Question, error) {
@@ -44,13 +45,13 @@ func (r *repository) GetAllQuestion() ([]entities.Question, error) {
 	return questions, nil
 }
 
-func (r *repository) UpdateQuestion(id int, question entities.Question) error {
+func (r *repository) UpdateQuestion(id int, question entities.Question) (entities.Question, error) {
 	var assignments entities.Assignment
 	r.DB.Model(&question).Where("id = ?", id).Updates(&question)
 	r.DB.Joins("JOIN assignments ON assignments.id = questions.assignment_id").Where("questions.id = ?", id).First(&question)
 	r.DB.Where("id = ?", question.AssignmentId).First(&assignments)
 	question.Name = assignments.Name
-	return nil
+	return question, nil
 }
 
 func (r *repository) DeleteQuestion(id int, questions entities.Question) error {

@@ -12,7 +12,19 @@ type AssignmentHandler struct {
 	Svc domains.AssignmentService
 }
 
-func (h *AssignmentHandler) CreateAssignmentHandler(c echo.Context) error {
+// CreateAssignment godoc
+// @Summary Create Assignment Teacher
+// @Description Teacher Can Create Assignment
+// @Tags Assignment
+// @accept json
+// @Produce json
+// @Router /teacher/assignment [post]
+// @param data body entities.AssignmentResponse true "required"
+// @Success 200 {object} entities.Assignment
+// @Failure 400 {object} entities.Assignment
+// @Failure 500 {object} entities.Answare
+// @Security JWT
+func (h *AssignmentHandler) CreateAssignment(c echo.Context) error {
 	assign := entities.Assignment{}
 
 	e := c.Bind(&assign)
@@ -41,7 +53,16 @@ func (h *AssignmentHandler) CreateAssignmentHandler(c echo.Context) error {
 	})
 }
 
-func (h *AssignmentHandler) GetAllAssignmentHandler(c echo.Context) error {
+// GetAllAssignment godoc
+// @Summary Get All Assignment
+// @Description User Can Get Assignment
+// @Tags Assignment
+// @accept json
+// @Produce json
+// @Router /assignment [get]
+// @Success 200 {object} entities.Assignment
+// @Failure 500 {object} entities.Assignment
+func (h *AssignmentHandler) GetAllAssignment(c echo.Context) error {
 	assignments, err := h.Svc.GetAllAssignmentService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
@@ -56,11 +77,20 @@ func (h *AssignmentHandler) GetAllAssignmentHandler(c echo.Context) error {
 	})
 }
 
-func (h *AssignmentHandler) GetAssignmentByIdHandler(c echo.Context) error {
-	var assignment entities.Assignment
+// GetAssignmentById godoc
+// @Summary Get Assignment By Id
+// @Description User Can Get Answare By ID
+// @Tags Assignment
+// @accept json
+// @Produce json
+// @Router /assignment/{id} [get]
+// @param id path int true "id"
+// @Success 200 {object} entities.Assignment
+// @Failure 400 {object} entities.Assignment
+func (h *AssignmentHandler) GetAssignmentById(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	assign, e := h.Svc.GetAssignmentByIdService(id, assignment)
+	assign, e := h.Svc.GetAssignmentByIdService(id)
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -75,7 +105,19 @@ func (h *AssignmentHandler) GetAssignmentByIdHandler(c echo.Context) error {
 	})
 }
 
-func (h *AssignmentHandler) UpdateAssignmentHandler(c echo.Context) error {
+// UpdateAssignment godoc
+// @Summary Update Assignment Teacher
+// @Description Teacher Can Update Assignment
+// @Tags Assignment
+// @accept json
+// @Produce json
+// @Router /teacher/assignment/{id} [put]
+// @param id path int true "id"
+// @Success 200 {object} entities.Assignment
+// @Failure 400 {object} entities.Assignment
+// @Failure 500 {object} entities.Answare
+// @Security JWT
+func (h *AssignmentHandler) UpdateAssignment(c echo.Context) error {
 	var assignments entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 
@@ -101,7 +143,19 @@ func (h *AssignmentHandler) UpdateAssignmentHandler(c echo.Context) error {
 	})
 }
 
-func (h *AssignmentHandler) DeleteAssignmentHandler(c echo.Context) error {
+// DeleteAssignment godoc
+// @Summary Delete Assignment Teacher
+// @Description Teacher Can Delete Assignment
+// @Tags Assignment
+// @accept json
+// @Produce json
+// @Router /teacher/assignment/{id} [delete]
+// @param id path int true "id"
+// @Success 200 {object} entities.Assignment
+// @Failure 400 {object} entities.Assignment
+// @Failure 500 {object} entities.Answare
+// @Security JWT
+func (h *AssignmentHandler) DeleteAssignment(c echo.Context) error {
 	var assign entities.Assignment
 	id, _ := strconv.Atoi(c.Param("id"))
 

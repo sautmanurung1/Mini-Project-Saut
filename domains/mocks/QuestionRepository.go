@@ -64,30 +64,44 @@ func (_m *QuestionRepository) GetAllQuestion() ([]entities.Question, error) {
 	return r0, r1
 }
 
-// GetQuestionByID provides a mock function with given fields: id, question
-func (_m *QuestionRepository) GetQuestionByID(id int, question entities.Question) error {
-	ret := _m.Called(id, question)
+// GetQuestionByID provides a mock function with given fields: id
+func (_m *QuestionRepository) GetQuestionByID(id int) (entities.Question, error) {
+	ret := _m.Called(id)
 
-	var r0 error
-	if rf, ok := ret.Get(0).(func(int, entities.Question) error); ok {
-		r0 = rf(id, question)
+	var r0 entities.Question
+	if rf, ok := ret.Get(0).(func(int) entities.Question); ok {
+		r0 = rf(id)
 	} else {
-		r0 = ret.Error(0)
+		r0 = ret.Get(0).(entities.Question)
 	}
 
-	return r0
+	var r1 error
+	if rf, ok := ret.Get(1).(func(int) error); ok {
+		r1 = rf(id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 // UpdateQuestion provides a mock function with given fields: id, question
-func (_m *QuestionRepository) UpdateQuestion(id int, question entities.Question) error {
+func (_m *QuestionRepository) UpdateQuestion(id int, question entities.Question) (entities.Question, error) {
 	ret := _m.Called(id, question)
 
-	var r0 error
-	if rf, ok := ret.Get(0).(func(int, entities.Question) error); ok {
+	var r0 entities.Question
+	if rf, ok := ret.Get(0).(func(int, entities.Question) entities.Question); ok {
 		r0 = rf(id, question)
 	} else {
-		r0 = ret.Error(0)
+		r0 = ret.Get(0).(entities.Question)
 	}
 
-	return r0
+	var r1 error
+	if rf, ok := ret.Get(1).(func(int, entities.Question) error); ok {
+		r1 = rf(id, question)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }

@@ -78,20 +78,20 @@ func (_m *QuestionService) GetAllQuestionService() ([]entities.Question, error) 
 	return r0, r1
 }
 
-// GetQuestionByIDService provides a mock function with given fields: id, question
-func (_m *QuestionService) GetQuestionByIDService(id int, question entities.Question) (string, error) {
-	ret := _m.Called(id, question)
+// GetQuestionByIDService provides a mock function with given fields: id
+func (_m *QuestionService) GetQuestionByIDService(id int) (entities.Question, error) {
+	ret := _m.Called(id)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(int, entities.Question) string); ok {
-		r0 = rf(id, question)
+	var r0 entities.Question
+	if rf, ok := ret.Get(0).(func(int) entities.Question); ok {
+		r0 = rf(id)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(entities.Question)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(int, entities.Question) error); ok {
-		r1 = rf(id, question)
+	if rf, ok := ret.Get(1).(func(int) error); ok {
+		r1 = rf(id)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -100,14 +100,14 @@ func (_m *QuestionService) GetQuestionByIDService(id int, question entities.Ques
 }
 
 // UpdateQuestionService provides a mock function with given fields: id, question
-func (_m *QuestionService) UpdateQuestionService(id int, question entities.Question) (string, error) {
+func (_m *QuestionService) UpdateQuestionService(id int, question entities.Question) (entities.Question, error) {
 	ret := _m.Called(id, question)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(int, entities.Question) string); ok {
+	var r0 entities.Question
+	if rf, ok := ret.Get(0).(func(int, entities.Question) entities.Question); ok {
 		r0 = rf(id, question)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(entities.Question)
 	}
 
 	var r1 error

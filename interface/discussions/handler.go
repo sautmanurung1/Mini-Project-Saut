@@ -11,7 +11,18 @@ type DiscussionHandler struct {
 	Svc domains.DiscussionsService
 }
 
-func (h *DiscussionHandler) CreateDiscsussions(c echo.Context) error {
+// CreateDiscussions godoc
+// @Summary Create Discussions
+// @Description User can Create Discussions
+// @Tags Discussions
+// @accept json
+// @Produce json
+// @Router /discussions [post]
+// @param data body entities.DiscussionsResponse true "required"
+// @Success 200 {object} entities.Discussions
+// @Failure 400 {object} entities.Discussions
+// @Failure 500 {object} entities.Discussions
+func (h *DiscussionHandler) CreateDiscussions(c echo.Context) error {
 	discuss := entities.Discussions{}
 
 	e := c.Bind(&discuss)
@@ -23,15 +34,7 @@ func (h *DiscussionHandler) CreateDiscsussions(c echo.Context) error {
 		})
 	}
 
-	discussions, err := h.Svc.CreateDiscussionsService(discuss)
-
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status": http.StatusInternalServerError,
-			"Error":  "Error",
-			"Data":   err.Error(),
-		})
-	}
+	discussions := h.Svc.CreateDiscussionsService(discuss)
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"Status":  http.StatusOK,
@@ -40,6 +43,15 @@ func (h *DiscussionHandler) CreateDiscsussions(c echo.Context) error {
 	})
 }
 
+// GetAllDiscussions godoc
+// @Summary Get All Discussions
+// @Description User can Get All Discussions
+// @Tags Discussions
+// @accept json
+// @Produce json
+// @Router /discussions [get]
+// @Success 200 {object} entities.Discussions
+// @Failure 400 {object} entities.Discussions
 func (h *DiscussionHandler) GetAllDiscussions(c echo.Context) error {
 	discuss, err := h.Svc.GetAllDiscussionsService()
 	if err != nil {
