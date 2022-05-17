@@ -30,7 +30,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
           script: |
             docker pull sautmanurung234/mini-project:v1
             docker run -p 80:8080 --name mini-project --detach sautmanurung234/mini-project:v1
