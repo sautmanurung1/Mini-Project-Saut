@@ -1035,6 +1035,9 @@ const docTemplate = `{
                 "password": {
                     "type": "string"
                 },
+                "role_id": {
+                    "type": "integer"
+                },
                 "username": {
                     "type": "string"
                 }

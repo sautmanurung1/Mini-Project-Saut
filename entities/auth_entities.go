@@ -12,6 +12,7 @@ type User struct {
 type LoginUser struct {
 	Username string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required"`
+	RoleId   int    `gorm:"null" json:"role_id"`
 }
 
 type RegisterUser struct {
