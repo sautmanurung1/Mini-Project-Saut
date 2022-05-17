@@ -1,4 +1,4 @@
-name: Pushing To DockerHub Repository
+name: Pushing To DockerHub
 on:
   pull_request:
     branches:
