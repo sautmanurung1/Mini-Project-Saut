@@ -2,8 +2,10 @@ name: Pushing To DockerHub Repository
 on:
   pull_request:
     branches:
-      - dev
-
+      - "dev"
+  push:
+    branches:
+      - master
 jobs:
   docker:
     runs-on: ubuntu-latest
