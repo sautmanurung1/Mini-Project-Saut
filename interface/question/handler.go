@@ -159,7 +159,6 @@ func (h *QuestionHandler) UpdateQuestion(c echo.Context) error {
 // @Produce json
 // @Router /teacher/question/{id} [delete]
 // @param id path int true "id"
-// @param data body entities.QuestionResponse true "required"
 // @Success 200 {object} entities.Question
 // @Failure 400 {object} entities.Question
 // @Failure 500 {object} entities.Question

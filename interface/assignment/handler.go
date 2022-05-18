@@ -152,7 +152,6 @@ func (h *AssignmentHandler) UpdateAssignment(c echo.Context) error {
 // @Produce json
 // @Router /teacher/assignment/{id} [delete]
 // @param id path int true "id"
-// @param data body entities.AssignmentResponse true "required"
 // @Success 200 {object} entities.Assignment
 // @Failure 400 {object} entities.Assignment
 // @Failure 500 {object} entities.Answare
