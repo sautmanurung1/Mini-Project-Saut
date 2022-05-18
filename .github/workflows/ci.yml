@@ -7,15 +7,6 @@ on:
     branches:
       - master
 jobs:
-  hello-world:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Hello World"
-      - run: echo "Semua Berjalan dengan Sempurna"
-      - run: echo "Selamat Mengerjakan tugas teman - teman Semua"
-      - run: echo "Nothing to Lose"
-
-
   unit-testing:
     runs-on: ubuntu-latest
     steps:
