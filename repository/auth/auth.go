@@ -3,7 +3,6 @@ package auth
 import (
 	"Tugas-Mini-Project/domains"
 	"Tugas-Mini-Project/entities"
-	"fmt"
 	"gorm.io/gorm"
 )
 
@@ -26,12 +25,8 @@ func (r *repository) Register(user entities.User) error {
 	return nil
 }
 
-func (r *repository) Login(username, password string, roleId int) (credential entities.User, err error) {
-	response := r.DB.Raw("SELECT * FROM users WHERE username = ? AND password = ? AND role_id = ?", username, password, roleId).Scan(&credential)
-
-	if response.RowsAffected < 1 {
-		return credential, fmt.Errorf("username or password is incorrect")
-	}
+func (r *repository) Login(username string) (credential entities.User, err error) {
+	err = r.DB.Raw("SELECT * FROM users WHERE username = ?", username).Scan(&credential).Error
 
 	return credential, nil
 }

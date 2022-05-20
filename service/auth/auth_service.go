@@ -5,6 +5,7 @@ import (
 	"Tugas-Mini-Project/entities"
 	"Tugas-Mini-Project/infrastructure/database"
 	"Tugas-Mini-Project/infrastructure/http/middleware"
+	"golang.org/x/crypto/bcrypt"
 	"net/http"
 )
 
@@ -20,22 +21,24 @@ func NewAuthService(repo domains.AuthRepository, c database.Config) domains.Auth
 	}
 }
 
-func (s *svcAuth) LoginService(username, password string, roleId int) (string, int) {
-	user, _ := s.repo.Login(username, password, roleId)
+func (s *svcAuth) LoginService(username string, password string, roleId int) (string, int) {
+	user, _ := s.repo.Login(username)
 
-	if (user.Password != password) || (user == entities.User{}) {
-		return "Your Password Error", http.StatusUnauthorized
+	er := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if er != nil {
+		return "wrong password", http.StatusUnauthorized
 	}
 
-	if user.RoleId == 1 {
-		token, _ := middleware.CreateToken(int(user.ID), user.Username, s.c.Login_Teacher)
-		return token, http.StatusOK
-	} else {
-		token, _ := middleware.CreateToken(int(user.ID), user.Username, s.c.Login_Student)
-		return token, http.StatusOK
+	if user.RoleId != roleId {
+		return "your role id error", http.StatusUnauthorized
 	}
+
+	token, _ := middleware.CreateToken(int(user.ID), user.Username, s.c.JWT_KEY)
+	return token, http.StatusOK
 }
 
 func (s *svcAuth) RegisterService(credential entities.User) error {
+	password, _ := bcrypt.GenerateFromPassword([]byte(credential.Password), bcrypt.MinCost)
+	credential.Password = string(password)
 	return s.repo.Register(credential)
 }

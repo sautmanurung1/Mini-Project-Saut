@@ -6,10 +6,10 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func JWTTeacherMiddleware() echo.MiddlewareFunc {
+func JWTTokenMiddleware() echo.MiddlewareFunc {
 	secret := database.Config{}
 	return middleware.JWTWithConfig(middleware.JWTConfig{
-		SigningKey:    []byte(secret.Login_Teacher),
+		SigningKey:    []byte(secret.JWT_KEY),
 		SigningMethod: "HS256",
 	})
 }

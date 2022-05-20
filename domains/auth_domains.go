@@ -5,11 +5,11 @@ import (
 )
 
 type AuthRepository interface {
-	Login(username, password string, roleId int) (credential entities.User, err error)
+	Login(username string) (user entities.User, err error)
 	Register(user entities.User) error
 }
 
 type AuthService interface {
-	LoginService(username, password string, roleId int) (string, int)
+	LoginService(username string, password string, roleId int) (string, int)
 	RegisterService(credential entities.User) error
 }

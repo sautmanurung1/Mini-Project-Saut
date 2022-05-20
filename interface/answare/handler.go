@@ -31,7 +31,7 @@ func (h *AnswareHandler) CreateAnsware(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Error": "Error To Create Assignment",
+			"Error": "error to create answare",
 			"Data":  e.Error(),
 		})
 	}
@@ -40,15 +40,13 @@ func (h *AnswareHandler) CreateAnsware(c echo.Context) error {
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status": http.StatusInternalServerError,
-			"Error":  "Error",
-			"Data":   err.Error(),
+			"Error": "error to create answare",
+			"Data":  err.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Status":  http.StatusOK,
-		"Message": "Success Create Answare",
+		"Message": "success to create answare",
 		"Data":    answered,
 	})
 }
@@ -70,13 +68,13 @@ func (h *AnswareHandler) GetAnswareById(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Message": "Error to get the Answare By ID",
+			"Message": "error to get answare by id",
 			"Error":   e.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Message": "Success Get Answare By ID",
+		"Message": "success to get answare by id",
 		"Data":    ans,
 	})
 }
@@ -94,13 +92,13 @@ func (h *AnswareHandler) GetAllAnsware(c echo.Context) error {
 	ans, err := h.Svc.GetAllAnswareService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status":  "error",
+			"Status":  "error to get all answare",
 			"Message": err.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Message": "Success Get All Answare",
+		"Message": "success to get all answare",
 		"Data":    ans,
 	})
 }
@@ -124,7 +122,7 @@ func (h *AnswareHandler) UpdateAnsware(c echo.Context) error {
 
 	if err := c.Bind(&ans); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Message": "Error to Update the Answare",
+			"Message": "error to update the answare",
 			"Error":   err.Error(),
 		})
 	}
@@ -133,13 +131,12 @@ func (h *AnswareHandler) UpdateAnsware(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Message": "Error to Update the Answare",
+			"Message": "error to update the answare",
 			"Error":   e.Error(),
 		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Status":  http.StatusOK,
-		"Message": "Success Update Answare",
+		"Message": "success update answare",
 		"Data":    result,
 	})
 }
@@ -162,9 +159,8 @@ func (h *AnswareHandler) DeleteAnsware(c echo.Context) error {
 
 	if err := c.Bind(&ans); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Status": http.StatusBadRequest,
-			"Error":  "Error To Delete the Answare",
-			"Data":   err.Error(),
+			"Error": "error to delete the answare",
+			"Data":  err.Error(),
 		})
 	}
 
@@ -172,15 +168,13 @@ func (h *AnswareHandler) DeleteAnsware(c echo.Context) error {
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status": http.StatusInternalServerError,
-			"Error":  "Error To Delete the Answare",
-			"Data":   er.Error(),
+			"Error": "error to delete the answare",
+			"Data":  er.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Status":  http.StatusOK,
-		"Message": "Success To Delete The Answare",
+		"Message": "success to delete the answare",
 		"Data":    result,
 	})
 }

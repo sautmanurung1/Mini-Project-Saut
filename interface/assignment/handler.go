@@ -31,7 +31,7 @@ func (h *AssignmentHandler) CreateAssignment(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Error": "Error To Create Assignment",
+			"Error": "error to create assignment",
 			"Data":  e.Error(),
 		})
 	}
@@ -40,15 +40,13 @@ func (h *AssignmentHandler) CreateAssignment(c echo.Context) error {
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status": http.StatusInternalServerError,
-			"Error":  "Error",
-			"Data":   err.Error(),
+			"Error": "error to create assignment",
+			"Data":  err.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Status":  http.StatusOK,
-		"Message": "Success Create Assignment",
+		"Message": "success to create assignment",
 		"Data":    result,
 	})
 }
@@ -66,13 +64,13 @@ func (h *AssignmentHandler) GetAllAssignment(c echo.Context) error {
 	assignments, err := h.Svc.GetAllAssignmentService()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status":  "error",
+			"Status":  "error to get all assignment",
 			"Message": err.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Message": "Success Get All Assignment",
+		"Message": "success get all assignment",
 		"Data":    assignments,
 	})
 }
@@ -94,13 +92,13 @@ func (h *AssignmentHandler) GetAssignmentById(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Message": "Error to get the Assignment By ID",
+			"Message": "error to get the Assignment by id",
 			"Error":   e.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Message": "Success Get Assignment By ID",
+		"Message": "success get assignment by id",
 		"Data":    assign,
 	})
 }
@@ -124,7 +122,7 @@ func (h *AssignmentHandler) UpdateAssignment(c echo.Context) error {
 
 	if err := c.Bind(&assignments); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Message": "Error to Update the Assignment",
+			"Message": "error to update the assignment",
 			"Error":   err.Error(),
 		})
 	}
@@ -133,13 +131,12 @@ func (h *AssignmentHandler) UpdateAssignment(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Message": "Error to Update the Assignment",
+			"Message": "error to update the assignment",
 			"Error":   e.Error(),
 		})
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Status":  http.StatusOK,
-		"Message": "Success Update Assignment",
+		"Message": "success to update assignment",
 		"Data":    result,
 	})
 }
@@ -162,9 +159,8 @@ func (h *AssignmentHandler) DeleteAssignment(c echo.Context) error {
 
 	if err := c.Bind(&assign); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Status": http.StatusBadRequest,
-			"Error":  "Error To Delete the Assignment",
-			"Data":   err.Error(),
+			"Error": "error to delete the assignment",
+			"Data":  err.Error(),
 		})
 	}
 
@@ -172,15 +168,13 @@ func (h *AssignmentHandler) DeleteAssignment(c echo.Context) error {
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status": http.StatusInternalServerError,
-			"Error":  "Error To Delete the Assignment",
-			"Data":   er.Error(),
+			"Error": "error To delete the assignment",
+			"Data":  er.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Status":  http.StatusOK,
-		"Message": "Success To Delete The Assignment",
+		"Message": "success to delete the assignment",
 		"Data":    assignments,
 	})
 }

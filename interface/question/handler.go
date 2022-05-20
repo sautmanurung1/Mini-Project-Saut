@@ -171,15 +171,13 @@ func (h *QuestionHandler) DeleteQuestion(c echo.Context) error {
 
 	if er != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"Status": http.StatusInternalServerError,
-			"Error":  "Error To Delete the Assignment",
-			"Data":   er.Error(),
+			"Error": "error to delete the assignment",
+			"Data":  er.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Status":  http.StatusOK,
-		"Message": "Success To Delete The Assignment",
+		"Message": "success to delete the assignment",
 		"Data":    result,
 	})
 }

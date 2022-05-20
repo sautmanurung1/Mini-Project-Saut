@@ -27,7 +27,7 @@ func (h *RoleHandler) CreateRole(c echo.Context) error {
 	err := c.Bind(&roles)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"status":  "Data Not Found",
+			"status":  "data not found",
 			"message": err.Error(),
 		})
 	}
@@ -36,13 +36,13 @@ func (h *RoleHandler) CreateRole(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"status":  "error",
+			"status":  "error to create role",
 			"message": e.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Message": "Success Register",
+		"Message": "success to create the role",
 		"Data":    roles,
 	})
 }

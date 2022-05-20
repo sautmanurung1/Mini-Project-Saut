@@ -20,9 +20,9 @@ func NewQuestionService(repo domains.QuestionRepository, c database.Config) doma
 
 func (s *svcQuestion) CreateQuestionService(question entities.Question) (string, error) {
 	if question.UserId == 1 {
-		return "Teacher Create Question From Assignment ... ", s.repo.CreateQuestion(question)
+		return "teacher create question from assignment", s.repo.CreateQuestion(question)
 	} else {
-		return "User Can't Make Question Because the user is Student", nil
+		return "user can't make question because the user is student", nil
 	}
 }
 
@@ -44,8 +44,8 @@ func (s *svcQuestion) UpdateQuestionService(id int, question entities.Question) 
 
 func (s *svcQuestion) DeleteQuestionService(id int, question entities.Question) (string, error) {
 	if question.UserId == 1 && question.AssignmentId == id {
-		return "Delete Question By ID", s.repo.DeleteQuestion(id, question)
+		return "delete question by id", s.repo.DeleteQuestion(id, question)
 	} else {
-		return "User Can't Update Question Because the user is Student", nil
+		return "user can't update question because user is student", nil
 	}
 }

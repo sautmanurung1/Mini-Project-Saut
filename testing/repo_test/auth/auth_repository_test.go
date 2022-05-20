@@ -45,17 +45,17 @@ func TestLoginRepository(t *testing.T) {
 	}
 
 	t.Run("Success", func(t *testing.T) {
-		userLogin.On("Login", mock.Anything, mock.Anything, mock.Anything).Return(userLoginData, nil).Once()
+		userLogin.On("Login", mock.Anything).Return(userLoginData, nil).Once()
 		userLogin := domains.AuthRepository(userLogin)
-		login, err := userLogin.Login(userLoginData.Username, userLoginData.Password, userLoginData.RoleId)
+		login, err := userLogin.Login(userLoginData.Username)
 		assert.Equal(t, login, userLoginData)
 		assert.NoError(t, err)
 	})
 
 	t.Run("Failed", func(t *testing.T) {
-		userLogin.On("Login", mock.Anything, mock.Anything, mock.Anything).Return(userLoginData, errors.New("Error to Make Unit Testing")).Once()
+		userLogin.On("Login", mock.Anything).Return(userLoginData, errors.New("Error to Make Unit Testing")).Once()
 		userLogin := domains.AuthRepository(userLogin)
-		login, err := userLogin.Login(userLoginData.Username, userLoginData.Password, userLoginData.RoleId)
+		login, err := userLogin.Login(userLoginData.Username)
 		assert.Equal(t, login, userLoginData)
 		assert.Error(t, err)
 	})

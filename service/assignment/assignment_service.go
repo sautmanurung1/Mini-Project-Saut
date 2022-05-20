@@ -20,9 +20,9 @@ func NewAssignmentService(repo domains.AssignmentRepository, c database.Config) 
 
 func (s *svcAssignment) CreateAssignmentService(assignment entities.Assignment) (string, error) {
 	if assignment.UserId != 1 {
-		return "You're Not Teacher", nil
+		return "you're not teacher", nil
 	} else {
-		return "Teacher can Create Assignment", s.repo.CreateAssignment(assignment)
+		return "teacher can create assignment", s.repo.CreateAssignment(assignment)
 	}
 }
 
@@ -44,8 +44,8 @@ func (s *svcAssignment) UpdateAssignmentService(id int, assignment entities.Assi
 
 func (s *svcAssignment) DeleteAssignmentService(id int, assignment entities.Assignment) (string, error) {
 	if assignment.UserId != 1 {
-		return "You Can't Delete The Assignment", nil
+		return "you can't delete the assignment", nil
 	} else {
-		return "You Can Delete The Assignment By ID", s.repo.DeleteAssignment(id, assignment)
+		return "you can delete the assignment by id", s.repo.DeleteAssignment(id, assignment)
 	}
 }

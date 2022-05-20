@@ -49,8 +49,8 @@ func (s *svcAnsware) UpdateAnswareService(id int, answare entities.Answare) (ent
 
 func (s *svcAnsware) DeleteAnswareService(id int, ans entities.Answare) (string, error) {
 	if ans.UserId == 1 && ans.QuestionId == id {
-		return "User Can't Answare Because the user is Teacher", nil
+		return "user can't delete the answare because user is teacher", nil
 	} else {
-		return "Delete Answare From Question ...", s.repo.DeleteAnsware(id, ans)
+		return "delete answare from question", s.repo.DeleteAnsware(id, ans)
 	}
 }

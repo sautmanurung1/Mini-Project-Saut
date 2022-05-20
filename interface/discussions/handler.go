@@ -29,7 +29,7 @@ func (h *DiscussionHandler) CreateDiscussions(c echo.Context) error {
 
 	if e != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Error": "Error To Create Assignment",
+			"Error": "error to create assignment",
 			"Data":  e.Error(),
 		})
 	}
@@ -37,8 +37,7 @@ func (h *DiscussionHandler) CreateDiscussions(c echo.Context) error {
 	discussions := h.Svc.CreateDiscussionsService(discuss)
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Status":  http.StatusOK,
-		"Message": "Success Create Answare",
+		"Message": "success create discussions",
 		"Data":    discussions,
 	})
 }
@@ -56,15 +55,13 @@ func (h *DiscussionHandler) GetAllDiscussions(c echo.Context) error {
 	discuss, err := h.Svc.GetAllDiscussionsService()
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"Status":  http.StatusBadRequest,
-			"Message": "Error TO Get All Discussions",
+			"Message": "error to get all discussions",
 			"Data":    err.Error(),
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"Status":  http.StatusOK,
-		"Message": "Success Get All Discussions",
+		"Message": "success get all discussions",
 		"Data":    discuss,
 	})
 }

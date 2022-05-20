@@ -75,21 +75,18 @@ func (h *AuthHandler) Login(c echo.Context) error {
 
 	if statusCode == http.StatusUnauthorized {
 		return c.JSON(http.StatusUnauthorized, map[string]interface{}{
-			"message":    "Your Username and Password Wrong",
-			"status":     "Unauthorized",
+			"message":    "your username and password wrong",
 			"statusCode": statusCode,
 		})
 	} else if statusCode == http.StatusInternalServerError {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"message":    "Internal Server Error",
-			"status":     "Server Error",
+			"message":    "internal server error",
 			"statusCode": statusCode,
 		})
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Success Login",
-		"status":  "Success",
+		"message": "success login",
 		"data":    token,
 	})
 }
