@@ -1,15 +1,10 @@
 package database
 
 import (
-	"github.com/joho/godotenv"
 	"os"
 )
 
 func ENVDatabase() Config {
-	err := godotenv.Load()
-	if err != nil {
-		panic("Error loading .env file")
-	}
 	return Config{
 		JWT_KEY:     os.Getenv("JWT_KEY"),
 		DB_USERNAME: os.Getenv("DB_USERNAME"),
