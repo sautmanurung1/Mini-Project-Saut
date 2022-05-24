@@ -34,7 +34,7 @@ func (r *repository) GetAssignmentById(id int) (entities.Assignment, error) {
 }
 
 func (r *repository) GetAllAssignment() ([]entities.Assignment, error) {
-	var assignments []entities.Assignment
+	assignments := []entities.Assignment{}
 	r.DB.Find(&assignments)
 	return assignments, nil
 }
