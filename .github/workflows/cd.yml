@@ -36,4 +36,4 @@ jobs:
             docker stop mini-project
             docker container rm mini-project
             docker pull sautmanurung234/mini-project:v1
-            docker run -e DB_HOST="containers-us-west-48.railway.app" DB_USERNAME= "root" DB_PASSWORD= "Tawgw5AyhjC374zYHbSD" DB_NAME= "railway" DB_PORT= "7180" JWT_KEY = "discussionsstudentapi" APP_HOST = "34.229.142.244" -d -p 80:8080 --name mini-project --detach sautmanurung234/mini-project:v1
+            docker run -e DB_HOST="containers-us-west-48.railway.app" -e DB_USERNAME= "root" -e DB_PASSWORD= "Tawgw5AyhjC374zYHbSD" -e DB_NAME= "railway" -e DB_PORT= "7180" -e JWT_KEY = "discussionsstudentapi" -e APP_HOST = "34.229.142.244" -d -p 80:8080 --name mini-project --detach sautmanurung234/mini-project:v1
